@@ -1,15 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import App from "./App";
+import "./index.css";
+import rootStore from "./redux/root-store";
+import reportWebVitals from "./reportWebVitals";
+import { uiTheme } from "./theme/chakra-theme";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={rootStore}>
+      <ChakraProvider theme={uiTheme}>
+        <App />
+      </ChakraProvider>
+    </Provider>
   </React.StrictMode>
 );
 
