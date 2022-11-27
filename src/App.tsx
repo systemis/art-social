@@ -1,23 +1,16 @@
 import React from "react";
-import "~/App.css";
+import "App.css";
+import { AppRouter } from "components/elements/AppRouter";
+import config from 'config/app-config';
+import {routes} from 'routes';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppRouter
+      basename={config.routeBaseName}
+      routes={routes}
+      defaultRedirect="/"
+    />
   );
 }
 

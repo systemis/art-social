@@ -1,1 +1,1 @@
-export {default as appConfig} from '~/config/app-config';
+export {default as appConfig} from 'config/app-config';

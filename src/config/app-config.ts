@@ -1,4 +1,4 @@
-import env from "~/config/env";
+import env from "config/env";
 
 export type AppStages = "development" | "staging";
 
@@ -11,6 +11,7 @@ interface AppConfig {
   };
   googleClientId: string;
   url: string;
+  [key: string]: any;
 }
 
 const {STAGE} = env as {STAGE: AppStages};

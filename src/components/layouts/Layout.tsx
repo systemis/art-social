@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import Navigation from "~/components/layouts/Navigation";
+import Navigation from "components/layouts/Navigation";
 
 interface Props {
   children: React.ReactNode;
