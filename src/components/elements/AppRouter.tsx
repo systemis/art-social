@@ -3,12 +3,13 @@ import { IconType } from "react-icons/lib";
 import { map, omit } from "lodash";
 import {
   BrowserRouter,
-  Navigate,
+  Redirect,
   Route,
-  Routes,
+  RouteProps,
+  Switch,
 } from "react-router-dom";
 
-export interface BasicRoute {
+export interface BasicRoute extends RouteProps {
   path: string;
   redirect?: string;
   routes?: BasicRoute[];
@@ -31,29 +32,29 @@ const omitRouteRenderProps = (route: BasicRoute) => {
 };
 
 const NotFoundPageDefault = () => {
-  return <Navigate to={"/"} />;
+  return <Redirect to={"/"} />;
 };
 
-const UnauthorizedPageDefault = () => {
-  return (
-    <div>
-      <h1>This is an unauthorized page by default</h1>
-    </div>
-  );
-};
+// const UnauthorizedPageDefault = () => {
+//   return (
+//     <div>
+//       <h1>This is an unauthorized page by default</h1>
+//     </div>
+//   );
+// };
 
 export const AppRouter = memo(function AppRouter({
   basename,
   defaultRedirect,
   routes = [],
   notFoundPage: NotFoundPage = NotFoundPageDefault,
-  unauthorizedPage: UnauthorizedPage = UnauthorizedPageDefault,
+  // unauthorizedPage: UnauthorizedPage = UnauthorizedPageDefault,
 }: AppRouterProps) {
   const renderRedirectRoute = (route: BasicRoute) => (
     <Route
       key={`redirect-${route.path}`}
       {...omitRouteRenderProps(route)}
-      render={() => <Navigate to={route.redirect || defaultRedirect} />}
+      render={() => <Redirect to={route.redirect || defaultRedirect} />}
     />
   );
 
@@ -91,12 +92,12 @@ export const AppRouter = memo(function AppRouter({
         path={fullPath}
         render={(props) => (
           <RouteComponent {...props}>
-            <Routes>
+            <Switch>
               {route?.routes?.map((subRoute) =>
                 renderRoute(subRoute, fullPath)
               )}
               {renderNotFoundRoute()}
-            </Routes>
+            </Switch>
           </RouteComponent>
         )}
       />
@@ -116,7 +117,6 @@ export const AppRouter = memo(function AppRouter({
   return (
     <BrowserRouter basename={basename}>
       {map(routes, (route) => renderRoute(route))}
-      {renderNotFoundRoute()}
     </BrowserRouter>
   );
 });
