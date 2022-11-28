@@ -116,7 +116,10 @@ export const AppRouter = memo(function AppRouter({
 
   return (
     <BrowserRouter basename={basename}>
-      {map(routes, (route) => renderRoute(route))}
+      <Switch>
+        {routes.map((route) => renderRoute(route))}
+        {renderNotFoundRoute()}
+      </Switch>
     </BrowserRouter>
   );
 });
