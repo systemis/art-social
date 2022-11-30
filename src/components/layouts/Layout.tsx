@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div>
       <Navigation />
-      <Box minH="100vh">{children}</Box>
+      <Box minH="calc(100vh - 80px)" mt="80px">{children}</Box>
     </div>
   );
 };

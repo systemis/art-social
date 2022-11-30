@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { IconType } from "react-icons/lib";
-import { map, omit } from "lodash";
+import { omit } from "lodash";
 import {
   BrowserRouter,
   Redirect,
