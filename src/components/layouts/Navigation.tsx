@@ -1,13 +1,21 @@
 import {
   Box,
+  Button,
   Container,
+  Flex,
   Grid,
   GridItem,
   Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Text,
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { MdOutlineAccountCircle } from "react-icons/md";
 import { AppRow, BasicRoute } from "components/elements";
 import { AppLink } from "components/elements/AppLink";
 import { QUERY_MOBILE } from "constants/app";
@@ -112,9 +120,7 @@ const SingleMenuItem = ({
             fontSize="xl"
             color="black"
             _focus={{ boxShadow: "none" }}
-            _hover={{ color: isActive ? undefined : "orange" }}
-            borderBottom={isActive ? "1px" : 0}
-            borderBottomColor="orange"
+            _hover={{ color: isActive ? undefined : "brand.700" }}
             zIndex={2}
           >
             {item.label}
@@ -136,10 +142,11 @@ const SingleMenuItem = ({
           as={Link}
           _focus={{ boxShadow: "none" }}
           to={fullPath}
-          _hover={{ color: isActive ? undefined : "orange" }}
-          borderBottom={isActive ? "1px" : 0}
-          borderBottomColor="orange"
+          _hover={{ color: isActive ? undefined : "brand.700" }}
           zIndex={2}
+          fontSize="md"
+          color="black"
+          letterSpacing="1px"
         >
           {item.label}
         </AppLink>
@@ -170,21 +177,20 @@ const Navigation = () => {
       left={0}
       top={0}
       bg={!isAtTop ? "white" : "transparent"}
-      color={isAtTop ? "red" : "black"}
       zIndex={999}
       sx={{ transition: "all .3s ease-in" }}
       borderBottom={!isAtTop ? "2px" : "0"}
       borderStyle="solid"
       borderColor="#f1eee4"
     >
-      <Container maxW="container.xl">
+      <Container maxW="container" px="3rem">
         <Grid
-          templateColumns="repeat(16, 1fr)"
-          py={3}
+          templateColumns="repeat(12, 1fr)"
+          py={4}
           gap={6}
           alignItems="center"
         >
-          <GridItem colSpan={{ base: 12, lg: 2 }}>
+          <GridItem colSpan={{ base: 12, lg: 1 }}>
             <AppRow align="flex-end">
               {!isDesktop && (
                 <Icon
@@ -196,10 +202,10 @@ const Navigation = () => {
               )}
               <AppLink as={Link} to="/">
                 <Text
+                  as="b"
                   _hover={{ cursor: "pointer" }}
                   fontWeight="bold"
-                  color={!isAtTop ? "orange.900" : colorText}
-                  fontSize="lg"
+                  fontSize="xl"
                   w="100%"
                   display="inline-block"
                 >
@@ -208,13 +214,56 @@ const Navigation = () => {
               </AppLink>
             </AppRow>
           </GridItem>
+          <GridItem colSpan={{ base: 12, lg: 9 }}>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <Icon
+                  as={AiOutlineSearch}
+                  color={"rgb(138, 147, 155)"}
+                  boxSize={6}
+                />
+              </InputLeftElement>
+              <Input
+                placeholder="Search everything you want"
+                size="lg"
+                borderRadius="xl"
+                fontSize="base"
+                boxShadow="none !important"
+                border="2px"
+                _focus={{ borderColor: "rgb(138, 147, 155)" }}
+              />
+              <InputRightElement>
+                <Flex 
+                  h="2rem" 
+                  w="2rem" 
+                  bg={"rgb(227, 227, 227)"}
+                  borderRadius={8}
+                  alignItems="center" 
+                  justifyContent="center"
+                >
+                  <Text
+                    alignItems="center" 
+                    justifyContent="center"
+                    fontSize="md"
+                  >/</Text>
+                </Flex>
+              </InputRightElement>
+            </InputGroup>
+          </GridItem>
           {/* {!isDesktop && <MobileNavigation />} */}
           {isDesktop && (
-            <GridItem colStart={4} colEnd={-1}>
+            <GridItem colSpan={{ base: 12, lg: 2 }}>
               <AppRow alignItems="center" justifyContent="flex-end">
                 {routes.map((item) => {
                   return renderMenuItems(item);
                 })}
+                <Button>
+                  <Icon
+                    as={MdOutlineAccountCircle}
+                    color={"rgb(38, 36, 36)"}
+                    boxSize={"2rem"}
+                  />
+                </Button>
               </AppRow>
             </GridItem>
           )}

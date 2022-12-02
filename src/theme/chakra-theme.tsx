@@ -9,7 +9,7 @@ import {
   
   const fonts = {
     heading: 'CircularStd',
-    body: 'Inter',
+    body: 'Poppins',
   };
   const colors: Colors = {
     brand: {
@@ -56,7 +56,10 @@ import {
     },
   };
   
-  const sizes = {container: {xl: '1350px'}};
+  const sizes = {
+    container: {
+      xl: '1350px'
+    }};
   export const uiTheme = extendTheme(
     {colors, config, components, fonts, sizes, fontSizes},
     withDefaultColorScheme({colorScheme: 'easeMobile'}),
