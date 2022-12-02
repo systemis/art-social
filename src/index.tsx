@@ -7,6 +7,7 @@ import "index.css";
 import rootStore from "redux/root-store";
 import reportWebVitals from "reportWebVitals";
 import { uiTheme } from "theme/chakra-theme";
+import Fonts from "theme/chakra-font";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,6 +16,7 @@ root.render(
   <React.StrictMode>
     <Provider store={rootStore}>
       <ChakraProvider theme={uiTheme}>
+        <Fonts />
         <App />
       </ChakraProvider>
     </Provider>

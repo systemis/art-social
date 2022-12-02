@@ -4,16 +4,16 @@ import {
   Grid,
   GridItem,
   Icon,
-  Link,
   Text,
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { AppRow, BasicRoute } from "components/elements";
+import { AppLink } from "components/elements/AppLink";
 import { QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { routes } from "routes";
 
 export const renderMenuItems = (
@@ -58,7 +58,7 @@ const renderParentMenuItem = (
   return (
     <Box key={`parent-menu-${item.path}`} _hover={{ cursor: "pointer" }}>
       <AppRow px={5} alignItems="flex-end">
-        <Link _hover={{ color: "brand.900" }}>{item.label}</Link>
+        <AppLink _hover={{ color: "brand.900" }}>{item.label}</AppLink>
       </AppRow>
     </Box>
   );
@@ -90,9 +90,9 @@ const SingleMenuItem = ({
         _hover={{ cursor: "pointer" }}
       >
         {/* Link ?? */}
-        <Link as={Link} _hover={{ color: "brand.700" }}>
+        <AppLink as={Link} _hover={{ color: "brand.700" }}>
           {item.label}
-        </Link>
+        </AppLink>
       </Box>
     );
   }
@@ -105,7 +105,7 @@ const SingleMenuItem = ({
         _hover={{ cursor: "pointer" }}
       >
         <AppRow alignItems="flex-end" my={5}>
-          <Link
+          <AppLink
             onClick={() => cb && cb()}
             as={Link}
             to={fullPath}
@@ -118,7 +118,7 @@ const SingleMenuItem = ({
             zIndex={2}
           >
             {item.label}
-          </Link>
+          </AppLink>
         </AppRow>
         {/*<UiDivider borderColor="orange.400" />*/}
       </Box>
@@ -132,7 +132,7 @@ const SingleMenuItem = ({
       _hover={{ cursor: "pointer" }}
     >
       <AppRow px={5} alignItems="flex-end">
-        <Link
+        <AppLink
           as={Link}
           _focus={{ boxShadow: "none" }}
           to={fullPath}
@@ -142,7 +142,7 @@ const SingleMenuItem = ({
           zIndex={2}
         >
           {item.label}
-        </Link>
+        </AppLink>
       </AppRow>
     </Box>
   );
@@ -194,7 +194,7 @@ const Navigation = () => {
                   _hover={{ cursor: "pointer" }}
                 />
               )}
-              <Link as={Link} to="/">
+              <AppLink as={Link} to="/">
                 <Text
                   _hover={{ cursor: "pointer" }}
                   fontWeight="bold"
@@ -203,9 +203,9 @@ const Navigation = () => {
                   w="100%"
                   display="inline-block"
                 >
-                  | Design Marketplace
+                  | Marketplace
                 </Text>
-              </Link>
+              </AppLink>
             </AppRow>
           </GridItem>
           {/* {!isDesktop && <MobileNavigation />} */}
