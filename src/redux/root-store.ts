@@ -7,6 +7,7 @@ const rootStore = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
-export default rootStore;
 export type AppDispatch = typeof rootStore.dispatch;
 export type AppThunk = ThunkAction<void, RootState, null, Action<string>>;
+
+export default rootStore;

@@ -3,8 +3,6 @@ import {
   Button,
   Container,
   Flex,
-  Grid,
-  GridItem,
   Icon,
   Input,
   InputGroup,
@@ -14,14 +12,19 @@ import {
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { AiOutlineSearch } from "react-icons/ai";
-import { MdOutlineAccountCircle } from "react-icons/md";
 import { AppRow, BasicRoute } from "components/elements";
 import { AppLink } from "components/elements/AppLink";
+import { MobileNavigation } from "components/layouts/MobileNavigation";
 import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineMenuAlt3, HiSearch } from "react-icons/hi";
+import { MdOutlineAccountCircle, MdOutlineClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { RootState } from "redux/root-reducer";
+import { AppDispatch } from "redux/root-store";
+import { showMobileMenu } from "redux/ui/slice";
 import { routes } from "routes";
 
 export const renderMenuItems = (
@@ -157,6 +160,9 @@ const SingleMenuItem = ({
 
 const Navigation = () => {
   const inputRef = useRef<any>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const isShowSideBar =
+    useSelector((state: RootState) => state.ui.menu.isShowMobileMenu) || false;
   const [isAtTop, setIsAtTop] = React.useState(true);
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
@@ -166,19 +172,17 @@ const Navigation = () => {
   });
   const colorText = useColorModeValue("black", "brand.900");
 
-  console.log(inputRef)
-
   useEffect(() => {
-    document.addEventListener('keydown', handleSearchKey, true)
-  }, [])
+    document.addEventListener("keydown", handleSearchKey, true);
+  }, []);
 
   const handleSearchKey = (e: KeyboardEvent) => {
-    if (e.key === '/') {
+    if (e.key === "/") {
       e.preventDefault();
       e.stopPropagation();
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }
+  };
 
   useEffect(() => {
     window.onscroll = () => {
@@ -201,7 +205,7 @@ const Navigation = () => {
     >
       <Container maxW="container" px="3rem">
         <Flex py={4} gap={6} alignItems="center">
-          <AppRow align="flex-end" flex={!isDesktop ? '1' : undefined}>
+          <AppRow align="flex-end" flex={!isDesktop ? "1" : undefined}>
             <AppLink as={Link} to="/">
               <Text
                 as="b"
@@ -253,13 +257,9 @@ const Navigation = () => {
               </InputRightElement>
             </InputGroup>
           ) : (
-            <Icon
-              as={HiSearch}
-              fontWeight="bold"
-              boxSize={8}
-            />
+            <Icon as={HiSearch} fontWeight="bold" boxSize={8} />
           )}
-          {/* {!isDesktop && <MobileNavigation />} */}
+          {!isLargeDesktop && <MobileNavigation />}
           {isLargeDesktop && (
             <AppRow alignItems="center" justifyContent="flex-end">
               {routes.map((item) => {
@@ -276,9 +276,9 @@ const Navigation = () => {
           )}
           {!isLargeDesktop && (
             <Icon
-              as={HiOutlineMenuAlt3}
+              as={!isShowSideBar ? HiOutlineMenuAlt3 : MdOutlineClose}
               boxSize={"2.3rem"}
-              // onClick={() => {}}
+              onClick={() => dispatch(showMobileMenu({ value: true }))}
               _hover={{ cursor: "pointer" }}
             />
           )}
