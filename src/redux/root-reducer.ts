@@ -1,6 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit';
+import ui from 'redux/ui/slice'
 
-const appReducer = combineReducers({});
+const appReducer = combineReducers({
+  ui,
+});
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === 'USER_LOGOUT') {

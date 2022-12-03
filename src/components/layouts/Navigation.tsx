@@ -1,19 +1,30 @@
 import {
   Box,
+  Button,
   Container,
-  Grid,
-  GridItem,
+  Flex,
   Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Text,
   useColorModeValue,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { AppRow, BasicRoute } from "components/elements";
 import { AppLink } from "components/elements/AppLink";
-import { QUERY_MOBILE } from "constants/app";
+import { MobileNavigation } from "components/layouts/MobileNavigation";
+import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineSearch } from "react-icons/ai";
+import { HiOutlineMenuAlt3, HiSearch } from "react-icons/hi";
+import { MdOutlineAccountCircle, MdOutlineClose } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { RootState } from "redux/root-reducer";
+import { AppDispatch } from "redux/root-store";
+import { showMobileMenu } from "redux/ui/slice";
 import { routes } from "routes";
 
 export const renderMenuItems = (
@@ -112,9 +123,7 @@ const SingleMenuItem = ({
             fontSize="xl"
             color="black"
             _focus={{ boxShadow: "none" }}
-            _hover={{ color: isActive ? undefined : "orange" }}
-            borderBottom={isActive ? "1px" : 0}
-            borderBottomColor="orange"
+            _hover={{ color: isActive ? undefined : "brand.700" }}
             zIndex={2}
           >
             {item.label}
@@ -136,10 +145,11 @@ const SingleMenuItem = ({
           as={Link}
           _focus={{ boxShadow: "none" }}
           to={fullPath}
-          _hover={{ color: isActive ? undefined : "orange" }}
-          borderBottom={isActive ? "1px" : 0}
-          borderBottomColor="orange"
+          _hover={{ color: isActive ? undefined : "brand.700" }}
           zIndex={2}
+          fontSize="md"
+          color="black"
+          letterSpacing="1px"
         >
           {item.label}
         </AppLink>
@@ -149,12 +159,30 @@ const SingleMenuItem = ({
 };
 
 const Navigation = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<any>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const isShowSideBar =
+    useSelector((state: RootState) => state.ui.menu.isShowMobileMenu) || false;
   const [isAtTop, setIsAtTop] = React.useState(true);
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
   });
+  const [isLargeDesktop] = useMediaQuery(`(min-width: ${QUERY_LG_DESKTOP})`, {
+    ssr: false,
+  });
   const colorText = useColorModeValue("black", "brand.900");
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleSearchKey, true);
+  }, []);
+
+  const handleSearchKey = (e: KeyboardEvent) => {
+    if (e.key === "/") {
+      e.preventDefault();
+      e.stopPropagation();
+      inputRef.current.focus();
+    }
+  };
 
   useEffect(() => {
     window.onscroll = () => {
@@ -164,61 +192,97 @@ const Navigation = () => {
 
   return (
     <Box
-      ref={ref}
       pos="fixed"
       right={0}
       left={0}
       top={0}
       bg={!isAtTop ? "white" : "transparent"}
-      color={isAtTop ? "red" : "black"}
       zIndex={999}
       sx={{ transition: "all .3s ease-in" }}
       borderBottom={!isAtTop ? "2px" : "0"}
       borderStyle="solid"
       borderColor="#f1eee4"
     >
-      <Container maxW="container.xl">
-        <Grid
-          templateColumns="repeat(16, 1fr)"
-          py={3}
-          gap={6}
-          alignItems="center"
-        >
-          <GridItem colSpan={{ base: 12, lg: 2 }}>
-            <AppRow align="flex-end">
-              {!isDesktop && (
+      <Container maxW="container" px="3rem">
+        <Flex py={4} gap={6} alignItems="center">
+          <AppRow align="flex-end" flex={!isDesktop ? "1" : undefined}>
+            <AppLink as={Link} to="/">
+              <Text
+                as="b"
+                _hover={{ cursor: "pointer" }}
+                fontWeight="bold"
+                fontSize="xl"
+                w="100%"
+              >
+                Marketplace
+              </Text>
+            </AppLink>
+          </AppRow>
+          {isDesktop ? (
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
                 <Icon
-                  as={GiHamburgerMenu}
-                  boxSize={"2.3rem"}
-                  // onClick={() => {}}
-                  _hover={{ cursor: "pointer" }}
+                  as={AiOutlineSearch}
+                  color={"rgb(138, 147, 155)"}
+                  boxSize={6}
                 />
-              )}
-              <AppLink as={Link} to="/">
-                <Text
-                  _hover={{ cursor: "pointer" }}
-                  fontWeight="bold"
-                  color={!isAtTop ? "orange.900" : colorText}
-                  fontSize="lg"
-                  w="100%"
-                  display="inline-block"
+              </InputLeftElement>
+              <Input
+                ref={inputRef}
+                placeholder="Search everything you want"
+                size="lg"
+                borderRadius="xl"
+                fontSize="base"
+                boxShadow="none !important"
+                border="2px"
+                _focus={{ borderColor: "rgb(138, 147, 155)" }}
+              />
+              <InputRightElement>
+                <Flex
+                  h="2rem"
+                  w="2rem"
+                  bg={"rgb(227, 227, 227)"}
+                  borderRadius={8}
+                  alignItems="center"
+                  justifyContent="center"
                 >
-                  | Marketplace
-                </Text>
-              </AppLink>
-            </AppRow>
-          </GridItem>
-          {/* {!isDesktop && <MobileNavigation />} */}
-          {isDesktop && (
-            <GridItem colStart={4} colEnd={-1}>
-              <AppRow alignItems="center" justifyContent="flex-end">
-                {routes.map((item) => {
-                  return renderMenuItems(item);
-                })}
-              </AppRow>
-            </GridItem>
+                  <Text
+                    alignItems="center"
+                    justifyContent="center"
+                    fontSize="md"
+                  >
+                    /
+                  </Text>
+                </Flex>
+              </InputRightElement>
+            </InputGroup>
+          ) : (
+            <Icon as={HiSearch} fontWeight="bold" boxSize={8} />
           )}
-        </Grid>
+          {!isLargeDesktop && <MobileNavigation />}
+          {isLargeDesktop && (
+            <AppRow alignItems="center" justifyContent="flex-end">
+              {routes.map((item) => {
+                return renderMenuItems(item);
+              })}
+              <Button>
+                <Icon
+                  as={MdOutlineAccountCircle}
+                  color={"rgb(38, 36, 36)"}
+                  boxSize={"2rem"}
+                />
+              </Button>
+            </AppRow>
+          )}
+          {!isLargeDesktop && (
+            <Icon
+              as={!isShowSideBar ? HiOutlineMenuAlt3 : MdOutlineClose}
+              boxSize={"2.3rem"}
+              onClick={() => dispatch(showMobileMenu({ value: true }))}
+              _hover={{ cursor: "pointer" }}
+            />
+          )}
+        </Flex>
       </Container>
     </Box>
   );
