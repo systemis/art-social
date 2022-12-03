@@ -31,15 +31,16 @@ export const renderMenuItems = (
   item: BasicRoute,
   parentPath = "",
   isMobile = false,
+  isShowIcon = false,
   cb: any = undefined
 ): any => {
   if (item.routes) {
     if (item.label) {
-      return renderParentMenuItem(item, item.path, isMobile, cb);
+      return renderParentMenuItem(item, item.path, isMobile, isShowIcon, cb);
     }
 
     return item.routes.map((route) => {
-      return renderMenuItems(route, parentPath, isMobile, cb);
+      return renderMenuItems(route, parentPath, isMobile, isShowIcon, cb);
     });
   }
   if (item.label) {
@@ -53,6 +54,7 @@ export const renderMenuItems = (
         item={item}
         parentPath={parentPath}
         isMobile={isMobile}
+        isShowIcon={isShowIcon}
         cb={cb}
       />
     );
@@ -64,6 +66,7 @@ const renderParentMenuItem = (
   item: BasicRoute,
   parentPath = "",
   isMobile = false,
+  isShowIcon = false,
   cb: any = undefined
 ) => {
   return (
@@ -79,11 +82,13 @@ const SingleMenuItem = ({
   item,
   parentPath = "",
   isMobile = false,
+  isShowIcon = false,
   cb = undefined,
 }: {
   item: BasicRoute;
   parentPath: string;
   isMobile: boolean;
+  isShowIcon: boolean;
   cb: any;
 }) => {
   const { pathname } = useLocation();
@@ -126,7 +131,10 @@ const SingleMenuItem = ({
             _hover={{ color: isActive ? undefined : "brand.700" }}
             zIndex={2}
           >
-            {item.label}
+            <Flex>
+              {isShowIcon ? <Icon as={item.icon} boxSize={8} alignItems="center" mx={6} /> : undefined}
+              {item.label}
+            </Flex>
           </AppLink>
         </AppRow>
         {/*<UiDivider borderColor="orange.400" />*/}
@@ -199,9 +207,9 @@ const Navigation = () => {
       bg={!isAtTop ? "white" : "transparent"}
       zIndex={999}
       sx={{ transition: "all .3s ease-in" }}
-      borderBottom={!isAtTop ? "2px" : "0"}
+      borderBottom={!isAtTop || isShowSideBar ? "2px" : "0"}
       borderStyle="solid"
-      borderColor="#f1eee4"
+      borderColor="rgb(227, 227, 227)"
     >
       <Container maxW="container" px="3rem">
         <Flex py={4} gap={6} alignItems="center">
