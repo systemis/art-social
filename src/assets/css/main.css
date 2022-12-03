@@ -1,0 +1,15 @@
+.slick-slide > div {
+    margin: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
+
+.slick-arrow {
+    transform: scale(3);
+    z-index: 2;
+    position: absolute;
+    margin: 0 15px 0 15px;
+    color: transparent;
+}
