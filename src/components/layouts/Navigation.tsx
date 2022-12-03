@@ -18,9 +18,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { AppRow, BasicRoute } from "components/elements";
 import { AppLink } from "components/elements/AppLink";
-import { QUERY_MOBILE } from "constants/app";
+import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { HiOutlineMenuAlt3, HiSearch } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { routes } from "routes";
 
@@ -156,12 +156,29 @@ const SingleMenuItem = ({
 };
 
 const Navigation = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<any>(null);
   const [isAtTop, setIsAtTop] = React.useState(true);
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
   });
+  const [isLargeDesktop] = useMediaQuery(`(min-width: ${QUERY_LG_DESKTOP})`, {
+    ssr: false,
+  });
   const colorText = useColorModeValue("black", "brand.900");
+
+  console.log(inputRef)
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleSearchKey, true)
+  }, [])
+
+  const handleSearchKey = (e: KeyboardEvent) => {
+    if (e.key === '/') {
+      e.preventDefault();
+      e.stopPropagation();
+      inputRef.current.focus()
+    }
+  }
 
   useEffect(() => {
     window.onscroll = () => {
@@ -171,7 +188,6 @@ const Navigation = () => {
 
   return (
     <Box
-      ref={ref}
       pos="fixed"
       right={0}
       left={0}
@@ -184,37 +200,21 @@ const Navigation = () => {
       borderColor="#f1eee4"
     >
       <Container maxW="container" px="3rem">
-        <Grid
-          templateColumns="repeat(12, 1fr)"
-          py={4}
-          gap={6}
-          alignItems="center"
-        >
-          <GridItem colSpan={{ base: 12, lg: 1 }}>
-            <AppRow align="flex-end">
-              {!isDesktop && (
-                <Icon
-                  as={GiHamburgerMenu}
-                  boxSize={"2.3rem"}
-                  // onClick={() => {}}
-                  _hover={{ cursor: "pointer" }}
-                />
-              )}
-              <AppLink as={Link} to="/">
-                <Text
-                  as="b"
-                  _hover={{ cursor: "pointer" }}
-                  fontWeight="bold"
-                  fontSize="xl"
-                  w="100%"
-                  display="inline-block"
-                >
-                  | Marketplace
-                </Text>
-              </AppLink>
-            </AppRow>
-          </GridItem>
-          <GridItem colSpan={{ base: 12, lg: 9 }}>
+        <Flex py={4} gap={6} alignItems="center">
+          <AppRow align="flex-end" flex={!isDesktop ? '1' : undefined}>
+            <AppLink as={Link} to="/">
+              <Text
+                as="b"
+                _hover={{ cursor: "pointer" }}
+                fontWeight="bold"
+                fontSize="xl"
+                w="100%"
+              >
+                Marketplace
+              </Text>
+            </AppLink>
+          </AppRow>
+          {isDesktop ? (
             <InputGroup>
               <InputLeftElement pointerEvents="none">
                 <Icon
@@ -224,6 +224,7 @@ const Navigation = () => {
                 />
               </InputLeftElement>
               <Input
+                ref={inputRef}
                 placeholder="Search everything you want"
                 size="lg"
                 borderRadius="xl"
@@ -233,41 +234,55 @@ const Navigation = () => {
                 _focus={{ borderColor: "rgb(138, 147, 155)" }}
               />
               <InputRightElement>
-                <Flex 
-                  h="2rem" 
-                  w="2rem" 
+                <Flex
+                  h="2rem"
+                  w="2rem"
                   bg={"rgb(227, 227, 227)"}
                   borderRadius={8}
-                  alignItems="center" 
+                  alignItems="center"
                   justifyContent="center"
                 >
                   <Text
-                    alignItems="center" 
+                    alignItems="center"
                     justifyContent="center"
                     fontSize="md"
-                  >/</Text>
+                  >
+                    /
+                  </Text>
                 </Flex>
               </InputRightElement>
             </InputGroup>
-          </GridItem>
-          {/* {!isDesktop && <MobileNavigation />} */}
-          {isDesktop && (
-            <GridItem colSpan={{ base: 12, lg: 2 }}>
-              <AppRow alignItems="center" justifyContent="flex-end">
-                {routes.map((item) => {
-                  return renderMenuItems(item);
-                })}
-                <Button>
-                  <Icon
-                    as={MdOutlineAccountCircle}
-                    color={"rgb(38, 36, 36)"}
-                    boxSize={"2rem"}
-                  />
-                </Button>
-              </AppRow>
-            </GridItem>
+          ) : (
+            <Icon
+              as={HiSearch}
+              fontWeight="bold"
+              boxSize={8}
+            />
           )}
-        </Grid>
+          {/* {!isDesktop && <MobileNavigation />} */}
+          {isLargeDesktop && (
+            <AppRow alignItems="center" justifyContent="flex-end">
+              {routes.map((item) => {
+                return renderMenuItems(item);
+              })}
+              <Button>
+                <Icon
+                  as={MdOutlineAccountCircle}
+                  color={"rgb(38, 36, 36)"}
+                  boxSize={"2rem"}
+                />
+              </Button>
+            </AppRow>
+          )}
+          {!isLargeDesktop && (
+            <Icon
+              as={HiOutlineMenuAlt3}
+              boxSize={"2.3rem"}
+              // onClick={() => {}}
+              _hover={{ cursor: "pointer" }}
+            />
+          )}
+        </Flex>
       </Container>
     </Box>
   );
