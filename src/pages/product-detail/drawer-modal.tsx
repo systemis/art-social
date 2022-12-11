@@ -102,22 +102,20 @@ export const DrawerModal = (props: any) => {
                                             <AiFillHeart size={"25px"} />
                                         </Center>
                                     </Button>
+                                    <Button justifyContent={'space-evenly'}
+                                        display={{ base: 'none', md: 'inline-flex' }}
+                                        fontSize={'sm'}
+                                        letterSpacing={'1px'}
+                                        m={'10px'}
+                                        fontWeight={600}
+                                        color={'black'}
+                                        leftIcon={<RiInformationFill size={'25px'} />}
+                                        border={'1px'}
+                                        borderColor={'#dcdcdc'}
+                                    >
+                                        <Center>Details</Center>
+                                    </Button>
                                 </Flex>
-
-                                <Button justifyContent={'space-evenly'}
-                                    display={{ base: 'none', md: 'inline-flex' }}
-                                    fontSize={'sm'}
-                                    letterSpacing={'1px'}
-                                    m={'10px'}
-                                    fontWeight={600}
-                                    color={'black'}
-                                    leftIcon={<RiInformationFill size={'25px'} />}
-                                    border={'1px'}
-                                    borderColor={'#dcdcdc'}
-                                // href={'#'}
-                                >
-                                    <Center>Details</Center>
-                                </Button>
                             </Flex>
                         </Box>
                     </Flex>
