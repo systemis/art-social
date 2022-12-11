@@ -1,4 +1,4 @@
-//import HomePage from "pages/home-page/page/index";
+import HomePage from "pages/home-page/page/index";
 import ExplorePage from "pages/explore/page/index";
 import ResourcesPage from "pages/resources/page/index";
 import { BasicRoute } from "components/elements/AppRouter";
@@ -13,9 +13,9 @@ export const routes: BasicRoute[] = [
     component: Layout,
     exact: false,
     routes: [
-      // { path: "/", component: HomePage, exact: true },
+      { path: "/", component: HomePage, exact: true },
 
-      { path: "/", component: productDetail, exact: true },
+      { path: "/productDetail", component: productDetail, exact: true },
       {
         path: PAGES.EXPLORE,
         label: "Explore",

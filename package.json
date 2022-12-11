@@ -17,6 +17,7 @@
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.1",
     "@types/react-slick": "^0.23.10",
+    "@types/source-list-map": "^0.1.2",
     "axios": "^1.2.0",
     "framer-motion": "^7.6.12",
     "husky": "^8.0.2",
@@ -63,10 +64,16 @@
     ]
   },
   "devDependencies": {
+    "@types/sass": "^1.43.1",
+    "@types/sass-loader": "^8.0.3",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.0",
+    "sass": "^1.56.2",
+    "sass-loader": "^13.2.0",
+    "webpack": "^5.75.0"
   }
 }
