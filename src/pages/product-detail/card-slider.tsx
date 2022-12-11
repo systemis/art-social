@@ -27,15 +27,9 @@ const settings = {
     slidesToShow: 1,
     slideToScroll: 1,
 };
-
-
-
-
 // Set size avatar 
 const size = '96px';
 const color = 'teal';
-
-
 // Animation Avatar
 const pulseRing = keyframes`
     0% {
@@ -50,12 +44,9 @@ const pulseRing = keyframes`
 `;
 
 export const CardSlider = () => {
-
     const [slider, setSlider] = React.useState<Slider | null>(null);
-
     const top = useBreakpointValue({ base: '90%', md: '50%' });
     const side = useBreakpointValue({ base: '30%', md: '40px' });
-
     const cards = [
         {
             image:
@@ -71,7 +62,6 @@ export const CardSlider = () => {
         },
     ];
 
-
     return (
         <>
             <Box
@@ -81,12 +71,9 @@ export const CardSlider = () => {
                 mt={{ base: '50px', sm: '20px', md: '20px' }}
                 mx={{ base: 'auto' }}
                 overflow={'hidden'}>
-
-                {/* CSS files for react-slick */}
                 <link
                     rel="stylesheet"
                     type="text/css"
-                    //charSet="UTF-8" 
                     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
                 />
                 <link
@@ -94,8 +81,6 @@ export const CardSlider = () => {
                     type="text/css"
                     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
                 />
-
-                {/* Left Icon */}
                 <IconButton
                     aria-label="left-arrow"
                     variant="ghost"
@@ -112,8 +97,6 @@ export const CardSlider = () => {
                     }}>
                     <BiLeftArrowAlt size="40px" />
                 </IconButton>
-
-                {/* Right Icon */}
                 <IconButton
                     aria-label="right-arrow"
                     variant="ghost"
@@ -172,9 +155,6 @@ export const CardSlider = () => {
             </Center>
 
             <Divider w={'50%'} mx={{ base: 'auto', sm: 'auto', lg: 'auto' }} borderColor={'black'} border={'1px'} borderRadius={'1px'} />
-
-
-
             {/* Author/User */}
             <Flex
                 justifyContent="center"

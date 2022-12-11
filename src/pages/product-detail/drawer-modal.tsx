@@ -14,7 +14,6 @@ import {
     DrawerOverlay,
     Drawer,
 } from "@chakra-ui/react";
-
 import { RiShareForwardFill } from 'react-icons/ri';
 import { AiFillFolderAdd } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
@@ -119,13 +118,10 @@ export const DrawerModal = (props: any) => {
                             </Flex>
                         </Box>
                     </Flex>
-
                 </DrawerHeader>
-
                 <DrawerBody>
                     <Input placeholder='Type here...' />
                 </DrawerBody>
-
                 <DrawerFooter>
                     <Button variant='outline' mr={3} onClick={props.onClose}>
                         Cancel

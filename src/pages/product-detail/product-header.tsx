@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
     Box,
     Avatar,
@@ -9,21 +8,14 @@ import {
     Link,
     Center,
     useToast,
-
-
 } from "@chakra-ui/react";
 
 import { BsSuitHeartFill } from 'react-icons/bs';
-import { BsFillChatFill } from 'react-icons/bs';
-
-//import { BiMessageRounded } from 'react-icons/bi';
-
-
 import './Style/listProduct.scss';
 
 export const ProductHeader = () => {
-
     const toast = useToast();
+
     return (
         <Box
             w={{

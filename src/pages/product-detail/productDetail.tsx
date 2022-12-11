@@ -10,7 +10,6 @@ import { CardSlider } from './card-slider';
 import { ListProduct } from './listProduct';
 import { RightSideButton } from './right-side-button';
 
-
 export const productDetail = () => {
     const [isOpenShare, setOpenShare] = React.useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();

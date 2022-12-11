@@ -9,7 +9,6 @@ import { RiShareForwardFill } from 'react-icons/ri';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 export const RightSideButton = (props: any) => {
-
     const btnRef = useRef<HTMLButtonElement>(null);
     return (
         <Stack
@@ -34,7 +33,6 @@ export const RightSideButton = (props: any) => {
                     <BsFillChatFill size={"20px"} />
                 </Center>
             </Button>
-
             <Button
                 w={'40px'}
                 height={'40px'}
@@ -52,7 +50,6 @@ export const RightSideButton = (props: any) => {
                     <RiShareForwardFill size={"25px"} />
                 </Center>
             </Button>
-
             <Button
                 w={'40px'}
                 height={'40px'}
