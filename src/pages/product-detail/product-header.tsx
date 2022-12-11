@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     Box,
     Avatar,
@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 import { BsSuitHeartFill } from 'react-icons/bs';
-import './Style/listProduct.scss';
+import './style/list-product.scss';
 
 export const ProductHeader = () => {
     const toast = useToast();
