@@ -136,9 +136,7 @@ const HeaderBody = () => {
                                     md: ' 0 20px 50px'
                                 }}
                             >
-
                                 <Image className="gallery__img" src={listProduct.image} alt="" />
-
                                 <Box className="gallery__icons">
                                     <Box display={'flow-root'} p={'0 20px'} pb={'5px'}>
                                         <Box float={'left'} position={'relative'} top={'10px'}>
