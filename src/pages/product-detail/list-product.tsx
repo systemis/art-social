@@ -33,24 +33,17 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
-
-
 // import yarn add @types/react-slick
 import Slider from 'react-slick';
-
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { BsFillChatFill } from 'react-icons/bs';
-
 //import { BiMessageRounded } from 'react-icons/bi';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-
 import { RiShareForwardFill } from 'react-icons/ri';
 import { AiFillFolderAdd } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import { RiInformationFill } from 'react-icons/ri';
-
 import { DrawerModalShare } from './drawer-modal-share';
-
 //Setting for slider
 const settings = {
     dots: true,
@@ -63,7 +56,6 @@ const settings = {
     slidesToShow: 1,
     slideToScroll: 1,
 };
-
 
 const listProducts = [
     {
@@ -88,6 +80,7 @@ const listProducts = [
             'https://gamek.mediacdn.vn/thumb_w/690/133514250583805952/2022/9/25/avatar1664076788709-16640767888443261054.jpg',
     },
 ]
+
 export const ListProduct = () => {
 
     const btnRef = useRef<HTMLButtonElement>(null);
@@ -99,7 +92,6 @@ export const ListProduct = () => {
             justifyContent={'center'}>{listProducts.map((listProduct) => {
                 return (
                     <>
-
                         <Box className="gallery__group" position={'relative'}
                             width={{
                                 base: '100%',
@@ -137,7 +129,6 @@ export const ListProduct = () => {
                                                 <AiFillFolderAdd size={"25px"} />
                                             </Center>
                                         </Button>
-
                                         <Button
                                             w={'40px'}
                                             height={'40px'}
