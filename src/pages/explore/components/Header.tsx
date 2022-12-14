@@ -1,39 +1,36 @@
-import React from 'react'
 import {
   Box,
-  Menu,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuButton,
-  MenuOptionGroup,
-  MenuDivider,
   Flex,
-  Tabs,
-  Select,
-  TabList,
-  TabPanels,
+  Menu,
+  MenuButton as Button,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
   Tab,
-  TabPanel,
-  Spacer
-} from '@chakra-ui/react';
-import { MenuButton as Button } from '@chakra-ui/react'
-import { BiChevronDown } from 'react-icons/bi'
+  TabList,
+  Tabs,
+} from "@chakra-ui/react";
+import { BiChevronDown } from "react-icons/bi";
+import React from "react";
 
 export const Header = () => {
   return (
     <>
-      <Box>
-        <Flex p={' 30px 20px 30px'} justify={'space-around'}>
-          <Box float={'left'} display={{ base: 'none', md: 'none', lg: 'flex' }}>
+      <Box pt="80px">
+        <Flex p={" 30px 20px 30px"} justify={"space-around"}>
+          <Box
+            float={"left"}
+            display={{ base: "none", md: "none", lg: "flex" }}
+          >
             <Menu>
-              <MenuButton as={Button}
+              <MenuButton
+                as={Button}
                 px={4}
                 py={2}
-                transition='all 0.2s'
-                borderRadius='md'
-                borderWidth='1px'
+                transition="all 0.2s"
+                borderRadius="md"
+                borderWidth="1px"
                 rightIcon={<BiChevronDown />}
               >
                 Following
@@ -46,7 +43,12 @@ export const Header = () => {
               </MenuList>
             </Menu>
           </Box>
-          <Tabs size={'md'} variant='soft-rounded' colorScheme='gray' overflowX={{ base: "scroll", lg: "hidden" }}>
+          <Tabs
+            size={"md"}
+            variant="soft-rounded"
+            colorScheme="gray"
+            overflowX={{ base: "scroll", lg: "hidden" }}
+          >
             <TabList>
               <Tab>Discover</Tab>
               <Tab>Animation</Tab>
@@ -57,14 +59,15 @@ export const Header = () => {
               <Tab>Web Design</Tab>
             </TabList>
           </Tabs>
-          <Box float={'left'} display={{ base: 'none', lg: 'flex', }}>
+          <Box float={"left"} display={{ base: "none", lg: "flex" }}>
             <Menu>
-              <MenuButton as={Button}
+              <MenuButton
+                as={Button}
                 px={4}
                 py={2}
-                transition='all 0.2s'
-                borderRadius='md'
-                borderWidth='1px'
+                transition="all 0.2s"
+                borderRadius="md"
+                borderWidth="1px"
                 rightIcon={<BiChevronDown />}
               >
                 Following
@@ -80,5 +83,5 @@ export const Header = () => {
         </Flex>
       </Box>
     </>
-  )
-}
+  );
+};
