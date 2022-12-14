@@ -242,7 +242,10 @@ const Navigation = () => {
                 borderRadius="xl"
                 fontSize="base"
                 boxShadow="none !important"
+                backgroundColor="rgba(255, 255, 255, 0.7)"
                 border="2px"
+                borderColor="rgba(255, 255, 255, 0.3)"
+                _hover={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                 _focus={{ borderColor: "rgb(138, 147, 155)" }}
               />
               <InputRightElement>
