@@ -7,6 +7,8 @@ import { BasicRoute } from "components/elements/AppRouter";
 import Layout from "components/layouts/Layout";
 import { PAGES } from "constants/app";
 
+import { productDetail } from "pages/product-detail/productDetail";
+
 export const routes: BasicRoute[] = [
   {
     path: "/",
@@ -14,6 +16,8 @@ export const routes: BasicRoute[] = [
     exact: false,
     routes: [
       { path: "/", component: HomePage, exact: true },
+
+      { path: "/productDetail", component: productDetail, exact: true },
       {
         path: PAGES.EXPLORE,
         label: "Explore",
