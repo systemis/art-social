@@ -7,10 +7,10 @@ import { DrawerModalShare } from './drawer-modal-share';
 import { DrawerModal } from './drawer-modal';
 import { ProductHeader } from './product-header';
 import { CardSlider } from './card-slider';
-import { ListProduct } from './listProduct';
+import { ListProduct } from './list-product';
 import { RightSideButton } from './right-side-button';
 
-export const productDetail = () => {
+export const ProductDetail = () => {
     const [isOpenShare, setOpenShare] = React.useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
 

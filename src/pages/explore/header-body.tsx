@@ -1,4 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef } from 'react'
+import { Toast } from '@chakra-ui/react';
+
+// import '../product-detail/style/list-product.scss'
+// import { ListProduct } from '../product-detail/list-product';
+
 import {
     Box,
     Avatar,
@@ -33,23 +38,18 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
-
-
 // import yarn add @types/react-slick
 import Slider from 'react-slick';
-
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { BsFillChatFill } from 'react-icons/bs';
-
 //import { BiMessageRounded } from 'react-icons/bi';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-
 import { RiShareForwardFill } from 'react-icons/ri';
 import { AiFillFolderAdd } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import { RiInformationFill } from 'react-icons/ri';
-
-import { DrawerModalShare } from './drawer-modal-share';
+import './style/explore-page.scss'
+import '../product-detail/style/list-product.scss'
 
 //Setting for slider
 const settings = {
@@ -63,9 +63,28 @@ const settings = {
     slidesToShow: 1,
     slideToScroll: 1,
 };
-
-
 const listProducts = [
+    {
+        title: 'Design Projects 1',
+        text:
+            "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        image:
+            'https://variety.com/wp-content/uploads/2022/07/Screen-Shot-2022-07-23-at-9.03.09-PM.png',
+    },
+    {
+        title: 'Design Projects 1',
+        text:
+            "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        image:
+            'https://variety.com/wp-content/uploads/2022/07/Screen-Shot-2022-07-23-at-9.03.09-PM.png',
+    },
+    {
+        title: 'Design Projects 1',
+        text:
+            "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        image:
+            'https://variety.com/wp-content/uploads/2022/07/Screen-Shot-2022-07-23-at-9.03.09-PM.png',
+    },
     {
         title: 'Design Projects 1',
         text:
@@ -88,18 +107,17 @@ const listProducts = [
             'https://gamek.mediacdn.vn/thumb_w/690/133514250583805952/2022/9/25/avatar1664076788709-16640767888443261054.jpg',
     },
 ]
-export const ListProduct = () => {
-
+const HeaderBody = () => {
     const btnRef = useRef<HTMLButtonElement>(null);
     const toast = useToast();
     return (
+
         <Box position={'relative'}
             display={'flex'}
             flexWrap={'wrap'}
             justifyContent={'center'}>{listProducts.map((listProduct) => {
                 return (
                     <>
-
                         <Box className="gallery__group" position={'relative'}
                             width={{
                                 base: '100%',
@@ -110,7 +128,7 @@ export const ListProduct = () => {
                             m={{
                                 base: '0 10px 50px',
                                 sm: '0 0 50px',
-                                md: ' 0 20px 70px'
+                                md: ' 0 20px 50px'
                             }}
                         >
                             <Image className="gallery__img" src={listProduct.image} alt="" />
@@ -172,3 +190,5 @@ export const ListProduct = () => {
             })}</Box>
     )
 }
+
+export default HeaderBody
