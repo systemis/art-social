@@ -1,22 +1,21 @@
 import { useRef } from "react";
-
+import React from "react";
 // import '../product-detail/style/list-product.scss'
 // import { ListProduct } from '../product-detail/list-product';
-import React from "react";
 import {
+  Avatar,
   Box,
   Button,
   Center,
   Flex,
   Image,
+  Link,
   Text,
   useToast,
 } from "@chakra-ui/react";
-// import yarn add @types/react-slick
-//import { BiMessageRounded } from 'react-icons/bi';
-import { AiFillFolderAdd, AiFillHeart } from "react-icons/ai";
-import "pages/product-detail/style/list-product.scss";
 import "pages/explore/style/explore-page.scss";
+import "pages/product-detail/style/list-product.scss";
+import { AiFillFolderAdd, AiFillHeart } from "react-icons/ai";
 
 //Setting for slider
 const settings = {
@@ -91,9 +90,8 @@ const HeaderBody = () => {
                 lg: "25%",
               }}
               m={{
-                base: "0 10px 50px",
-                sm: "0 0 50px",
-                md: " 0 20px 50px",
+                base: "0 10px 55px",
+                md: " 0 20px 70px",
               }}
             >
               <Image className="gallery__img" src={listProduct.image} alt="" />
@@ -150,6 +148,36 @@ const HeaderBody = () => {
                       </Center>
                     </Button>
                   </Flex>
+                </Box>
+              </Box>
+
+              <Box>
+                <Box
+                  w={{
+                    base: "100%",
+                    sm: "60%",
+                    md: "50%",
+                    lg: "100%",
+                  }}
+                  pl={{
+                    base: "10px",
+                    sm: "15px",
+                    md: "5px",
+                    lg: "5px",
+                  }}
+                  pt={{ base: "5px" }}
+                >
+                  <Avatar
+                    size={"sm"}
+                    cursor={"pointer"}
+                    float={"left"}
+                    src="https://bit.ly/sage-adebayo"
+                  />
+                  <Box pt={"3px"} float={"left"} ml="3">
+                    <Link _hover={{ textDecoration: "none" }} fontWeight="bold">
+                      Segun Adebayo
+                    </Link>
+                  </Box>
                 </Box>
               </Box>
             </Box>

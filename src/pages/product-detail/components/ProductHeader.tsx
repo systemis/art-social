@@ -1,21 +1,19 @@
 import React from "react";
 import {
-  Box,
   Avatar,
+  Box,
   Button,
-  Flex,
-  Text,
-  Link,
   Center,
+  Flex,
+  Link,
+  Text,
   useToast,
 } from "@chakra-ui/react";
-
-import { BsSuitHeartFill } from "react-icons/bs";
 import "pages/product-detail/style/list-product.scss";
+import { BsSuitHeartFill } from "react-icons/bs";
 
 export const ProductHeader = () => {
   const toast = useToast();
-
   return (
     <Box
       w={{
@@ -32,6 +30,7 @@ export const ProductHeader = () => {
             base: "100%",
             sm: "60%",
             md: "50%",
+            lg: "45%",
           }}
           ml={{
             base: "10px",
@@ -55,7 +54,7 @@ export const ProductHeader = () => {
         <Box flex={{ base: 1, md: 0 }} display={"flex"} letterSpacing={1}>
           <Button
             float={"left"}
-            mx={"20px"}
+            mx={{ md: "10px" }}
             w={"70px"}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
@@ -73,9 +72,10 @@ export const ProductHeader = () => {
           </Button>
 
           <Button
+            w={{ md: "90px" }}
             float={"left"}
             display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
+            fontSize={"base"}
             fontWeight={600}
             color={"white"}
             bg={"pink.400"}
