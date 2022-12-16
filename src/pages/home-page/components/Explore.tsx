@@ -72,7 +72,7 @@ const Explore = () => {
       pt="80px"
     >
       <Container maxW="container" px="3rem">
-        <AppTitle fontSize="8xl" my={10}>
+        <AppTitle fontSize={{base: "5xl", lg: "8xl"}}my={10}>
           Explore our designs
         </AppTitle>
         <DesignCarouse />
