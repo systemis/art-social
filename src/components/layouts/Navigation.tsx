@@ -204,7 +204,7 @@ const Navigation = () => {
       right={0}
       left={0}
       top={0}
-      bg={!isAtTop ? "white" : "transparent"}
+      bg={!isAtTop || isShowSideBar ? "white" : "transparent"}
       zIndex={999}
       sx={{ transition: "all .3s ease-in" }}
       borderBottom={!isAtTop || isShowSideBar ? "2px" : "0"}
@@ -244,7 +244,7 @@ const Navigation = () => {
                 boxShadow="none !important"
                 backgroundColor="rgba(255, 255, 255, 0.7)"
                 border="2px"
-                borderColor="rgba(255, 255, 255, 0.3)"
+                borderColor= {isShowSideBar || !isAtTop ? "rgb(138, 147, 155)" : "rgba(255, 255, 255, 0.3)"}
                 _hover={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                 _focus={{ borderColor: "rgb(138, 147, 155)" }}
               />
