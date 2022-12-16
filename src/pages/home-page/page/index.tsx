@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import React from 'react'
 import Explore from 'pages/home-page/components/Explore'
 
-const index = () => {
+const HomePage = () => {
   return (
     <Box>
       <Explore />
@@ -10,4 +10,4 @@ const index = () => {
   )
 }
 
-export default index
+export default HomePage;
