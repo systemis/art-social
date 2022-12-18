@@ -17,7 +17,10 @@ import React from "react";
 export const Header = () => {
   return (
     <>
-      <Box pt="80px">
+      <Box
+        pt="80px"
+        background="linear-gradient(180deg, rgba(227,197,236,1) 0%, rgba(214,198,224,1) 52%, rgba(255,255,255,1) 100%)"
+      >
         <Flex p={" 30px 20px 30px"} justify={"space-around"}>
           <Box
             float={"left"}

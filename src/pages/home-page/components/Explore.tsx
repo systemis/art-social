@@ -1,81 +1,25 @@
-import { Box, Container } from "@chakra-ui/react";
-import { AppTitle } from "components/elements/AppTitle";
-import React, { Component } from "react";
-import Slider from "react-slick";
-import { CarouselCard } from "pages/home-page/components/carouselCard/CarouselCard";
+import { Box, Center, Container, Image, Text } from "@chakra-ui/react";
+import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "assets/css/main.css";
-
-const DesignCarouse = () => {
-  const settings = {
-    infinite: true,
-    speed: 700,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-    initialSlide: 0,
-    autoplay: true,
-    autoplaySpeed: 10000,
-    responsive: [
-      {
-        breakpoint: 2024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        },
-      },
-      {
-        breakpoint: 1324,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 1030,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 750,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
-  return (
-    <Box alignItems="center">
-      <Slider {...settings}>
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-      </Slider>
-    </Box>
-  );
-};
+import { Logo } from "assets/images/index";
+import { AppTitle } from "components/elements/AppTitle";
 
 const Explore = () => {
   return (
-    <Box
-      textAlign="center"
-      background="linear-gradient(180deg, rgba(227,197,236,1) 0%, rgba(214,198,224,1) 52%, rgba(255,255,255,1) 100%)"
-      pt="80px"
-    >
-      <Container maxW="container" px="3rem">
-        <AppTitle fontSize={{base: "5xl", lg: "8xl"}}my={10}>
-          Explore our designs
-        </AppTitle>
-        <DesignCarouse />
+    <Box textAlign="center" marginBottom="40px">
+      <Container maxW="container" px="0" mx="0" position="relative">
+        <Image
+          src="https://cdn.wallpapersafari.com/8/78/zmcOPM.jpg"
+          w="full"
+          h="60vh"
+          objectFit="cover"
+          objectPosition="0 95%"
+        />
+        <Center>
+          <Image src={Logo} pos="absolute" top={{base: "22vh", lg: "15vh"}} w={{ base: "70vw", lg: "50vw", xl: "20vw" }}/>
+        </Center>
       </Container>
     </Box>
   );

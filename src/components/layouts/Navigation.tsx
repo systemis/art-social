@@ -132,7 +132,9 @@ const SingleMenuItem = ({
             zIndex={2}
           >
             <Flex>
-              {isShowIcon ? <Icon as={item.icon} boxSize={8} alignItems="center" mx={6} /> : undefined}
+              {isShowIcon ? (
+                <Icon as={item.icon} boxSize={8} alignItems="center" mx={6} />
+              ) : undefined}
               {item.label}
             </Flex>
           </AppLink>
@@ -156,7 +158,6 @@ const SingleMenuItem = ({
           _hover={{ color: isActive ? undefined : "brand.700" }}
           zIndex={2}
           fontSize="md"
-          color="black"
           letterSpacing="1px"
         >
           {item.label}
@@ -179,6 +180,8 @@ const Navigation = () => {
     ssr: false,
   });
   const colorText = useColorModeValue("black", "brand.900");
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     document.addEventListener("keydown", handleSearchKey, true);
@@ -221,8 +224,11 @@ const Navigation = () => {
                 fontWeight="bold"
                 fontSize="xl"
                 w="100%"
+                color={
+                  isHomePage && isAtTop && !isShowSideBar ? "white" : "black"
+                }
               >
-                Marketplace
+                Imaginary.
               </Text>
             </AppLink>
           </AppRow>
@@ -244,7 +250,11 @@ const Navigation = () => {
                 boxShadow="none !important"
                 backgroundColor="rgba(255, 255, 255, 0.7)"
                 border="2px"
-                borderColor= {isShowSideBar || !isAtTop ? "rgb(138, 147, 155)" : "rgba(255, 255, 255, 0.3)"}
+                borderColor={
+                  isShowSideBar || !isAtTop
+                    ? "rgb(138, 147, 155)"
+                    : "rgba(255, 255, 255, 0.3)"
+                }
                 _hover={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                 _focus={{ borderColor: "rgb(138, 147, 155)" }}
               />
@@ -268,11 +278,22 @@ const Navigation = () => {
               </InputRightElement>
             </InputGroup>
           ) : (
-            <Icon as={HiSearch} fontWeight="bold" boxSize={8} />
+            <Icon
+              as={HiSearch}
+              fontWeight="bold"
+              color={
+                isHomePage && isAtTop && !isShowSideBar ? "white" : "black"
+              }
+              boxSize={8}
+            />
           )}
           {!isLargeDesktop && <MobileNavigation />}
           {isLargeDesktop && (
-            <AppRow alignItems="center" justifyContent="flex-end">
+            <AppRow
+              alignItems="center"
+              justifyContent="flex-end"
+              color={isHomePage && isAtTop ? "white" : "black"}
+            >
               {routes.map((item) => {
                 return renderMenuItems(item);
               })}
@@ -291,6 +312,9 @@ const Navigation = () => {
               boxSize={"2.3rem"}
               onClick={() => dispatch(showMobileMenu({ value: true }))}
               _hover={{ cursor: "pointer" }}
+              color={
+                isHomePage && isAtTop && !isShowSideBar ? "white" : "black"
+              }
             />
           )}
         </Flex>

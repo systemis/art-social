@@ -35,7 +35,7 @@ const RenderTabs = (data: TabProps[]) => {
     ssr: false,
   });
   return (
-    <Tabs px={isDesktop ? "3rem" : 0} pt="80px">
+    <Tabs px={isDesktop ? "3rem" : 0} pt="20px">
       <TabList>
         {data.map((tab) => (
           <Tab key={tab.id}>
@@ -217,7 +217,11 @@ const TrendingTable = () => {
 };
 
 const Trending = () => {
-  return RenderTabs(tabData);
+  return (
+    <Box>
+      {RenderTabs(tabData)}
+    </Box>
+  );
 };
 
 export default Trending;

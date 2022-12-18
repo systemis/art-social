@@ -1,7 +1,65 @@
 import { Box, Container, Text } from "@chakra-ui/react";
 import { AppTitle } from "components/elements/AppTitle";
-import ExploreSection from "pages/explore/components/ExploreSection";
+import Slider from "react-slick";
+import { CarouselCard } from "pages/home-page/components/carouselCard/CarouselCard";
 import React from "react";
+
+const DesignCarouse = () => {
+  const settings = {
+    infinite: true,
+    speed: 700,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 10000,
+    responsive: [
+      {
+        breakpoint: 2024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 1324,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 1030,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 750,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  return (
+    <Box alignItems="center">
+      <Slider {...settings}>
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+        <CarouselCard />
+      </Slider>
+    </Box>
+  );
+};
 
 const Marketplace = () => {
   return (
@@ -22,7 +80,7 @@ const Marketplace = () => {
             marketplace...
           </Text>
         </Text>
-        <ExploreSection />
+        <DesignCarouse />
       </Container>
     </Box>
   );
