@@ -1,7 +1,16 @@
-import {
-  createSlice,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface RequestState {
+  firstPage?: boolean;
+  loading?: boolean;
+  error?: string | null;
+  errCode?: string | number | undefined;
+  contexts?:
+    | {
+        [key: string]: any;
+      }
+    | undefined;
+}
 
 interface InitialState {
   messages: {
@@ -12,6 +21,7 @@ interface InitialState {
     height: number;
     isShowMobileMenu?: boolean;
   };
+  [actionTypePrefix: string]: RequestState | any;
 }
 
 const initialState: InitialState = {
@@ -50,6 +60,6 @@ const ui = createSlice({
   },
 });
 
-export const {notify, setMenuHeight, showMobileMenu} = ui.actions;
+export const { notify, setMenuHeight, showMobileMenu } = ui.actions;
 
 export default ui.reducer;

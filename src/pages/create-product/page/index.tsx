@@ -1,5 +1,10 @@
 import { Box, Button } from "@chakra-ui/react";
 import { AppRow } from "components/elements";
+import AppUploadFile, {
+  UploadResponse,
+} from "components/elements/AppUploadFile";
+import { ENDPOINT } from "constants/endpoints";
+import { UPLOAD_IMAGE_TYPES } from "constants/upload";
 import React from "react";
 
 const CreateProduct = () => {
@@ -43,6 +48,16 @@ const CreateProduct = () => {
           Continue
         </Button>
       </AppRow>
+      <Box>
+        <AppUploadFile
+          type={UPLOAD_IMAGE_TYPES.DESIGN_IMAGE}
+          onSuccess={(files: UploadResponse[]) =>
+            console.log(files?.[0].accessUrl)
+          }
+          acceptType={["IMAGE"]}
+          endpoint={ENDPOINT.FILE_UPLOAD}
+        />
+      </Box>
     </Box>
   );
 };
