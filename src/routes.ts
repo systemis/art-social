@@ -1,11 +1,12 @@
-import { FaRegCompass } from 'react-icons/fa';
-import { HiOutlineNewspaper } from 'react-icons/hi';
-import ResourcesPage from "pages/resources/page/index";
 import { BasicRoute } from "components/elements/AppRouter";
 import Layout from "components/layouts/Layout";
 import { PAGES } from "constants/app";
-import { ProductDetail } from "pages/product-detail/pages";
 import { Explore } from 'pages/explore/pages';
+import LoginPage from 'pages/login/pages';
+import { ProductDetail } from "pages/product-detail/pages";
+import ResourcesPage from "pages/resources/page/index";
+import { FaRegCompass } from 'react-icons/fa';
+import { HiOutlineNewspaper } from 'react-icons/hi';
 
 export const routes: BasicRoute[] = [
   {
@@ -22,6 +23,9 @@ export const routes: BasicRoute[] = [
         icon: FaRegCompass,
         component: Explore,
         exact: true,
+      },
+      {
+        path: "/login", component:LoginPage, exact: true
       },
       {
         path: PAGES.RESOURCES,
