@@ -52,7 +52,7 @@ const CreateProduct = () => {
         <AppUploadFile
           type={UPLOAD_IMAGE_TYPES.DESIGN_IMAGE}
           onSuccess={(files: UploadResponse[]) =>
-            console.log(files?.[0].accessUrl)
+            console.log(files)
           }
           acceptType={["IMAGE"]}
           endpoint={ENDPOINT.FILE_UPLOAD}

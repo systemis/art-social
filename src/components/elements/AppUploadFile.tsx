@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { RootState } from "redux/root-reducer";
 import { AppDispatch } from "redux/root-store";
 import { uploadFile } from "redux/apps/thunk";
-import {Box, Center, Icon, Spinner, Text} from "@chakra-ui/react";
-import {FiUpload} from 'react-icons/fi';
-
-declare const requestOK: (result: any, action: any) => any;
+import { Box, Center, Icon, Image, Spinner, Text } from "@chakra-ui/react";
+import { FiUpload } from "react-icons/fi";
+import { AppRow } from "components/elements/AppRow";
+import AppImage from "components/elements/AppImage";
 
 export interface UploadResponse {
   fileName: string;
@@ -52,13 +52,15 @@ const AppUploadFile = function AppDropzone({
   type,
   onSuccess,
   preview = true,
-  multiple = false,
+  multiple = true,
   acceptType = ["PDF", "IMAGE", "VIDEO"],
   placeholder = "Drag and Drop / click to select file",
   endpoint,
 }: Props) {
   const dispatch: AppDispatch = useDispatch();
-  const {loading} = useSelector((state: RootState) => state.ui[uploadFile.typePrefix] || {});
+  const { loading } = useSelector(
+    (state: RootState) => state.ui[uploadFile.typePrefix] || {}
+  );
 
   const [uploadedFiles, setUploadedFiles] = useState<UploadResponse[]>([]);
 
@@ -82,10 +84,13 @@ const AppUploadFile = function AppDropzone({
             endpoint,
           })
         );
-        if (requestOK(resAction, uploadFile)) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          res.push({fileName: file.name, fileType: file.type, accessUrl: resAction?.payload?.accessUrl});
+
+        if (resAction) {
+          res.push({
+            fileName: file.name,
+            fileType: file.type,
+            accessUrl: resAction.payload ? resAction.payload.toString() : "",
+          });
         }
       }
       res = multiple ? [...(uploadedFiles || []), ...res] : res;
@@ -96,32 +101,67 @@ const AppUploadFile = function AppDropzone({
     [dispatch, endpoint, type, multiple, onSuccess, uploadedFiles]
   );
 
-    const renderPlaceholder = () => {
-      if (placeholder === null) {
-        return null;
-      }
-      return (
-        <Text fontSize="md" fontWeight="semibold">{placeholder}</Text>
-      )
+  const onRemovePreview = (f: UploadResponse) => {
+    setUploadedFiles(
+      uploadedFiles.filter((file) => file.accessUrl !== f.accessUrl)
+    );
+  };
+
+  const renderPreview = () => {
+    if (!preview || !uploadedFiles || uploadedFiles.length === 0) {
+      return null;
     }
 
     return (
-      <Box cursor="pointer">
+      <AppRow flexDirection="row" flexWrap="wrap" mt={3}>
+        {uploadedFiles?.map((f: UploadResponse, i) => {
+          if (!f.fileType.includes("image")) {
+            return null;
+          }
+          return (
+            <AppImage
+              boxSize="100px"
+              url={`${f.accessUrl}`}
+              containerClasses="mb-2"
+              key={`image-index-${f.fileName}`}
+              onClose={() => onRemovePreview(f)}
+              mr="2"
+              objectFit="cover"
+            />
+          );
+        })}
+      </AppRow>
+    );
+  };
+
+  const renderPlaceholder = () => {
+    if (placeholder === null) {
+      return null;
+    }
+    return (
+      <Text fontSize="md" fontWeight="semibold">
+        {placeholder}
+      </Text>
+    );
+  };
+
+  return (
+    <Box cursor="pointer">
       <Dropzone onDrop={onUpload} accept={getAcceptFileTypes(acceptType)}>
-        {({getRootProps, getInputProps}) => (
+        {({ getRootProps, getInputProps }) => (
           <div {...getRootProps()}>
             <Center borderWidth={1} {...defaultContentProps}>
               {loading && <Spinner size="lg" />}
-              <Icon as={FiUpload} boxSize={'25px'} />
+              <Icon as={FiUpload} boxSize={"25px"} />
               {renderPlaceholder()}
               <input {...getInputProps()} />
             </Center>
           </div>
         )}
       </Dropzone>
+      {renderPreview()}
     </Box>
-    )
-
+  );
 };
 
 export default AppUploadFile;
