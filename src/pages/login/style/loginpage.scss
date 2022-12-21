@@ -1,0 +1,13 @@
+.line-border{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.line-border::before,.line-border::after {
+    content: '';
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: black;
+}

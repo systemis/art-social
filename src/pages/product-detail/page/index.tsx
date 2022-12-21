@@ -7,7 +7,7 @@ import { ListProduct } from "pages/product-detail/components/ListProduct";
 import { ProductHeader } from "pages/product-detail/components/ProductHeader";
 import { RightSideButton } from "pages/product-detail/components/RightSideButton";
 
-export const ProductDetail = () => {
+const ProductDetail = () => {
   const [isOpenShare, setOpenShare] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -37,3 +37,5 @@ export const ProductDetail = () => {
     </Box>
   );
 };
+
+export default ProductDetail;

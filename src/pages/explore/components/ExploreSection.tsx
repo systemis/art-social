@@ -67,7 +67,7 @@ const listProducts = [
       "https://gamek.mediacdn.vn/thumb_w/690/133514250583805952/2022/9/25/avatar1664076788709-16640767888443261054.jpg",
   },
 ];
-const HeaderBody = () => {
+const ExploreSection = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
   return (
@@ -188,4 +188,4 @@ const HeaderBody = () => {
   );
 };
 
-export default HeaderBody;
+export default ExploreSection;

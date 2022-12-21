@@ -1,20 +1,21 @@
+import { FaRegCompass } from "react-icons/fa";
+import { HiOutlineNewspaper } from "react-icons/hi";
+import ResourcesPage from "pages/resources/page/index";
 import { BasicRoute } from "components/elements/AppRouter";
 import Layout from "components/layouts/Layout";
 import { PAGES } from "constants/app";
-import { Explore } from 'pages/explore/pages';
-import LoginPage from 'pages/login/pages';
-import { ProductDetail } from "pages/product-detail/pages";
-import ResourcesPage from "pages/resources/page/index";
-import { FaRegCompass } from 'react-icons/fa';
-import { HiOutlineNewspaper } from 'react-icons/hi';
-
+import ProductDetail from "pages/product-detail/page";
+import Explore from "pages/explore/page";
+import HomePage from "pages/home-page/page";
+import SignIn from "pages/login/components/SignIn";
+import SignUp from "pages/login/components/SignUp";
 export const routes: BasicRoute[] = [
   {
     path: "/",
     component: Layout,
     exact: false,
     routes: [
-      //{ path: "/", component: Home, exact: true },
+      { path: "/", component: HomePage, exact: true },
       { path: "/productDetail", component: ProductDetail, exact: true },
       {
         // path: PAGES.EXPLORE,
@@ -25,7 +26,10 @@ export const routes: BasicRoute[] = [
         exact: true,
       },
       {
-        path: "/login", component:LoginPage, exact: true
+        path: "/signup", component:SignUp, exact: true
+      },
+      {
+        path: "/signin", component:SignIn, exact: true
       },
       {
         path: PAGES.RESOURCES,
@@ -34,7 +38,6 @@ export const routes: BasicRoute[] = [
         component: ResourcesPage,
         exact: true,
       },
-      // {path: '/test', component: TestPage, exact: true},
     ],
   },
 ];
