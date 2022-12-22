@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Input } from "@chakra-ui/react";
 import { AppRow } from "components/elements";
 import AppUploadFile, {
   UploadResponse,
@@ -48,14 +48,34 @@ const CreateProduct = () => {
           Continue
         </Button>
       </AppRow>
-      <Box>
+
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <Input
+          placeholder="Name your design..."
+          variant="unstyled"
+          fontWeight="700"
+          borderWidth={0}
+          marginTop="1em"
+          w="60vw"
+          fontSize="3xl"
+        />
         <AppUploadFile
           type={UPLOAD_IMAGE_TYPES.DESIGN_IMAGE}
-          onSuccess={(files: UploadResponse[]) =>
-            console.log(files)
-          }
+          onSuccess={(files: UploadResponse[]) => {
+            // We gonna save data here
+            console.log(files);
+          }}
           acceptType={["IMAGE"]}
           endpoint={ENDPOINT.FILE_UPLOAD}
+        />
+        <Input
+          placeholder="Give us some description about your design..."
+          variant="unstyled"
+          fontWeight="400"
+          borderWidth={0}
+          marginTop="2em"
+          w="60vw"
+          fontSize="xl"
         />
       </Box>
     </Box>

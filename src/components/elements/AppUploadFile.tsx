@@ -46,7 +46,7 @@ const getAcceptFileTypes = (types: AcceptType[]): Accept => {
 
 const maxSize = 10485760; // 1048576 Bytes * 10 = 10M
 
-const defaultContentProps = { py: 8, px: 5 };
+const defaultContentProps = { width: "60vw", height: "40vh" };
 
 const AppUploadFile = function AppDropzone({
   type,
@@ -139,20 +139,27 @@ const AppUploadFile = function AppDropzone({
       return null;
     }
     return (
-      <Text fontSize="md" fontWeight="semibold">
-        {placeholder}
-      </Text>
+      <Center display="flex" flexDirection="column">
+        <Icon as={FiUpload} boxSize={"105px"} mb="1em" />
+        <Text fontSize="md" fontWeight="semibold">
+          {placeholder}
+        </Text>
+      </Center>
     );
   };
 
   return (
-    <Box cursor="pointer">
+    <Box cursor="pointer" marginTop="2em">
       <Dropzone onDrop={onUpload} accept={getAcceptFileTypes(acceptType)}>
         {({ getRootProps, getInputProps }) => (
-          <div {...getRootProps()}>
-            <Center borderWidth={1} {...defaultContentProps}>
+          <div {...getRootProps()} style={{ height: "40vh" }}>
+            <Center
+              borderWidth={3}
+              borderStyle="dashed"
+              borderRadius="2em"
+              {...defaultContentProps}
+            >
               {loading && <Spinner size="lg" />}
-              <Icon as={FiUpload} boxSize={"25px"} />
               {renderPlaceholder()}
               <input {...getInputProps()} />
             </Center>
