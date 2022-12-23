@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import BgSignUp from "../../../assets/images/signup1.png";
+import BgSignUp from "assets/images/signup1.png";
 import "pages/login/style/loginpage.scss";
 
 const SignUp = () => {
@@ -47,7 +47,7 @@ const SignUp = () => {
       >
         <Stack spacing={4} w={"full"} maxW={"md"}>
           <Heading fontSize={"3xl"} pb={"10px"}>
-            Sign up to Dribble
+            Sign up to Imaginary
           </Heading>
           <Button
             w={"90%"}
