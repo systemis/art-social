@@ -10,6 +10,7 @@ import HomePage from "pages/home-page/page";
 import SignIn from "pages/login/components/SignIn";
 import SignUp from "pages/login/components/SignUp";
 import CreateProduct from "pages/create-product/page";
+import Profile from "pages/profile/page";
 
 export const routes: BasicRoute[] = [
   {
@@ -52,6 +53,11 @@ export const routes: BasicRoute[] = [
         component: ProductDetail,
         exact: true,
       },
+      {
+        path: PAGES.PROFILE,
+        component: Profile,
+        exact: true,
+      }
     ],
   },
 ];

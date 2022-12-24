@@ -5,6 +5,7 @@ export const PAGES = {
     CREATE_PRODUCT: '/create/new',
     SIGNIN: '/signin',
     SIGNUP: '/signup',
+    PROFILE: '/profile',
 };
 
 export const QUERY_MOBILE = '32em';
