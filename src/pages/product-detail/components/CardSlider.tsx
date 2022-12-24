@@ -127,7 +127,7 @@ export const CardSlider = () => {
               backgroundPosition="center"
               backgroundRepeat="no-repeat"
               backgroundSize="cover"
-              borderRadius={"30px"}
+              borderRadius={"10px"}
               overflow={"hidden"}
               backgroundImage={`url(${card.image})`}
             >
