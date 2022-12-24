@@ -3,6 +3,8 @@ export const PAGES = {
     RESOURCES: '/resources',
     PRODUCT_DETAIL: '/productDetail',
     CREATE_PRODUCT: '/create/new',
+    SIGNIN: '/signin',
+    SIGNUP: '/signup',
 };
 
 export const QUERY_MOBILE = '32em';

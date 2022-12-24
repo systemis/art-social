@@ -26,10 +26,14 @@ export const routes: BasicRoute[] = [
         exact: true,
       },
       {
-        path: "/signup", component:SignUp, exact: true
+        path: PAGES.SIGNUP,
+        component: SignUp,
+        exact: true,
       },
       {
-        path: "/signin", component:SignIn, exact: true
+        path: PAGES.SIGNIN,
+        component: SignIn,
+        exact: true,
       },
       {
         path: PAGES.RESOURCES,
