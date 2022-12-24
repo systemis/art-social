@@ -1,6 +1,6 @@
 import { FaRegCompass } from "react-icons/fa";
 import { HiOutlineNewspaper } from "react-icons/hi";
-import ResourcesPage from "pages/resources/page/index";
+import ResourcesPage from "pages/resource-page/page/index";
 import { BasicRoute } from "components/elements/AppRouter";
 import Layout from "components/layouts/Layout";
 import { PAGES } from "constants/app";
@@ -9,6 +9,8 @@ import Explore from "pages/explore/page";
 import HomePage from "pages/home-page/page";
 import SignIn from "pages/login/components/SignIn";
 import SignUp from "pages/login/components/SignUp";
+import CreateProduct from "pages/create-product/page";
+
 export const routes: BasicRoute[] = [
   {
     path: "/",
@@ -16,10 +18,8 @@ export const routes: BasicRoute[] = [
     exact: false,
     routes: [
       { path: "/", component: HomePage, exact: true },
-      { path: "/productDetail", component: ProductDetail, exact: true },
       {
-        // path: PAGES.EXPLORE,
-        path: "/explore",
+        path: PAGES.EXPLORE,
         label: "Explore",
         icon: FaRegCompass,
         component: Explore,
@@ -36,6 +36,16 @@ export const routes: BasicRoute[] = [
         label: "Resources",
         icon: HiOutlineNewspaper,
         component: ResourcesPage,
+        exact: true,
+      },
+      {
+        path: PAGES.CREATE_PRODUCT,
+        component: CreateProduct,
+        exact: true,
+      },
+      {
+        path: PAGES.PRODUCT_DETAIL,
+        component: ProductDetail,
         exact: true,
       },
     ],
