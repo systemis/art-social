@@ -11,15 +11,23 @@ import {
   Text,
   useColorModeValue,
   useMediaQuery,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  Divider,
 } from "@chakra-ui/react";
-import { AppRow, BasicRoute } from "components/elements";
+import { AppCol, AppRow, BasicRoute } from "components/elements";
+import { AppAvatar } from "components/elements/AppAvatar";
 import { AppLink } from "components/elements/AppLink";
 import { MobileNavigation } from "components/layouts/MobileNavigation";
 import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { IoMdSettings } from "react-icons/io";
 import { HiOutlineMenuAlt3, HiSearch } from "react-icons/hi";
-import { MdOutlineAccountCircle, MdOutlineClose } from "react-icons/md";
+import { MdEdit, MdOutlineClose, MdPerson } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { RootState } from "redux/root-reducer";
@@ -182,6 +190,7 @@ const Navigation = () => {
   const colorText = useColorModeValue("black", "brand.900");
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+  const isSignedIn = true;
 
   useEffect(() => {
     document.addEventListener("keydown", handleSearchKey, true);
@@ -297,13 +306,63 @@ const Navigation = () => {
               {routes.map((item) => {
                 return renderMenuItems(item);
               })}
-              <Button>
-                <Icon
-                  as={MdOutlineAccountCircle}
-                  color={"rgb(38, 36, 36)"}
-                  boxSize={"2rem"}
-                />
-              </Button>
+              {isSignedIn ? (
+                <Popover>
+                  <PopoverTrigger>
+                    <Button>
+                      <AppAvatar
+                        w="40px"
+                        h="40px"
+                        src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/04/p2.jpg"
+                      />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    w="17vw"
+                    color="black"
+                    border="transparent"
+                    boxShadow={
+                      isHomePage && isAtTop
+                        ? "none !important"
+                        : "0px 0px 30px 1px #e7e7e9"
+                    }
+                  >
+                    <PopoverArrow />
+                    <PopoverBody>
+                      <AppCol p={6} color="#707070">
+                        <AppRow alignItems="center" mb={3} cursor="pointer">
+                          <Icon as={MdPerson} mr={2} />
+                          <Text>Profile</Text>
+                        </AppRow>
+                        <Divider />
+                        <AppRow alignItems="center" my={3} cursor="pointer">
+                          <Icon as={MdEdit} mr={2} />
+                          <Text>Edit Profile</Text>
+                        </AppRow>
+                        <Divider />
+                        <AppRow alignItems="center" mt={3} cursor="pointer">
+                          <Icon as={IoMdSettings} mr={2} />
+                          <Text>Account Setting</Text>
+                        </AppRow>
+
+                        <Text cursor="pointer" mt={7}>Sign out</Text>
+                      </AppCol>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+              ) : (
+                <>
+                  <Button
+                    backgroundColor="#ea4c89"
+                    fontWeight="semibold"
+                    fontSize="sm"
+                    px="13px"
+                    ml="1.5em"
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </AppRow>
           )}
           {!isLargeDesktop && (

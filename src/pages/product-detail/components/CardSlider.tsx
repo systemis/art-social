@@ -1,5 +1,5 @@
 import {
-  Avatar,
+  Image,
   Box,
   Center,
   Container,
@@ -10,7 +10,11 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  Button,
 } from "@chakra-ui/react";
+import { AppCol, AppRow } from "components/elements";
+import { AppTitle } from "components/elements/AppTitle";
+import { CARDS } from "constants/product-detail";
 import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
@@ -28,8 +32,7 @@ const settings = {
   slideToScroll: 1,
 };
 // Set size avatar
-const size = "96px";
-const color = "teal";
+const size = "76px";
 // Animation Avatar
 const pulseRing = keyframes`
     0% {
@@ -47,20 +50,6 @@ export const CardSlider = () => {
   const [slider, setSlider] = React.useState<Slider | null>(null);
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "40px" });
-  const cards = [
-    {
-      image:
-        "https://variety.com/wp-content/uploads/2022/07/Screen-Shot-2022-07-23-at-9.03.09-PM.png",
-    },
-    {
-      image:
-        "https://images.complex.com/complex/images/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/k71r66uwuefpivemgxsz/iron-man-armor?fimg-ssr-default",
-    },
-    {
-      image:
-        "https://gamek.mediacdn.vn/thumb_w/690/133514250583805952/2022/9/25/avatar1664076788709-16640767888443261054.jpg",
-    },
-  ];
 
   return (
     <>
@@ -119,7 +108,7 @@ export const CardSlider = () => {
 
         {/* Slider */}
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {cards.map((card, index) => (
+          {CARDS.map((card, index) => (
             <Box
               key={index}
               height={"3xl"}
@@ -127,7 +116,7 @@ export const CardSlider = () => {
               backgroundPosition="center"
               backgroundRepeat="no-repeat"
               backgroundSize="cover"
-              borderRadius={"30px"}
+              borderRadius={"10px"}
               overflow={"hidden"}
               backgroundImage={`url(${card.image})`}
             >
@@ -165,49 +154,58 @@ export const CardSlider = () => {
         </Text>
       </Center>
 
-      <Divider
-        w={"50%"}
-        mx={{ base: "auto", sm: "auto", lg: "auto" }}
-        borderColor={"black"}
-        border={"1px"}
-        borderRadius={"1px"}
-      />
       {/* Author/User */}
       <Flex
         justifyContent="center"
         alignItems="center"
-        h="216px"
-        w="full"
+        w="100%"
         overflow="hidden"
       >
-        {/* Ideally, only the box should be used. The <Flex /> is used to style the preview. */}
-        <Box
-          as="div"
-          position="relative"
-          w={size}
-          h={size}
-          _before={{
-            content: "''",
-            position: "relative",
-            display: "block",
-            width: "300%",
-            height: "300%",
-            boxSizing: "border-box",
-            marginLeft: "-100%",
-            marginTop: "-100%",
-            borderRadius: "50%",
-            bgColor: color,
-            animation: `2.25s ${pulseRing} cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite`,
-          }}
-        >
-          <Avatar
-            cursor={"pointer"}
-            src="https://i.pravatar.cc/300"
-            size="full"
-            position="absolute"
-            top={0}
-          />
-        </Box>
+        <AppCol>
+          <Box>
+            <AppRow alignItems="center">
+              <Box
+                height="2px"
+                width="25vw"
+                background="#e0e0e0"
+                display="block"
+                color="white"
+                mr={{ base: "2em", lg: "4em" }}
+              />
+              <Image
+                cursor={"pointer"}
+                src="https://i.pravatar.cc/300"
+                borderRadius="50%"
+                w={size}
+              />
+              <Box
+                height="2px"
+                width="25vw"
+                background="#e0e0e0"
+                display="block"
+                color="white"
+                ml={{ base: "2em", lg: "4em" }}
+              />
+            </AppRow>
+          </Box>
+          <Center flexDirection="column">
+            <AppTitle fontSize="xl" mt="1em">
+              Harry
+            </AppTitle>
+            <Text my=".5em">Web Developer</Text>
+            <Button
+              mt="1em"
+              fontWeight="700"
+              fontSize="13px"
+              borderWidth={1}
+              backgroundColor="#ea4c89"
+              paddingY="0.3em"
+              paddingX="1em"
+            >
+              Hire me
+            </Button>
+          </Center>
+        </AppCol>
       </Flex>
     </>
   );

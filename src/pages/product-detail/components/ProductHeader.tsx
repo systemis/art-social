@@ -9,7 +9,6 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import "pages/product-detail/style/list-product.scss";
 import { BsSuitHeartFill } from "react-icons/bs";
 
 export const ProductHeader = () => {
