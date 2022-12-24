@@ -10,7 +10,6 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <div>
