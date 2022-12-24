@@ -1,6 +1,8 @@
 export const PAGES = {
     EXPLORE: '/explore',
-    RESOURCES: '/resources'
+    RESOURCES: '/resources',
+    PRODUCT_DETAIL: '/productDetail',
+    CREATE_PRODUCT: '/create/new',
 };
 
 export const QUERY_MOBILE = '32em';

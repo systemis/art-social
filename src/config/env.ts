@@ -7,6 +7,7 @@ let environment: {
     HOST: string;
   };
   GOOGLE_CLIENT_ID: string;
+  IMAGE_HOSTING_KEY: string;
   URL: string;
 };
 
@@ -19,6 +20,7 @@ switch (stage) {
         HOST: "",
       },
       GOOGLE_CLIENT_ID: "",
+      IMAGE_HOSTING_KEY: "6d207e02198a847aa98d0a2a901485a5",
       URL: "",
     };
     break;
@@ -32,6 +34,7 @@ switch (stage) {
         HOST: "",
       },
       GOOGLE_CLIENT_ID: "",
+      IMAGE_HOSTING_KEY: "6d207e02198a847aa98d0a2a901485a5",
       URL: "",
     };
     break;
