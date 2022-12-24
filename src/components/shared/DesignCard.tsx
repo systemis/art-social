@@ -69,7 +69,7 @@ const DesignCard = ({ listProduct }: Product) => {
               alignItems="center"
             >
               <Box float={"left"}>
-                <Text fontSize={"16px"} fontWeight="900" color={"#c0c0c0"}>
+                <Text fontSize={"16px"} fontWeight="900" color={"white"}>
                   {listProduct.title}
                 </Text>
               </Box>

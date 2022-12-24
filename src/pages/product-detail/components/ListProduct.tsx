@@ -10,6 +10,7 @@ export const ListProduct = () => {
       display={"flex"}
       flexWrap={"wrap"}
       justifyContent={"center"}
+      mt="7vh"
     >
       {LIST_PRODUCTS.slice(0, 3).map((listProduct) => {
         return <DesignCard key={listProduct.title} listProduct={listProduct} />;
