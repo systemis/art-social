@@ -7,15 +7,12 @@ import {
   Link,
   SimpleGrid,
   Stack,
-  Input,
-  IconButton,
   Text,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import Imaginary from "assets/images/imaginary.png";
 import { ReactNode } from "react";
-import { BiMailSend } from "react-icons/bi";
 import {
   FaFacebook,
   FaInstagram,
