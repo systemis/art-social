@@ -19,11 +19,12 @@ import {
 } from "@chakra-ui/react";
 import { AppCol, AppRow } from "components/elements";
 import { AppTitle } from "components/elements/AppTitle";
-import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
+import { PAGES, QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import { tabData, trending } from "constants/homepage";
 import { AiFillEye, AiFillHeart } from "react-icons/ai";
 import React from "react";
 import { itemColorSchemes } from "constants/color-scheme";
+import { useHistory } from "react-router-dom";
 
 interface TabProps {
   id: number;
@@ -63,6 +64,7 @@ const TrendingTable = () => {
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
   });
+  const history = useHistory();
 
   return (
     <AppRow justifyContent="space-between">
@@ -92,6 +94,7 @@ const TrendingTable = () => {
               key={item.id}
               _hover={{ backgroundColor: "#f1f1f1" }}
               cursor="pointer"
+              onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
             >
               <Td>
                 <AppRow alignItems="center">
@@ -162,6 +165,7 @@ const TrendingTable = () => {
                 key={item.id}
                 _hover={{ backgroundColor: "#f1f1f1" }}
                 cursor="pointer"
+                onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
               >
                 <Td>
                   <AppRow alignItems="center">
