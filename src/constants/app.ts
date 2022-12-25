@@ -6,6 +6,8 @@ export const PAGES = {
     SIGNIN: '/signin',
     SIGNUP: '/signup',
     PROFILE: '/profile',
+    EDIT_PROFILE: '/account/profile',
+    EDIT_ACCOUNT: '/account'
 };
 
 export const QUERY_MOBILE = '32em';

@@ -9,10 +9,13 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AppCol } from "components/elements";
+import { PAGES } from "constants/app";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 export const CarouselCard = () => {
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
+  const history = useHistory();
   return (
     <Box
       borderRadius="20px"
@@ -23,6 +26,7 @@ export const CarouselCard = () => {
       pos="relative"
       overflow="hidden"
       cursor="pointer"
+      onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
     >
       <Image
         src="https://i.seadn.io/s/production/4541c8d0-0ed1-4a25-a93d-8bb55dc76653.png?auto=format&w=1920"

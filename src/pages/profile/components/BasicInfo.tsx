@@ -1,9 +1,12 @@
 import { Box, Button, Center, Image, Text } from "@chakra-ui/react";
 import { AppCol, AppRow } from "components/elements";
 import { AppTitle } from "components/elements/AppTitle";
+import { PAGES } from "constants/app";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const BasicInfo = () => {
+  const history = useHistory();
   return (
     <Box
       pt="170px"
@@ -27,6 +30,7 @@ const BasicInfo = () => {
               borderWidth={1}
               backgroundColor="#ea4c89"
               paddingX="1em"
+              onClick={() => history.push(`${PAGES.EDIT_PROFILE}`)}
             >
               Edit Profile
             </Button>

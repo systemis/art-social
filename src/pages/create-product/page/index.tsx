@@ -6,8 +6,10 @@ import AppUploadFile, {
 import { ENDPOINT } from "constants/endpoints";
 import { UPLOAD_IMAGE_TYPES } from "constants/upload";
 import React from "react";
+import {useHistory} from "react-router-dom";
 
 const CreateProduct = () => {
+  const history = useHistory();
   return (
     <Box>
       <Box
@@ -24,6 +26,7 @@ const CreateProduct = () => {
             backgroundColor="white"
             boxShadow="0px 0px 0px 2px #e7e7e9 inset"
             px="14px"
+            onClick={() => history.goBack()}
           >
             Cancel
           </Button>

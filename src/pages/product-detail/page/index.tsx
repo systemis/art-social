@@ -1,5 +1,5 @@
 import { Box, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import React, {useEffect} from "react";
 import { CardSlider } from "pages/product-detail/components/CardSlider";
 import { DrawerModal } from "pages/product-detail/components/DrawerModal";
 import { DrawerModalShare } from "pages/product-detail/components/DrawerModalShare";
@@ -10,6 +10,11 @@ import { RightSideButton } from "pages/product-detail/components/RightSideButton
 const ProductDetail = () => {
   const [isOpenShare, setOpenShare] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }, 200);
+  }, []);
 
   return (
     <Box pt="80px" bg={"white"} borderTopLeftRadius={"20px"}>

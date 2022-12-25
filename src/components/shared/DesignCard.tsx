@@ -7,10 +7,13 @@ import {
   Image,
   Link,
   Text,
+  useMediaQuery,
   useToast,
 } from "@chakra-ui/react";
+import {PAGES, QUERY_MOBILE} from "constants/app";
 import React, { useRef } from "react";
 import { AiFillHeart, AiFillFolderAdd } from "react-icons/ai";
+import {useHistory} from "react-router-dom";
 
 interface ProductProps {
   title: string;
@@ -25,6 +28,10 @@ interface Product {
 const DesignCard = ({ listProduct }: Product) => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
+  const history = useHistory();
+  const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
+    ssr: false,
+  });
   return (
     <Box
       width={{
@@ -37,6 +44,8 @@ const DesignCard = ({ listProduct }: Product) => {
         base: "0 10px 55px",
         md: "0 20px 70px",
       }}
+      onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
+      cursor="pointer"
     >
       <Center flexDirection="column">
         <Box position="relative" data-group>
@@ -48,75 +57,75 @@ const DesignCard = ({ listProduct }: Product) => {
             borderRadius="0.5em"
             transition="all 0.3s ease"
           />
-          <Box
-            position="absolute"
-            w="100%"
-            bottom="0"
-            borderBottomRadius="0.5em"
-            transition="all 0.3s ease"
-            _groupHover={{
-              background:
-                "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(115,115,115,0) 100%, rgba(255,255,255,0) 100%)",
-            }}
-            h="20%"
+        {isDesktop && (<Box
+          position="absolute"
+          w="100%"
+          bottom="0"
+          borderBottomRadius="0.5em"
+          transition="all 0.3s ease"
+          _groupHover={{
+            background:
+              "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(115,115,115,0) 100%, rgba(255,255,255,0) 100%)",
+          }}
+          h="20%"
+        >
+          <Flex
+            justifyContent="space-between"
+            transition="all 0.2s ease"
+            opacity="0"
+            _groupHover={{ opacity: "1" }}
+            px={4}
+            alignItems="center"
           >
-            <Flex
-              justifyContent="space-between"
-              transition="all 0.2s ease"
-              opacity="0"
-              _groupHover={{ opacity: "1" }}
-              px={4}
-              alignItems="center"
-            >
-              <Box float={"left"}>
-                <Text fontSize={"16px"} fontWeight="900" color={"white"}>
-                  {listProduct.title}
-                </Text>
-              </Box>
+            <Box float={"left"}>
+              <Text fontSize={"16px"} fontWeight="900" color={"white"}>
+                {listProduct.title}
+              </Text>
+            </Box>
 
-              <Flex gap={2}>
-                <Button
-                  size="sm"
-                  ref={btnRef}
-                  color={"black"}
-                  bg={"#dcdcdc"}
-                  _hover={{
-                    bg: "#c0c0c0",
-                  }}
-                >
-                  <Center>
-                    <AiFillFolderAdd size={"18px"} />
-                  </Center>
-                </Button>
+            <Flex gap={2}>
+              <Button
+                size="sm"
+                ref={btnRef}
+                color={"black"}
+                bg={"#dcdcdc"}
+                _hover={{
+                  bg: "#c0c0c0",
+                }}
+              >
+                <Center>
+                  <AiFillFolderAdd size={"18px"} />
+                </Center>
+              </Button>
 
-                <Button
-                  size="sm"
-                  ref={btnRef}
-                  //onClick={onOpen}
-                  // href={'#'}
-                  color={"black"}
-                  bg={"#dcdcdc"}
-                  _hover={{
-                    bg: "#c0c0c0",
-                  }}
-                  onClick={() =>
-                    toast({
-                      title: "Congratulation.",
-                      description: "You Liked Successfully.",
-                      status: "success",
-                      duration: 9000,
-                      isClosable: true,
-                      position: "bottom-right",
-                    })
-                  }
-                >
-                  <Center>
-                    <AiFillHeart size={"18px"} />
-                  </Center>
-                </Button>
-              </Flex>
+              <Button
+                size="sm"
+                ref={btnRef}
+                //onClick={onOpen}
+                // href={'#'}
+                color={"black"}
+                bg={"#dcdcdc"}
+                _hover={{
+                  bg: "#c0c0c0",
+                }}
+                onClick={() =>
+                  toast({
+                    title: "Congratulation.",
+                    description: "You Liked Successfully.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                    position: "bottom-right",
+                  })
+                }
+              >
+                <Center>
+                  <AiFillHeart size={"18px"} />
+                </Center>
+              </Button>
             </Flex>
-          </Box>
+          </Flex>
+        </Box>)}
         </Box>
       </Center>
 
