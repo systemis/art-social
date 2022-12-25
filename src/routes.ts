@@ -9,6 +9,7 @@ import Explore from "pages/explore/page";
 import HomePage from "pages/home-page/page";
 import SignIn from "pages/login/components/SignIn";
 import SignUp from "pages/login/components/SignUp";
+import {Footer} from "pages/footer/components/footer";
 export const routes: BasicRoute[] = [
   {
     path: "/",
@@ -31,6 +32,7 @@ export const routes: BasicRoute[] = [
       {
         path: "/signin", component:SignIn, exact: true
       },
+      {path:"/footer", component:Footer, exact:true},
       {
         path: PAGES.RESOURCES,
         label: "Resources",

@@ -9,17 +9,20 @@ import {
   Heading,
   Image,
   Input,
+  Link,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
+
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import BgSignUp from "../../../assets/images/signup1.png";
 import "pages/login/style/loginpage.scss";
+import { useHistory } from "react-router-dom";
 const SignIn = () => {
+  const SignUpPage = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   return (
     <Stack
@@ -116,7 +119,15 @@ const SignIn = () => {
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
-                  Not a member? <Link color={"#4f3cc9"}>Sign up now</Link>
+                  Not a member?{" "}
+                  <Link
+                    color={"#4f3cc9"}
+                    onClick={() => {
+                      SignUpPage.push("/signup");
+                    }}
+                  >
+                    Sign up now
+                  </Link>
                 </Text>
               </Stack>
             </Stack>
