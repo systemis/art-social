@@ -7,12 +7,15 @@ import {
   Link,
   SimpleGrid,
   Stack,
+  Input,
+  IconButton,
   Text,
   useColorModeValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import Imaginary from "assets/images/imaginary.png";
 import { ReactNode } from "react";
+import { BiMailSend } from "react-icons/bi";
 import {
   FaFacebook,
   FaInstagram,
@@ -64,9 +67,9 @@ export const Footer = () => {
       bg={useColorModeValue("gray.50", "gray.900")}
       color={useColorModeValue("gray.700", "gray.200")}
     >
-      <Container as={Stack} maxW={"6xl"} py={10}>
+      <Container as={Stack} maxW={"7xl"} py={10}>
         <SimpleGrid
-          templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 2fr" }}
+          templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 1fr 1fr" }}
           spacing={8}
         >
           <Stack spacing={5}>
@@ -77,23 +80,9 @@ export const Footer = () => {
               Imaginary is the go-to resource for discovering and connecting
               with designers and creative talent around the glode.
             </Text>
-            <Stack direction={"row"} spacing={6}>
-              <SocialButton label={"FaceBook"} href={"#"}>
-                <FaFacebook />
-              </SocialButton>
-              <SocialButton label={"Twitter"} href={"#"}>
-                <FaTwitter />
-              </SocialButton>
-              <SocialButton label={"Instagram"} href={"#"}>
-                <FaInstagram />
-              </SocialButton>
-              <SocialButton label={"Instagram"} href={"#"}>
-                <FaPinterest />
-              </SocialButton>
-            </Stack>
           </Stack>
-          <Stack align={"flex-start"} justifyContent={"center"}>
-            <ListHeader>For designers</ListHeader>
+          <Stack align={"flex-start"}>
+            <ListHeader>Designers</ListHeader>
             <Link
               _hover={{ cursor: "pointer", color: "#4f3cc9" }}
               href={"#"}
@@ -123,7 +112,7 @@ export const Footer = () => {
               Pricing
             </Link>
           </Stack>
-          <Stack align={"flex-start"} justifyContent={"center"}>
+          <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
             <Link
               _hover={{ cursor: "pointer", color: "#4f3cc9" }}
@@ -154,7 +143,7 @@ export const Footer = () => {
               Pricing
             </Link>
           </Stack>
-          <Stack align={"flex-start"} justifyContent={"center"}>
+          <Stack align={"flex-start"}>
             <ListHeader>Support</ListHeader>
             <Link
               _hover={{ cursor: "pointer", color: "#4f3cc9" }}
@@ -184,6 +173,23 @@ export const Footer = () => {
             >
               Private Policy
             </Link>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <ListHeader>Follow Us</ListHeader>
+            <Stack direction={"row"} spacing={6}>
+              <SocialButton label={"FaceBook"} href={"#"}>
+                <FaFacebook />
+              </SocialButton>
+              <SocialButton label={"Twitter"} href={"#"}>
+                <FaTwitter />
+              </SocialButton>
+              <SocialButton label={"Instagram"} href={"#"}>
+                <FaInstagram />
+              </SocialButton>
+              <SocialButton label={"Pinterest"} href={"#"}>
+                <FaPinterest />
+              </SocialButton>
+            </Stack>
           </Stack>
         </SimpleGrid>
       </Container>
