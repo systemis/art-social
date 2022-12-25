@@ -16,7 +16,6 @@ import {
 import "pages/explore/style/explore-page.scss";
 import "pages/product-detail/style/list-product.scss";
 import { AiFillFolderAdd, AiFillHeart } from "react-icons/ai";
-import { useHistory } from "react-router-dom";
 
 //Setting for slider
 const settings = {
@@ -71,7 +70,6 @@ const listProducts = [
 const ExploreSection = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
-  const ProductDetailPage = useHistory();
   return (
     <Box
       position={"relative"}
@@ -94,9 +92,6 @@ const ExploreSection = () => {
               m={{
                 base: "0 10px 55px",
                 md: " 0 20px 70px",
-              }}
-              onClick={() => {
-                ProductDetailPage.push("/productDetail");
               }}
             >
               <Image className="gallery__img" src={listProduct.image} alt="" />

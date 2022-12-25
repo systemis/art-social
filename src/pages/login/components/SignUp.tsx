@@ -20,11 +20,9 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import BgSignUp from "../../../assets/images/signup1.png";
 import "pages/login/style/loginpage.scss";
-import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const SignInPage = useHistory();
   return (
     <Stack
       minH={{ base: "105vh", md: "100vh" }}
@@ -146,15 +144,7 @@ const SignUp = () => {
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
-                  Already a member?{" "}
-                  <Link
-                    color={"#4f3cc9"}
-                    onClick={() => {
-                      SignInPage.push("/signin");
-                    }}
-                  >
-                    Sign In
-                  </Link>
+                  Already a member? <Link color={"#4f3cc9"}>Sign In</Link>
                 </Text>
               </Stack>
             </Stack>
