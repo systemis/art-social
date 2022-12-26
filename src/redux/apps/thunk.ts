@@ -14,7 +14,7 @@ export const uploadFile = createAsyncThunk<
       const formData = new FormData();
       formData.append('image', file)
       const res = await axios.post("https://afternoon-gorge-11599.herokuapp.com/api/image", formData);
-      return {accessUrl: res?.data?.data};
+      return res.data.data;
     } catch (e) {
       return rejectWithValue({errMsg: "Can not upload file!"});
     }

@@ -6,9 +6,9 @@ import { RootState } from "redux/root-reducer";
 import { AppDispatch } from "redux/root-store";
 import { uploadFile } from "redux/apps/thunk";
 import { Box, Center, Icon, Image, Spinner, Text } from "@chakra-ui/react";
-import { FiUpload } from "react-icons/fi";
 import { AppRow } from "components/elements/AppRow";
 import AppImage from "components/elements/AppImage";
+import { placeholderUpload } from "assets/images";
 
 export interface UploadResponse {
   fileName: string;
@@ -73,7 +73,7 @@ const AppUploadFile = function AppDropzone({
 
       for await (const file of acceptedFiles) {
         if (file.size > maxSize) {
-          console.log("File is too large. Please upload file under 3MB");
+          console.log("File is too large. Please upload file under 10MB");
           return;
         }
         const resAction = await dispatch(
@@ -113,20 +113,29 @@ const AppUploadFile = function AppDropzone({
     }
 
     return (
-      <AppRow flexDirection="row" flexWrap="wrap" mt={3}>
+      <AppRow
+        flexDirection="row"
+        flexWrap="wrap"
+        mt={3}
+        w="100%"
+        h="100px"
+        objectFit="cover"
+      >
         {uploadedFiles?.map((f: UploadResponse, i) => {
           if (!f.fileType.includes("image")) {
             return null;
           }
           return (
-            <AppImage
-              boxSize="100px"
-              url={`${f.accessUrl}`}
-              containerClasses="mb-2"
-              key={`image-index-${f.fileName}`}
-              onClose={() => onRemovePreview(f)}
+            <Image
+              src={`${f.accessUrl}`}
+              key={`image-index-${f.accessUrl}`}
               mr="2"
+              w="12%"
+              h="100px"
               objectFit="cover"
+              borderWidth={3}
+              borderStyle="dashed"
+              borderRadius="1em"
             />
           );
         })}
@@ -140,9 +149,15 @@ const AppUploadFile = function AppDropzone({
     }
     return (
       <Center display="flex" flexDirection="column">
-        <Icon as={FiUpload} boxSize={"105px"} mb="1em" />
-        <Text fontSize="md" fontWeight="semibold">
+        <Image src={placeholderUpload} w="30%" />
+        <Text fontSize="md" fontWeight="normal" my={5} textAlign="center">
           {placeholder}
+          <Text color="#6e6d7a" mt={1}>
+            High resolution recommended. Max 10MB each (7 files only)
+          </Text>
+          <Text color="#6e6d7a" mt={4} fontStyle="italic" fontSize="xs">
+            *Only upload media you own the rights to
+          </Text>
         </Text>
       </Center>
     );
@@ -150,22 +165,37 @@ const AppUploadFile = function AppDropzone({
 
   return (
     <Box cursor="pointer" marginTop="2em">
-      <Dropzone onDrop={onUpload} accept={getAcceptFileTypes(acceptType)}>
-        {({ getRootProps, getInputProps }) => (
-          <div {...getRootProps()} style={{ height: "40vh" }}>
-            <Center
-              borderWidth={3}
-              borderStyle="dashed"
-              borderRadius="2em"
-              {...defaultContentProps}
-            >
-              {loading && <Spinner size="lg" />}
-              {renderPlaceholder()}
-              <input {...getInputProps()} />
-            </Center>
-          </div>
-        )}
-      </Dropzone>
+      {uploadedFiles.length !== 7 ? (
+        <Dropzone
+          onDrop={onUpload}
+          accept={getAcceptFileTypes(acceptType)}
+          maxFiles={7}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} style={{ height: "40vh" }}>
+              <Center
+                borderWidth={3}
+                borderStyle="dashed"
+                borderRadius="1em"
+                {...defaultContentProps}
+              >
+                {loading && <Spinner size="lg" />}
+                {renderPlaceholder()}
+                <input {...getInputProps()} />
+              </Center>
+            </div>
+          )}
+        </Dropzone>
+      ) : (
+        <Center display="flex" flexDirection="column">
+          <Image src={placeholderUpload} w="10%" />
+          <Text fontSize="md" fontWeight="normal" my={5} textAlign="center">
+            <Text color="#6e6d7a" mt={1}>
+              Maximum images uploaded!
+            </Text>
+          </Text>
+        </Center>
+      )}
       {renderPreview()}
     </Box>
   );
