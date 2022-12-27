@@ -3,6 +3,8 @@ import { AppTitle } from "components/elements/AppTitle";
 import Slider from "react-slick";
 import { CarouselCard } from "pages/home-page/components/carouselCard/CarouselCard";
 import React from "react";
+import { PAGES } from "constants/app";
+import { useHistory } from "react-router-dom";
 
 const DesignCarouse = () => {
   const settings = {
@@ -62,6 +64,7 @@ const DesignCarouse = () => {
 };
 
 const Marketplace = () => {
+  const history = useHistory();
   return (
     <Box>
       <Container maxW="container" px="3rem">
@@ -76,7 +79,12 @@ const Marketplace = () => {
           9,250 inspirational designs, illustrations, and graphic elements from
           the world’s best designers. <br />
           Want more inspiration? Browse our{" "}
-          <Text as="span" color="rgb(227,107,236)" cursor="pointer">
+          <Text
+            as="span"
+            color="rgb(227,107,236)"
+            cursor="pointer"
+            onClick={() => history.push(`${PAGES.EXPLORE}`)}
+          >
             marketplace...
           </Text>
         </Text>

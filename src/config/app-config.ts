@@ -11,6 +11,7 @@ interface AppConfig {
   };
   googleClientId: string;
   url: string;
+  imageHostingKey: string;
   [key: string]: any;
 }
 
@@ -25,6 +26,7 @@ const config: AppConfig = {
     },
     url: env.URL,
     googleClientId: env.GOOGLE_CLIENT_ID,
+    imageHostingKey: env.IMAGE_HOSTING_KEY
   };
   
   export default config;

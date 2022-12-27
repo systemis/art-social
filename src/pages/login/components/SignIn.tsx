@@ -18,7 +18,7 @@ import {
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import BgSignUp from "../../../assets/images/signup1.png";
+import BgSignIn from "assets/images/signin.jpg";
 import "pages/login/style/loginpage.scss";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +33,8 @@ const SignIn = () => {
           w={{ lg: "100%" }}
           alt={"Login Image"}
           objectFit={"cover"}
-          src={BgSignUp}
+          objectPosition={"0"}
+          src={BgSignIn}
         />
       </Flex>
       <Flex
@@ -45,7 +46,7 @@ const SignIn = () => {
       >
         <Stack spacing={4} w={"full"} maxW={"md"}>
           <Heading fontSize={{ base: "2xl", md: "3xl" }} pb={"10px"}>
-            Sign in to Dribble
+            Sign in to Imaginary
           </Heading>
           <Button
             w={"90%"}

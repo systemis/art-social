@@ -9,19 +9,26 @@ import {
   InputLeftElement,
   InputRightElement,
   Text,
-  useColorModeValue,
   useMediaQuery,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  Divider,
 } from "@chakra-ui/react";
-import { AppRow, BasicRoute } from "components/elements";
+import { AppCol, AppRow, BasicRoute } from "components/elements";
+import { AppAvatar } from "components/elements/AppAvatar";
 import { AppLink } from "components/elements/AppLink";
 import { MobileNavigation } from "components/layouts/MobileNavigation";
-import { QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
+import { PAGES, QUERY_LG_DESKTOP, QUERY_MOBILE } from "constants/app";
 import React, { useEffect, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { HiOutlineMenuAlt3, HiSearch } from "react-icons/hi";
-import { MdOutlineAccountCircle, MdOutlineClose } from "react-icons/md";
+import { IoMdSettings } from "react-icons/io";
+import { HiOutlineMenuAlt3, HiSearch, HiPlus } from "react-icons/hi";
+import { MdEdit, MdOutlineClose, MdPerson } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { RootState } from "redux/root-reducer";
 import { AppDispatch } from "redux/root-store";
 import { showMobileMenu } from "redux/ui/slice";
@@ -179,9 +186,13 @@ const Navigation = () => {
   const [isLargeDesktop] = useMediaQuery(`(min-width: ${QUERY_LG_DESKTOP})`, {
     ssr: false,
   });
-  const colorText = useColorModeValue("black", "brand.900");
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
+  const isSignedIn = true;
+  const history = useHistory();
+  const [isProfileModalOpen, setIsProfileModalOpen] = React.useState(false);
+  const openProfileModal = () => setIsProfileModalOpen(!isProfileModalOpen);
+  const closeProfileModal = () => setIsProfileModalOpen(false);
 
   useEffect(() => {
     document.addEventListener("keydown", handleSearchKey, true);
@@ -217,7 +228,7 @@ const Navigation = () => {
       <Container maxW="container" px="3rem">
         <Flex py={4} gap={6} alignItems="center">
           <AppRow align="flex-end" flex={!isDesktop ? "1" : undefined}>
-            <AppLink as={Link} to="/">
+            <AppLink as={Link} to="/" _hover={{ textDecoration: "none" }}>
               <Text
                 as="b"
                 _hover={{ cursor: "pointer" }}
@@ -297,13 +308,102 @@ const Navigation = () => {
               {routes.map((item) => {
                 return renderMenuItems(item);
               })}
-              <Button>
-                <Icon
-                  as={MdOutlineAccountCircle}
-                  color={"rgb(38, 36, 36)"}
-                  boxSize={"2rem"}
-                />
-              </Button>
+              {isSignedIn ? (
+                <>
+                  <Icon
+                    as={HiPlus}
+                    boxSize={8}
+                    color="#ea4c89"
+                    cursor="pointer"
+                    onClick={() => history.push(`${PAGES.CREATE_PRODUCT}`)}
+                  />
+                  <Popover
+                    isOpen={isProfileModalOpen}
+                    onClose={closeProfileModal}
+                    onOpen={openProfileModal}
+                  >
+                    <PopoverTrigger>
+                      <Button>
+                        <AppAvatar
+                          w="40px"
+                          h="40px"
+                          src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/04/p2.jpg"
+                        />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      w="17vw"
+                      color="black"
+                      border="transparent"
+                      boxShadow={
+                        isHomePage && isAtTop
+                          ? "none !important"
+                          : "0px 0px 30px 1px #e7e7e9"
+                      }
+                    >
+                      <PopoverArrow />
+                      <PopoverBody>
+                        <AppCol p={6} color="#707070">
+                          <AppRow
+                            alignItems="center"
+                            mb={3}
+                            cursor="pointer"
+                            onClick={() => {
+                              history.push(`${PAGES.PROFILE}`);
+                              closeProfileModal();
+                            }}
+                          >
+                            <Icon as={MdPerson} mr={2} />
+                            <Text>Profile</Text>
+                          </AppRow>
+                          <Divider />
+                          <AppRow
+                            alignItems="center"
+                            my={3}
+                            cursor="pointer"
+                            onClick={() => {
+                              history.push(`${PAGES.EDIT_PROFILE}`);
+                              closeProfileModal();
+                            }}
+                          >
+                            <Icon as={MdEdit} mr={2} />
+                            <Text>Edit Profile</Text>
+                          </AppRow>
+                          <Divider />
+                          <AppRow
+                            alignItems="center"
+                            mt={3}
+                            cursor="pointer"
+                            onClick={() => {
+                              history.push(`${PAGES.EDIT_ACCOUNT}`);
+                              closeProfileModal();
+                            }}
+                          >
+                            <Icon as={IoMdSettings} mr={2} />
+                            <Text>Account Setting</Text>
+                          </AppRow>
+
+                          <Text cursor="pointer" mt={7}>
+                            Sign out
+                          </Text>
+                        </AppCol>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </>
+              ) : (
+                <>
+                  <Button
+                    backgroundColor="#ea4c89"
+                    fontWeight="semibold"
+                    fontSize="sm"
+                    px="13px"
+                    ml="1.5em"
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </AppRow>
           )}
           {!isLargeDesktop && (
