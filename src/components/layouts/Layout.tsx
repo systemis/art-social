@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Navigation from "components/layouts/Navigation";
-import { Footer } from "components/layouts/footer";
+import { Footer } from "components/layouts/Footer";
 import { useLocation } from "react-router";
 import { PAGES } from "constants/app";
 
