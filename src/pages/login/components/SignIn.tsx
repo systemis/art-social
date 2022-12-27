@@ -9,12 +9,13 @@ import {
   Heading,
   Image,
   Input,
+  Link,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
+
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import BgSignIn from "assets/images/signin.jpg";

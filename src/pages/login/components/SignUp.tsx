@@ -23,7 +23,6 @@ import "pages/login/style/loginpage.scss";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <Stack
       minH={{ base: "105vh", md: "100vh" }}
