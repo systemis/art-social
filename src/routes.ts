@@ -11,6 +11,7 @@ import SignIn from "pages/login/components/SignIn";
 import SignUp from "pages/login/components/SignUp";
 import CreateProduct from "pages/create-product/page";
 import Profile from "pages/profile/page";
+import {EditProfile} from "pages/edit-profile/pages";
 
 export const routes: BasicRoute[] = [
   {
@@ -56,6 +57,11 @@ export const routes: BasicRoute[] = [
       {
         path: PAGES.PROFILE,
         component: Profile,
+        exact: true,
+      },
+      {
+        path: PAGES.EDIT_PROFILE,
+        component: EditProfile,
         exact: true,
       }
     ],
