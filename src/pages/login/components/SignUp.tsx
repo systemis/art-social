@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
   Box,
   Button,
-  Center,
+  Grid,
+  GridItem,
   Flex,
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Image,
   Input,
   InputGroup,
@@ -16,83 +16,111 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import BgSignUp from "assets/images/signup1.png";
+import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
+import {useHistory} from "react-router-dom";
+import {useForm} from "hooks/useForm";
+import {RegisterDto} from "dto";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "redux/root-store";
+import {register as onRegister} from "redux/apps/auth";
+import {SignUpBackground} from "assets/images";
 import "pages/login/style/loginpage.scss";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const {formState, onSubmit, register, errors} = useForm<RegisterDto>({
+    identityClass: RegisterDto,
+  });
+
+  /**
+   * @dev The function to handle registation.
+   * @param {RegisterDto} dto.
+   */
+  const handleRegister = async (registerDto: RegisterDto) => {
+    setLoading(true);
+    const resAction = await dispatch(onRegister(registerDto));
+    setLoading(false);
+  }
+
   return (
     <Stack
-      minH={{ base: "105vh", md: "100vh" }}
-      direction={{ base: "column", md: "row" }}
+      minH={{base: "105vh", md: "100vh"}}
+      direction={{base: "column", md: "row"}}
     >
-      <Flex flex={{ lg: "0.8" }}>
+      <Flex flex={{lg: "0.8"}}>
         <Image
-          display={{ base: "none", lg: "flex" }}
-          w={{ lg: "100%" }}
+          display={{base: "none", lg: "flex"}}
+          w={{lg: "100%"}}
           alt={"Login Image"}
           objectFit={"cover"}
-          src={BgSignUp}
+          src={SignUpBackground}
         />
       </Flex>
       <Flex
         p={8}
         flex={1}
         align={"center"}
-        lineHeight={{ lg: "30px" }}
+        lineHeight={{lg: "30px"}}
         justify={"center"}
       >
         <Stack spacing={4} w={"full"} maxW={"md"}>
           <Heading fontSize={"3xl"} pb={"10px"}>
             Sign up to Imaginary
           </Heading>
-          <Button
-            w={"90%"}
-            h={{ base: "35px", md: "40px" }}
-            borderRadius={"10px"}
-            bg={"#ff4584"}
-            fontWeight={"500"}
-            letterSpacing={"1px"}
-            _hover={{ bg: "#f53677" }}
-            leftIcon={<FcGoogle />}
-          >
-            <Center>
-              <Text>Sign In with Google</Text>
-            </Center>
-          </Button>
-          <Box className="line-border">Or</Box>
           <Box rounded={"lg"} pt={5}>
             <Stack spacing={4} lineHeight={"20px"}>
-              <HStack spacing={{ base: "3", md: "7" }}>
-                <Box>
-                  <FormControl id="firstName">
-                    <FormLabel color={"#607d8b"}>First Name</FormLabel>
-                    <Input
-                      borderRadius={"20px"}
-                      fontWeight={"500"}
-                      fontSize={"sm"}
-                      type="text"
-                      bg={"gray.200"}
-                      _focus={{ bg: "white", borderColor: "pink.200" }}
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName">
-                    <FormLabel color={"#607d8b"}>Last Name</FormLabel>
-                    <Input
-                      borderRadius={"20px"}
-                      fontWeight={"500"}
-                      fontSize={"sm"}
-                      type="text"
-                      bg={"gray.200"}
-                      _focus={{ bg: "white", borderColor: "pink.200" }}
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
+              <Grid templateColumns='repeat(2, 1fr)' gap={2}>
+                <GridItem w='100%'>
+                  <Box>
+                    <FormControl id="firstName">
+                      <FormLabel color={"#607d8b"}>First Name</FormLabel>
+                      <Input
+                        borderRadius={"20px"}
+                        fontWeight={"500"}
+                        fontSize={"sm"}
+                        type="text"
+                        bg={"gray.200"}
+                        _focus={{bg: "white", borderColor: "pink.200"}}
+                        onChange={e => register("given_name", e.target.value)}
+                        value={formState?.given_name}
+                      />
+                    </FormControl>
+                  </Box>
+                </GridItem>
+                <GridItem w='100%'>
+                  <Box>
+                    <FormControl id="lastName">
+                      <FormLabel color={"#607d8b"}>Last Name</FormLabel>
+                      <Input
+                        borderRadius={"20px"}
+                        fontWeight={"500"}
+                        fontSize={"sm"}
+                        type="text"
+                        bg={"gray.200"}
+                        _focus={{bg: "white", borderColor: "pink.200"}}
+                        onChange={e => register("family_name", e.target.value)}
+                        value={formState?.family_name}
+                      />
+                    </FormControl>
+                  </Box>
+                </GridItem>
+              </Grid>
+              <FormControl id="fullname">
+                <FormLabel color={"#607d8b"}>Full Name</FormLabel>
+                <Input
+                  borderRadius={"20px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  type="email"
+                  bg={"gray.200"}
+                  _focus={{bg: "white", borderColor: "pink.200"}}
+                  onChange={e => register("name", e.target.value)}
+                  value={formState?.name}
+                />
+              </FormControl>
               <FormControl id="email">
                 <FormLabel color={"#607d8b"}>Email address</FormLabel>
                 <Input
@@ -101,7 +129,22 @@ const SignUp = () => {
                   fontSize={"sm"}
                   type="email"
                   bg={"gray.200"}
-                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                  _focus={{bg: "white", borderColor: "pink.200"}}
+                  onChange={e => register("email", e.target.value)}
+                  value={formState?.email}
+                />
+              </FormControl>
+              <FormControl id="username">
+                <FormLabel color={"#607d8b"}>Username</FormLabel>
+                <Input
+                  borderRadius={"20px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  type="email"
+                  bg={"gray.200"}
+                  _focus={{bg: "white", borderColor: "pink.200"}}
+                  onChange={e => register("username", e.target.value)}
+                  value={formState?.username}
                 />
               </FormControl>
               <FormControl id="password">
@@ -114,7 +157,9 @@ const SignUp = () => {
                     placeholder="6+ characters"
                     type={showPassword ? "text" : "password"}
                     bg={"gray.200"}
-                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                    _focus={{bg: "white", borderColor: "pink.200"}}
+                    onChange={e => register("password", e.target.value)}
+                    value={formState?.password}
                   />
                   <InputRightElement h={"full"}>
                     <Button
@@ -128,23 +173,25 @@ const SignUp = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  loadingText="Submitting"
-                  h={{ base: "40px", md: "45px" }}
-                  color={"white"}
-                  borderRadius={"10px"}
-                  bg={"#ff4584"}
-                  fontWeight={"500"}
-                  _hover={{ bg: "#f53677" }}
-                  letterSpacing={"1px"}
-                >
-                  Create Account
-                </Button>
-              </Stack>
+              <Button
+                loadingText="Submitting"
+                color={"white"}
+                borderRadius={"10px"}
+                bg={"#ff4584"}
+                fontWeight={"500"}
+                _hover={{bg: "#f53677"}}
+                letterSpacing={"1px"}
+                paddingX={"20px"}
+                width={"200px"}
+                isLoading={loading}
+                disabled={loading}
+                onClick={() => onSubmit(handleRegister)}
+              >
+                Create Account
+              </Button>
               <Stack pt={6}>
-                <Text align={"center"}>
-                  Already a member? <Link color={"#4f3cc9"}>Sign In</Link>
+                <Text align={"left"}>
+                  Already a member? <Link color={"#4f3cc9"} onClick={() => history.push("/signin")}>Sign In</Link>
                 </Text>
               </Stack>
             </Stack>

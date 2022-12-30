@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { AppRow } from "components/elements";
 import AppUploadFile, {
@@ -5,10 +6,9 @@ import AppUploadFile, {
 } from "components/elements/AppUploadFile";
 import { ENDPOINT } from "constants/endpoints";
 import { UPLOAD_IMAGE_TYPES } from "constants/upload";
-import React from "react";
 import {useHistory} from "react-router-dom";
 
-const CreateProduct = () => {
+const CreateProduct: React.FC = () => {
   const history = useHistory();
   return (
     <Box>

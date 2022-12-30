@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import qs from "qs";
-import { getStorageProvider } from "./";
+import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
+import { StorageProvider } from "./storage.provider";
 
 export type RequestConfig = AxiosRequestConfig;
 
@@ -10,7 +10,7 @@ export class NetworkProvider {
    * @dev
    * Base api url located in evn file
    */
-  private BASE_URL = process.env.API_URL;
+  private BASE_URL = "https://afternoon-gorge-11599.herokuapp.com";
 
   /**
    * Default network options
@@ -31,7 +31,7 @@ export class NetworkProvider {
    * Initilize mode
    */
   constructor() {
-    this.storageProvider = getStorageProvider();
+    this.storageProvider = new StorageProvider();
   }
 
   /**

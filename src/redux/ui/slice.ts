@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface RequestState {
   firstPage?: boolean;
@@ -6,10 +6,10 @@ interface RequestState {
   error?: string | null;
   errCode?: string | number | undefined;
   contexts?:
-    | {
-        [key: string]: any;
-      }
-    | undefined;
+  | {
+    [key: string]: any;
+  }
+  | undefined;
 }
 
 interface InitialState {
@@ -44,22 +44,22 @@ const ui = createSlice({
       state,
       {
         payload,
-      }: PayloadAction<{ type?: "error" | "success"; message: string }>
+      }: PayloadAction<{type?: "error" | "success"; message: string}>
     ) {
-      const { type = "success", message } = payload;
+      const {type = "success", message} = payload;
       state.messages[type] = message;
     },
-    setMenuHeight(state, { payload }: PayloadAction<{ height: number }>) {
-      const { height } = payload;
+    setMenuHeight(state, {payload}: PayloadAction<{height: number}>) {
+      const {height} = payload;
       state.menu.height = height;
     },
-    showMobileMenu(state, { payload }: PayloadAction<{ value: boolean }>) {
-      const { value } = payload;
+    showMobileMenu(state, {payload}: PayloadAction<{value: boolean}>) {
+      const {value} = payload;
       state.menu.isShowMobileMenu = value;
     },
   },
 });
 
-export const { notify, setMenuHeight, showMobileMenu } = ui.actions;
+export const {notify, setMenuHeight, showMobileMenu} = ui.actions;
 
 export default ui.reducer;
