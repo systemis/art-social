@@ -60,7 +60,7 @@ export class NetworkProvider {
     }).catch((e) => e.response);
 
     if (!resp || resp?.status >= 400) {
-      throw new Error(`Error when request server, ${resp.statusText}`);
+      throw new Error(JSON.stringify(resp));
     }
 
     let jsonData = resp.data;

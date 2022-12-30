@@ -1,10 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AppDispatch} from "redux/root-store";
-import { RegisterDto, LoginDto } from "../../dto";
-import { getNetworkProvider } from "../../providers";
+import {RegisterDto, LoginDto} from "dto";
+import {getNetworkProvider, getStorageProvider} from "providers";
+import {LoginEntity} from "entity/login.entity";
 
 /** @dev Init providers */
 const networkProvider = getNetworkProvider();
+const storageProvider = getStorageProvider();
 
 /**
  * @dev The function to produce registation user with API.
@@ -39,14 +41,21 @@ export const login = createAsyncThunk<
   {dispatch: AppDispatch}
 >(
   "file/upload",
-  async (registerDto, {rejectWithValue}) => {
+  async (loginDto, {rejectWithValue}) => {
     try {
-      await networkProvider.request("/auth/login", {
+      const response = await networkProvider.request<LoginEntity>("/auth/login", {
         method: "POST",
-        data: registerDto
+        data: loginDto
       });
-    } catch (e) {
-      return rejectWithValue({errMsg: "Register user failed"});
+      
+      /**
+       * @dev Stroage credentails.
+       */
+      storageProvider.setItem("access_token", response?.access_token);
+      storageProvider.setItem("id_token", response?.id_token);
+    } catch (e: any) {
+      const error = JSON.parse(e?.message as string);
+      return rejectWithValue({errMsg: error?.data?.data?.error_description});
     }
   }
 );

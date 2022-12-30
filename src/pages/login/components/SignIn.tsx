@@ -16,24 +16,44 @@ import {
 } from "@chakra-ui/react";
 import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 import {useHistory} from "react-router-dom";
-import {useForm} from "react-hook-form";
-import {RegisterDto} from "dto";
+import {useForm} from "hooks/useForm";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "redux/root-store";
+import {LoginDto} from "dto";
+import {login} from "redux/apps/auth";
 import {SingInBackground} from "assets/images";
 import "pages/login/style/loginpage.scss";
 
 const SignIn: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const {
+    formState,
     register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm<RegisterDto>();
+    onSubmit,
+    errors
+  } = useForm<LoginDto>({identityClass: LoginDto});
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
 
+  /**
+   * @fetch The function to handle signing to API.
+   * @param {LoginDto} loginDto
+   */
+  const handleLogin = async (loginDto: LoginDto) => {
+    try {
+      setLoading(true);
+      await dispatch(login(loginDto));
+      setLoading(false);
+      history.push("/")
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <Stack
-      minH={{base: "95vh", md: "100vh"}}
+      minH={{base: "95vh", md: "75vh"}}
       direction={{base: "column", md: "row"}}
     >
       <Flex flex={{lg: "0.8"}}>
@@ -60,7 +80,7 @@ const SignIn: React.FC = () => {
           <Box rounded={"lg"} pt={5}>
             <Stack spacing={4} lineHeight={"20px"}>
               <FormControl id="email">
-                <FormLabel color={"#607d8b"}>Email address</FormLabel>
+                <FormLabel color={"#607d8b"}>Username</FormLabel>
                 <Input
                   borderRadius={"20px"}
                   fontWeight={"500"}
@@ -68,7 +88,10 @@ const SignIn: React.FC = () => {
                   type="email"
                   bg={"gray.200"}
                   _focus={{bg: "white", borderColor: "pink.200"}}
+                  onChange={e => register("username", e.target.value)}
+                  value={formState?.username || ""}
                 />
+                {errors?.username && <Text color="red.300" fontSize={10}>{errors.username}</Text>}
               </FormControl>
               <FormControl id="password">
                 <FormLabel color={"#607d8b"}>Password</FormLabel>
@@ -81,7 +104,10 @@ const SignIn: React.FC = () => {
                     type={showPassword ? "text" : "password"}
                     bg={"gray.200"}
                     _focus={{bg: "white", borderColor: "pink.200"}}
+                    onChange={e => register("password", e.target.value)}
+                    value={formState?.password || ""}
                   />
+                  {errors?.password && <Text color="red.300" fontSize={10}>{errors.password}</Text>}
                   <InputRightElement h={"full"}>
                     <Button
                       variant={"ghost"}
@@ -104,6 +130,8 @@ const SignIn: React.FC = () => {
                 letterSpacing={"1px"}
                 paddingX={"20px"}
                 width={"200px"}
+                isLoading={loading}
+                onClick={() => onSubmit(handleLogin)}
               >
                 Sign In
               </Button>

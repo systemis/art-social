@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { validateSync } from "class-validator";
-import { plainToInstance } from "class-transformer";
+import {useState} from "react";
+import {validateSync} from "class-validator";
+import {plainToInstance} from "class-transformer";
 import "reflect-metadata";
 
 interface UseFormContext<T> {
@@ -21,7 +21,7 @@ interface UseFormContext<T> {
    * @dev Contains all the errors of each field if having.
    * @var {Object}
    */
-  errors: { [key in keyof T]: string };
+  errors: {[key in keyof T]: string};
 
   /**
    * @dev State of the form.
@@ -41,7 +41,7 @@ export const useForm = <IState>(props: {
   /**
    * @dev Storage errors of the state
    */
-  const [errors, setErros] = useState<{ [key in keyof IState]: string }>();
+  const [errors, setErros] = useState<{[key in keyof IState]: string}>();
 
   /**
    * @dev This varriable to check if form caught errors when submit
@@ -74,13 +74,13 @@ export const useForm = <IState>(props: {
        * @dev Loop in errors array which found before and get each error info with key
        */
       validateErros.forEach((item) => {
-        const { property, constraints } = item;
+        const {property, constraints} = item;
         immutable[property] = Object.keys(constraints)
           .map((key) => constraints[key])
           .join(", ");
       });
 
-      return immutable as { [key in keyof IState]: string };
+      return immutable as {[key in keyof IState]: string};
     });
 
     return validateErros;
@@ -112,6 +112,8 @@ export const useForm = <IState>(props: {
    */
   const onSubmit = async (callback: (data: IState) => void) => {
     try {
+      console.log(formState);
+
       /** @dev Update status */
       !submmited && setSubmmited(true);
 
@@ -123,10 +125,8 @@ export const useForm = <IState>(props: {
 
       /** @dev Produce callback function if validate successfully with no errors */
       callback(formState);
-    } catch {}
+    } catch { }
   };
-
-  console.log(errors);
 
   return {
     register,

@@ -40,14 +40,17 @@ const SignUp: React.FC = () => {
    * @param {RegisterDto} dto.
    */
   const handleRegister = async (registerDto: RegisterDto) => {
-    setLoading(true);
-    const resAction = await dispatch(onRegister(registerDto));
-    setLoading(false);
+    try {
+      setLoading(true);
+      await dispatch(onRegister(registerDto));
+      setLoading(false);
+      history.push("/signin");
+    } catch {}
   }
 
   return (
     <Stack
-      minH={{base: "105vh", md: "100vh"}}
+      minH={{base: "105vh", md: "75vh"}}
       direction={{base: "column", md: "row"}}
     >
       <Flex flex={{lg: "0.8"}}>
@@ -87,6 +90,7 @@ const SignUp: React.FC = () => {
                         onChange={e => register("given_name", e.target.value)}
                         value={formState?.given_name}
                       />
+                      {errors?.given_name && <Text color="red.300" fontSize={10}>{errors.given_name}</Text>}
                     </FormControl>
                   </Box>
                 </GridItem>
@@ -104,6 +108,7 @@ const SignUp: React.FC = () => {
                         onChange={e => register("family_name", e.target.value)}
                         value={formState?.family_name}
                       />
+                      {errors?.family_name && <Text color="red.300" fontSize={10}>{errors.family_name}</Text>}
                     </FormControl>
                   </Box>
                 </GridItem>
@@ -120,6 +125,7 @@ const SignUp: React.FC = () => {
                   onChange={e => register("name", e.target.value)}
                   value={formState?.name}
                 />
+                {errors?.name && <Text color="red.300" fontSize={10}>{errors.name}</Text>}
               </FormControl>
               <FormControl id="email">
                 <FormLabel color={"#607d8b"}>Email address</FormLabel>
@@ -133,6 +139,7 @@ const SignUp: React.FC = () => {
                   onChange={e => register("email", e.target.value)}
                   value={formState?.email}
                 />
+                {errors?.email && <Text color="red.300" fontSize={10}>{errors.email}</Text>}
               </FormControl>
               <FormControl id="username">
                 <FormLabel color={"#607d8b"}>Username</FormLabel>
@@ -146,6 +153,7 @@ const SignUp: React.FC = () => {
                   onChange={e => register("username", e.target.value)}
                   value={formState?.username}
                 />
+                {errors?.username && <Text color="red.300" fontSize={10}>{errors.username}</Text>}
               </FormControl>
               <FormControl id="password">
                 <FormLabel color={"#607d8b"}>Password</FormLabel>
@@ -161,6 +169,7 @@ const SignUp: React.FC = () => {
                     onChange={e => register("password", e.target.value)}
                     value={formState?.password}
                   />
+                  {errors?.password && <Text color="red.300" fontSize={10}>{errors.password}</Text>}
                   <InputRightElement h={"full"}>
                     <Button
                       variant={"ghost"}
