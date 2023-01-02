@@ -65,6 +65,7 @@ export const MobileNavigation = memo(() => {
                 history.push(`${PAGES.CREATE_PRODUCT}`);
                 closeDrawer();
               }}
+              cursor="pointer"
             >
               UPLOAD
             </Text>

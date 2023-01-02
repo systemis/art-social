@@ -63,7 +63,7 @@ export class NetworkProvider {
       throw new Error(JSON.stringify(resp));
     }
 
-    let jsonData = resp.data;
+    let jsonData = resp.data?.data;
     try {
       jsonData = JSON.parse(resp.data);
     } catch {}
@@ -82,8 +82,9 @@ export class NetworkProvider {
     url: string,
     requestConfig: RequestConfig
   ): Promise<RequestResponse> {
-    const credential = this.storageProvider.getItem("hAccessToken");
-    if (!credential) {
+    const credential = this.storageProvider.getItem("access_token");
+    const idToken = this.storageProvider.getItem("id_token");
+    if (!credential || !idToken) {
       return null;
     }
     const options = Object.assign({}, requestConfig);
@@ -91,6 +92,11 @@ export class NetworkProvider {
       ...options.headers,
       Authorization: `Bearer ${credential}`,
     };
+    options.params = Object.assign(requestConfig.data || {},
+      {id_token: idToken},
+    )
+    console.log(options.data);
+    console.log(idToken);
     return this.request<RequestResponse>(url, options);
   }
 }

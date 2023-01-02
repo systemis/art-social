@@ -33,6 +33,8 @@ import { RootState } from "redux/root-reducer";
 import { AppDispatch } from "redux/root-store";
 import { showMobileMenu } from "redux/ui/slice";
 import { routes } from "routes";
+import { logout } from "redux/apps/auth";
+import { useMain } from "hooks/useMain";
 
 export const renderMenuItems = (
   item: BasicRoute,
@@ -188,11 +190,13 @@ const Navigation = () => {
   });
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
-  const isSignedIn = true;
   const history = useHistory();
   const [isProfileModalOpen, setIsProfileModalOpen] = React.useState(false);
   const openProfileModal = () => setIsProfileModalOpen(!isProfileModalOpen);
   const closeProfileModal = () => setIsProfileModalOpen(false);
+  const { isAuth } = useMain();
+
+  console.log(isAuth);
 
   useEffect(() => {
     document.addEventListener("keydown", handleSearchKey, true);
@@ -308,7 +312,7 @@ const Navigation = () => {
               {routes.map((item) => {
                 return renderMenuItems(item);
               })}
-              {isSignedIn ? (
+              {isAuth ? (
                 <>
                   <Icon
                     as={HiPlus}
@@ -383,7 +387,13 @@ const Navigation = () => {
                             <Text>Account Setting</Text>
                           </AppRow>
 
-                          <Text cursor="pointer" mt={7}>
+                          <Text
+                            cursor="pointer"
+                            mt={7}
+                            onClick={() => {
+                              logout;
+                            }}
+                          >
                             Sign out
                           </Text>
                         </AppCol>
@@ -399,6 +409,7 @@ const Navigation = () => {
                     fontSize="sm"
                     px="13px"
                     ml="1.5em"
+                    onClick={() => history.push("/signin")}
                   >
                     Sign Up
                   </Button>

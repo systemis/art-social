@@ -59,3 +59,33 @@ export const login = createAsyncThunk<
     }
   }
 );
+
+
+/**
+ * @dev The function to produce authenticating user by credential with API.
+ * @type {createAsyncThunk}
+ */
+export const logout = createAsyncThunk<
+  {accessUrl: string},
+  LoginDto,
+  {dispatch: AppDispatch}
+>(
+  "file/upload",
+  async (loginDto, {rejectWithValue}) => {
+    try {
+      const response = await networkProvider.request<LoginEntity>("/auth/login", {
+        method: "POST",
+        data: loginDto
+      });
+      
+      /**
+       * @dev Stroage credentails.
+       */
+      storageProvider.removeItem("access_token");
+      storageProvider.removeItem("id_token");
+    } catch (e: any) {
+      const error = JSON.parse(e?.message as string);
+      return rejectWithValue({errMsg: error?.data?.data?.error_description});
+    }
+  }
+);
