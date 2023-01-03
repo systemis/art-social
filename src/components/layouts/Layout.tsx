@@ -11,13 +11,14 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const location = useLocation();
+  const isUploadPage = location.pathname === '/create/new' ? true : false
 
   return (
     <div>
       {location.pathname !== PAGES.SIGNIN &&
         location.pathname !== PAGES.SIGNUP && <Navigation />}
       <Box>{children}</Box>
-      <Footer />
+      {!isUploadPage && <Footer />}
     </div>
   );
 };

@@ -1,9 +1,34 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
-import { LIST_PRODUCTS } from "constants/designs";
+import React, { useEffect, useState } from "react";
 import DesignCard from "components/shared/DesignCard";
+import { networkProvider } from "providers/network.provider";
+import { ProductEntity } from "entity/product.entity";
+
+interface ProductProps {
+  _id: string;
+  name: string;
+  description: string;
+  gallery: string[];
+  tags: string[];
+}
 
 export const ListProduct = () => {
+  const [products, setProducts] = useState<any>();
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const response = await networkProvider.request<ProductEntity>("/products", {
+      method: "GET",
+    });
+    setProducts(response);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Box
       position={"relative"}
@@ -12,8 +37,8 @@ export const ListProduct = () => {
       justifyContent={"center"}
       mt="7vh"
     >
-      {LIST_PRODUCTS.slice(0, 3).map((listProduct) => {
-        return <DesignCard key={listProduct.title} listProduct={listProduct} />;
+      {products?.slice(0, 3).map((product: ProductProps) => {
+        return <DesignCard key={product._id} listProduct={product} />;
       })}
     </Box>
   );
