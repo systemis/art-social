@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { AppRow } from "components/elements";
 import AppUploadFile, {
@@ -7,9 +7,49 @@ import AppUploadFile, {
 import { ENDPOINT } from "constants/endpoints";
 import { UPLOAD_IMAGE_TYPES } from "constants/upload";
 import {useHistory} from "react-router-dom";
+import axios from "axios";
+import {getStorageProvider} from "providers";
+import {PAGES} from "constants/app";
 
 const CreateProduct: React.FC = () => {
   const history = useHistory();
+  const gallery: string[] = []
+  const [productName, setProductName] = useState("");
+  const [productDesc, setProductDesc] = useState("");
+  const storageProvider = getStorageProvider();
+  const id_token = storageProvider.getItem("id_token")
+  const access_token = storageProvider.getItem("access_token")
+  let productId = ""
+
+  const handleOnSuccessUpload = (files: UploadResponse[]) => {
+    files.map((file) => {
+      gallery.push(file.accessUrl)
+    })
+  }
+
+  const createProductParams = {
+    name: productName,
+    description: productDesc,
+    gallery: gallery,
+    projectId: "",
+    tags: "",
+  }
+
+  const handleUploadProduct = async () => {
+    try {
+      const response = await axios.post(`https://afternoon-gorge-11599.herokuapp.com/api/product`, {
+        ...createProductParams,
+        id_token,
+      }, {
+        headers: { Authorization: `Bearer ${access_token}` }
+      });
+      productId = response?.data?.data?._id;
+      history.push(PAGES.EXPLORE)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <Box>
       <Box
@@ -47,6 +87,7 @@ const CreateProduct: React.FC = () => {
           fontSize="sm"
           px="14px"
           ml="1.5em"
+          onClick={handleUploadProduct}
         >
           Continue
         </Button>
@@ -61,12 +102,13 @@ const CreateProduct: React.FC = () => {
           marginTop="1em"
           w="60vw"
           fontSize="3xl"
+          onChange={({target}) => setProductName(target.value)}
         />
         <AppUploadFile
           type={UPLOAD_IMAGE_TYPES.DESIGN_IMAGE}
           onSuccess={(files: UploadResponse[]) => {
             // We gonna save data here
-            console.log(files);
+            handleOnSuccessUpload(files);
           }}
           acceptType={["IMAGE"]}
           endpoint={ENDPOINT.FILE_UPLOAD}
@@ -79,6 +121,7 @@ const CreateProduct: React.FC = () => {
           marginTop="2em"
           w="60vw"
           fontSize="xl"
+          onChange={({target}) => setProductDesc(target.value)}
         />
       </Box>
     </Box>

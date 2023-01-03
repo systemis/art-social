@@ -16,9 +16,10 @@ import { AiFillHeart, AiFillFolderAdd } from "react-icons/ai";
 import {useHistory} from "react-router-dom";
 
 interface ProductProps {
-  title: string;
-  text: string;
-  image: string;
+  name: string;
+  description: string;
+  gallery: string[];
+  tags: string[];
 }
 
 interface Product {
@@ -50,7 +51,7 @@ const DesignCard = ({ listProduct }: Product) => {
       <Center flexDirection="column">
         <Box position="relative" data-group>
           <Image
-            src={listProduct.image}
+            src={listProduct.gallery[0]}
             alt=""
             height="220px"
             objectFit="cover"
@@ -65,7 +66,7 @@ const DesignCard = ({ listProduct }: Product) => {
           transition="all 0.3s ease"
           _groupHover={{
             background:
-              "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(115,115,115,0) 100%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(0deg, rgba(112,112,112,1) 0%, rgba(115,115,115,0) 100%, rgba(255,255,255,0) 50%)",
           }}
           h="20%"
         >
@@ -79,7 +80,7 @@ const DesignCard = ({ listProduct }: Product) => {
           >
             <Box float={"left"}>
               <Text fontSize={"16px"} fontWeight="900" color={"white"}>
-                {listProduct.title}
+                {listProduct.name}
               </Text>
             </Box>
 
@@ -154,7 +155,7 @@ const DesignCard = ({ listProduct }: Product) => {
           />
           <Box pt={"3px"} float={"left"} ml="3">
             <Link _hover={{ textDecoration: "none" }} fontSize="sm" fontWeight="bold">
-              {listProduct.title}
+              {listProduct.name}
             </Link>
           </Box>
         </Flex>

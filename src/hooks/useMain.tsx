@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import { AppDispatch } from "redux/root-store";
 import { useDispatch } from "react-redux";
 import { getProfile } from "redux/apps/user";
+import { setUserInfo } from "redux/apps/slice";
 
 export interface MainContextState {
   isAuth: boolean;
@@ -25,9 +26,11 @@ export const MainProvider: FC<{ children: ReactNode }> = (props) => {
 
   const handleGetProfile = useCallback(async () => {
     try {
-      await dispatch(getProfile());
-      console.log("Get profile work");
-      setIsAuth(true);
+      const res = await getProfile();
+      if (res) {
+        dispatch(setUserInfo(res))
+        setIsAuth(true);
+      }
     } catch {
       setIsAuth(false);
     }

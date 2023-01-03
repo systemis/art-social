@@ -185,6 +185,7 @@ const Navigation = () => {
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
   });
+  const currentUser = useSelector((state: RootState) => state.apps.userInfo) || false;
   const [isLargeDesktop] = useMediaQuery(`(min-width: ${QUERY_LG_DESKTOP})`, {
     ssr: false,
   });
@@ -194,9 +195,7 @@ const Navigation = () => {
   const [isProfileModalOpen, setIsProfileModalOpen] = React.useState(false);
   const openProfileModal = () => setIsProfileModalOpen(!isProfileModalOpen);
   const closeProfileModal = () => setIsProfileModalOpen(false);
-  const { isAuth } = useMain();
-
-  console.log(isAuth);
+  const {isAuth} = useMain();
 
   useEffect(() => {
     document.addEventListener("keydown", handleSearchKey, true);
@@ -209,6 +208,15 @@ const Navigation = () => {
       inputRef.current.focus();
     }
   };
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout())
+      history.go(0)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     window.onscroll = () => {
@@ -331,7 +339,7 @@ const Navigation = () => {
                         <AppAvatar
                           w="40px"
                           h="40px"
-                          src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/04/p2.jpg"
+                          src={currentUser.picture}
                         />
                       </Button>
                     </PopoverTrigger>
@@ -390,9 +398,7 @@ const Navigation = () => {
                           <Text
                             cursor="pointer"
                             mt={7}
-                            onClick={() => {
-                              logout;
-                            }}
+                            onClick={handleLogout}
                           >
                             Sign out
                           </Text>

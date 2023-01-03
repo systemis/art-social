@@ -3,10 +3,14 @@ import { AppCol, AppRow } from "components/elements";
 import { AppTitle } from "components/elements/AppTitle";
 import { PAGES } from "constants/app";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { RootState } from "redux/root-reducer";
 
 const BasicInfo = () => {
   const history = useHistory();
+  const currentUser =
+    useSelector((state: RootState) => state.apps.userInfo) || false;
   return (
     <Box
       pt="170px"
@@ -15,14 +19,14 @@ const BasicInfo = () => {
       <Center>
         <AppRow>
           <Image
-            src="https://cdn.sforum.vn/sforum/wp-content/uploads/2022/04/p2.jpg"
+            src={currentUser.picture}
             w="150px"
             h="150px"
             borderRadius="50%"
             objectFit="cover"
           />
           <AppCol align="flex-start" ml="2.7em">
-            <AppTitle fontSize="40px">Harry</AppTitle>
+            <AppTitle fontSize="40px">{currentUser.username}</AppTitle>
             <Text mb="1.2em">Vietnam</Text>
             <Button
               fontWeight="500"

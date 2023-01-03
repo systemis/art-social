@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -14,24 +14,21 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import {AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
-import {useHistory} from "react-router-dom";
-import {useForm} from "hooks/useForm";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "redux/root-store";
-import {LoginDto} from "dto";
-import {login} from "redux/apps/auth";
-import {SingInBackground} from "assets/images";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
+import { useForm } from "hooks/useForm";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "redux/root-store";
+import { LoginDto } from "dto";
+import { userLogin } from "redux/apps/auth";
+import { SingInBackground } from "assets/images";
 import "pages/login/style/loginpage.scss";
 
 const SignIn: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const {
-    formState,
-    register,
-    onSubmit,
-    errors
-  } = useForm<LoginDto>({identityClass: LoginDto});
+  const { formState, register, onSubmit, errors } = useForm<LoginDto>({
+    identityClass: LoginDto,
+  });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
@@ -43,23 +40,23 @@ const SignIn: React.FC = () => {
   const handleLogin = async (loginDto: LoginDto) => {
     try {
       setLoading(true);
-      await dispatch(login(loginDto));
+      await dispatch(userLogin(loginDto));
       setLoading(false);
-      history.push("/")
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <Stack
-      minH={{base: "95vh", md: "75vh"}}
-      direction={{base: "column", md: "row"}}
+      minH={{ base: "95vh", md: "75vh" }}
+      direction={{ base: "column", md: "row" }}
     >
-      <Flex flex={{lg: "0.8"}}>
+      <Flex flex={{ lg: "0.8" }}>
         <Image
-          display={{base: "none", lg: "flex"}}
-          w={{lg: "100%"}}
+          display={{ base: "none", lg: "flex" }}
+          w={{ lg: "100%" }}
           alt={"Login Image"}
           objectFit={"cover"}
           objectPosition={"0"}
@@ -70,11 +67,11 @@ const SignIn: React.FC = () => {
         p={8}
         flex={1}
         align={"center"}
-        lineHeight={{lg: "30px"}}
+        lineHeight={{ lg: "30px" }}
         justify={"center"}
       >
         <Stack spacing={4} w={"full"} maxW={"md"}>
-          <Heading fontSize={{base: "2xl", md: "3xl"}} pb={"10px"}>
+          <Heading fontSize={{ base: "2xl", md: "3xl" }} pb={"10px"}>
             Sign in to Imaginary
           </Heading>
           <Box rounded={"lg"} pt={5}>
@@ -87,11 +84,15 @@ const SignIn: React.FC = () => {
                   fontSize={"sm"}
                   type="email"
                   bg={"gray.200"}
-                  _focus={{bg: "white", borderColor: "pink.200"}}
-                  onChange={e => register("username", e.target.value)}
+                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                  onChange={(e) => register("username", e.target.value)}
                   value={formState?.username || ""}
                 />
-                {errors?.username && <Text color="red.300" fontSize={10}>{errors.username}</Text>}
+                {errors?.username && (
+                  <Text color="red.300" fontSize={10}>
+                    {errors.username}
+                  </Text>
+                )}
               </FormControl>
               <FormControl id="password">
                 <FormLabel color={"#607d8b"}>Password</FormLabel>
@@ -103,11 +104,15 @@ const SignIn: React.FC = () => {
                     placeholder="6+ characters"
                     type={showPassword ? "text" : "password"}
                     bg={"gray.200"}
-                    _focus={{bg: "white", borderColor: "pink.200"}}
-                    onChange={e => register("password", e.target.value)}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                    onChange={(e) => register("password", e.target.value)}
                     value={formState?.password || ""}
                   />
-                  {errors?.password && <Text color="red.300" fontSize={10}>{errors.password}</Text>}
+                  {errors?.password && (
+                    <Text color="red.300" fontSize={10}>
+                      {errors.password}
+                    </Text>
+                  )}
                   <InputRightElement h={"full"}>
                     <Button
                       variant={"ghost"}
@@ -126,7 +131,7 @@ const SignIn: React.FC = () => {
                 borderRadius={"10px"}
                 bg={"#ff4584"}
                 fontWeight={"500"}
-                _hover={{bg: "#f53677"}}
+                _hover={{ bg: "#f53677" }}
                 letterSpacing={"1px"}
                 paddingX={"20px"}
                 width={"200px"}
@@ -137,7 +142,13 @@ const SignIn: React.FC = () => {
               </Button>
               <Stack pt={6}>
                 <Text align={"left"}>
-                  Not a member? <Link color={"#4f3cc9"} onClick={() => history.push("/signup")}>Sign up now</Link>
+                  Not a member?{" "}
+                  <Link
+                    color={"#4f3cc9"}
+                    onClick={() => history.push("/signup")}
+                  >
+                    Sign up now
+                  </Link>
                 </Text>
               </Stack>
             </Stack>

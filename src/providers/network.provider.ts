@@ -1,6 +1,7 @@
 import qs from "qs";
 import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import { StorageProvider } from "./storage.provider";
+import { appConfig } from "config";
 
 export type RequestConfig = AxiosRequestConfig;
 
@@ -10,7 +11,7 @@ export class NetworkProvider {
    * @dev
    * Base api url located in evn file
    */
-  private BASE_URL = "https://afternoon-gorge-11599.herokuapp.com";
+  private BASE_URL = appConfig.api.url;
 
   /**
    * Default network options
@@ -92,9 +93,9 @@ export class NetworkProvider {
       ...options.headers,
       Authorization: `Bearer ${credential}`,
     };
-    options.params = Object.assign(requestConfig.data || {},
-      {id_token: idToken},
-    )
+    options.params = Object.assign(requestConfig.data || {}, {
+      id_token: idToken,
+    });
     console.log(options.data);
     console.log(idToken);
     return this.request<RequestResponse>(url, options);

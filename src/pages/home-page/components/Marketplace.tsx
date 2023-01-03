@@ -55,9 +55,6 @@ const DesignCarouse = () => {
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
       </Slider>
     </Box>
   );

@@ -12,13 +12,9 @@ const storageProvider = getStorageProvider();
  * @dev The function to produce registation user with API.
  * @type {createAsyncThunk}
  */
-export const register = createAsyncThunk<
-  {accessUrl: string},
-  RegisterDto,
-  {dispatch: AppDispatch}
->(
-  "file/upload",
-  async (registerDto, {rejectWithValue}) => {
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (registerDto: RegisterDto, {rejectWithValue}) => {
     try {
       await networkProvider.request("/auth/register", {
         method: "POST",
@@ -35,13 +31,9 @@ export const register = createAsyncThunk<
  * @dev The function to produce authenticating user by credential with API.
  * @type {createAsyncThunk}
  */
-export const login = createAsyncThunk<
-  {accessUrl: string},
-  LoginDto,
-  {dispatch: AppDispatch}
->(
-  "file/upload",
-  async (loginDto, {rejectWithValue}) => {
+export const userLogin = createAsyncThunk(
+  "auth/login",
+  async (loginDto: LoginDto, {rejectWithValue}) => {
     try {
       const response = await networkProvider.request<LoginEntity>("/auth/login", {
         method: "POST",
@@ -53,6 +45,8 @@ export const login = createAsyncThunk<
        */
       storageProvider.setItem("access_token", response?.access_token);
       storageProvider.setItem("id_token", response?.id_token);
+
+      return {access_token: response?.access_token, id_token: response?.id_token}
     } catch (e: any) {
       const error = JSON.parse(e?.message as string);
       return rejectWithValue({errMsg: error?.data?.data?.error_description});
@@ -65,19 +59,10 @@ export const login = createAsyncThunk<
  * @dev The function to produce authenticating user by credential with API.
  * @type {createAsyncThunk}
  */
-export const logout = createAsyncThunk<
-  {accessUrl: string},
-  LoginDto,
-  {dispatch: AppDispatch}
->(
-  "file/upload",
-  async (loginDto, {rejectWithValue}) => {
+export const logout = createAsyncThunk(
+  "user/logout",
+  async () => {
     try {
-      const response = await networkProvider.request<LoginEntity>("/auth/login", {
-        method: "POST",
-        data: loginDto
-      });
-      
       /**
        * @dev Stroage credentails.
        */
@@ -85,7 +70,6 @@ export const logout = createAsyncThunk<
       storageProvider.removeItem("id_token");
     } catch (e: any) {
       const error = JSON.parse(e?.message as string);
-      return rejectWithValue({errMsg: error?.data?.data?.error_description});
     }
   }
 );
