@@ -5,9 +5,21 @@ import {
   Button,
   Center,
   Flex,
+  Tabs,
+  Tab,
+  InputGroup,
+  Input,
+  FormLabel,
+  FormControl,
+  Badge,
+  Stack,
+  TabList,
+  TabPanels,
+  TabPanel,
   Link,
   Text,
   useToast,
+  Highlight,
 } from "@chakra-ui/react";
 import { BsSuitHeartFill } from "react-icons/bs";
 
@@ -23,8 +35,9 @@ export const UserHeader = () => {
       }}
       pt={{ base: "30px" }}
     >
-      <Flex justify={"center"}>
+      <Flex mt={"25px"} justify={"center"}>
         <Box
+          display={"flex"}
           w={{
             base: "100%",
             sm: "60%",
@@ -48,12 +61,12 @@ export const UserHeader = () => {
             <Text cursor={"pointer"} fontSize="18px" fontWeight="bold">
               Segun Adebayo
             </Text>
-            <Text cursor={"pointer"} fontSize="sm">
+            <Text cursor={"pointer"} fontSize="sm" w={""}>
               <Text>Update your username and manage your account</Text>
             </Text>
           </Box>
         </Box>
-        <Box flex={{ base: 1, md: 0 }} display={"flex"} letterSpacing={1}>
+        <Box flex={{ base: "none", md: 0 }} display={"flex"} letterSpacing={1}>
           <Button
             float={"left"}
             mx={{ md: "10px" }}
@@ -65,16 +78,32 @@ export const UserHeader = () => {
             color={"black"}
             border={"1px solid #dcdcdc"}
             _hover={{
-              bg: "#c0c0c0",
+              bgGradient: "linear(to-r,red.500, yellow.500)",
               borderColor: "#d3d3d3",
+              color: "white",
             }}
           >
             <Center>
-              <Box justifyContent={"center"} float={"left"} lineHeight={"7"}>
-                <Text fontWeight="900" fontSize={"18px"}>
-                  Go Pro
+              <Box
+                justifyContent={"center"}
+                float={"left"}
+                fontSize={"16px"}
+                lineHeight={"7"}
+                _hover={{ color: "white" }}
+              >
+                <Text fontWeight="600" _hover={{ color: "White" }}>
+                  Go
+                  <Highlight
+                    query="Pro"
+                    styles={{
+                      px: "1",
+                      color: "pink.500",
+                    }}
+                  >
+                    Pro
+                  </Highlight>
                 </Text>
-                <Text fontSize={"12px"}>
+                <Text fontSize={"12px"} fontWeight={"400"}>
                   Add power features for just $5/month
                 </Text>
               </Box>
