@@ -30,8 +30,10 @@ export const EditContent = () => {
       <TabList flexDirection={"column"} mx={"auto"}>
         <Tab> General</Tab>
         <Tab>Edit Profile</Tab>
+        <Tab>PassWord</Tab>
       </TabList>
       <TabPanels flex={"0.8"}>
+        {/* General */}
         <TabPanel>
           <Box pt={5}>
             <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
@@ -91,12 +93,19 @@ export const EditContent = () => {
                 the site.
               </Highlight>
               <br />
-              <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink"}>
+              <Button
+                mt={"15px"}
+                fontWeight={"500"}
+                size={"md"}
+                bg={"pink.400"}
+              >
                 Save Changes
               </Button>
             </Box>
           </Box>
         </TabPanel>
+
+        {/* Edit Profile */}
         <TabPanel>
           <Flex>
             <Box
@@ -114,9 +123,14 @@ export const EditContent = () => {
                 src="https://bit.ly/sage-adebayo"
               />
             </Box>
-            <Box flex={{ base: 1, md: 0 }} display={"flex"} letterSpacing={1}>
+            <Box
+              flex={{ base: 1, md: 0 }}
+              display={"flex"}
+              alignItems={"center"}
+              letterSpacing={1}
+            >
               <Button
-                w={{ md: "90px" }}
+                w={{ md: "200px" }}
                 float={"left"}
                 display={{ base: "none", md: "inline-flex" }}
                 fontSize={"base"}
@@ -131,12 +145,12 @@ export const EditContent = () => {
                   border: "1px",
                 }}
               >
-                <Center>Like</Center>
+                <Center>Upload new picture</Center>
               </Button>
               <Button
                 float={"left"}
                 mx={{ md: "10px" }}
-                w={"70px"}
+                w={"100px"}
                 display={{ base: "none", md: "inline-flex" }}
                 fontSize={"sm"}
                 fontWeight={600}
@@ -149,10 +163,104 @@ export const EditContent = () => {
                   borderColor: "#d3d3d3",
                 }}
               >
-                <Center>Save</Center>
+                <Center>Delected</Center>
               </Button>
             </Box>
           </Flex>
+          <Box pt={5}>
+            <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Name
+                </FormLabel>
+                <Input
+                  border={"2px"}
+                  borderRadius={"10px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  type="text"
+                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                />
+                <Text fontSize={"15px"} color={"gray.400"}>
+                  We’re big on real names around here, so people know who’s who.
+                </Text>
+              </FormControl>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Location
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    borderRadius={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"sm"}
+                    border={"2px"}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Bio
+                </FormLabel>
+                <Input
+                  border={"2px"}
+                  borderRadius={"10px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  type="text"
+                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                />
+                <Text fontSize={"15px"} color={"gray.400"}>
+                  Brief description for your profile. URLs are hyperlinked.
+                </Text>
+              </FormControl>
+            </Stack>
+            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}>
+              Save Changes
+            </Button>
+          </Box>
+        </TabPanel>
+
+        {/* Password */}
+        <TabPanel>
+          <Box pt={5}>
+            <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
+              <FormControl lineHeight={"50px"}>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Old password
+                </FormLabel>
+                <Input
+                  border={"2px"}
+                  borderRadius={"10px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  type="text"
+                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Password
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    borderRadius={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"sm"}
+                    border={"2px"}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                  />
+                </InputGroup>
+                <Text fontSize={"15px"} color={"gray.400"}>
+                  Minimum 6 characters
+                </Text>
+              </FormControl>
+            </Stack>
+            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}>
+              Change
+            </Button>
+          </Box>
         </TabPanel>
       </TabPanels>
     </Tabs>
