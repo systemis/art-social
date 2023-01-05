@@ -13,6 +13,7 @@ export interface ProductEntity {
   _id: string;
   gallery: string[];
   userId: string;
+  owner: any;
   description: string;
   createdDate: Date;
   updateDate: Date;

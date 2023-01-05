@@ -15,7 +15,8 @@ import {
 import { AppCol, AppRow } from "components/elements";
 import { AppTitle } from "components/elements/AppTitle";
 import { CARDS } from "constants/product-detail";
-import React from "react";
+import {ProductEntity} from "entity/product.entity";
+import React, {FC} from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 
@@ -46,7 +47,7 @@ const pulseRing = keyframes`
     }
 `;
 
-export const CardSlider = () => {
+export const CardSlider: FC<{product: ProductEntity}> = ({product}) => {
   const [slider, setSlider] = React.useState<Slider | null>(null);
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "40px" });
@@ -108,7 +109,7 @@ export const CardSlider = () => {
 
         {/* Slider */}
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {CARDS.map((card, index) => (
+          {product?.gallery?.map((image, index) => (
             <Box
               key={index}
               height={"3xl"}
@@ -118,7 +119,7 @@ export const CardSlider = () => {
               backgroundSize="cover"
               borderRadius={"10px"}
               overflow={"hidden"}
-              backgroundImage={`url(${card.image})`}
+              backgroundImage={`url(${image})`}
             >
               {/* This is the block you need to change, to customize the caption */}
               <Container size="container.lg" height="600px" position="relative">
@@ -141,16 +142,7 @@ export const CardSlider = () => {
           fontSize={{ sm: "17px", md: "17px", lg: "17px" }}
           letterSpacing={"1px"}
         >
-          Marvel’s Avengers begins at A-Day where Captain America, Iron Man,
-          Hulk, Black Widow, and Thor are unveiling a hi-tech Avengers
-          Headquarters in San Francisco — including the reveal of their own
-          helicarrier powered by an experimental energy source. The celebration
-          turns deadly when a catastrophic accident results in massive
-          devastation. Blamed for the tragedy, the Avengers disband. Five years
-          later, with all Super Heroes outlawed and the world in peril, New
-          Jersey teenager Kamala Khan uncovers a shocking conspiracy and the
-          only hope is to reassemble the Avengers in time to stop Advanced Idea
-          Mechanics, one of the greatest threats Earth has ever faced..
+          {product?.description}
         </Text>
       </Center>
 
@@ -174,7 +166,7 @@ export const CardSlider = () => {
               />
               <Image
                 cursor={"pointer"}
-                src="https://i.pravatar.cc/300"
+                src={product?.owner?.picture}
                 borderRadius="50%"
                 w={size}
               />
@@ -190,9 +182,9 @@ export const CardSlider = () => {
           </Box>
           <Center flexDirection="column">
             <AppTitle fontSize="xl" mt="1em">
-              Harry
+              {product?.owner?.name}
             </AppTitle>
-            <Text my=".5em">Web Developer</Text>
+            <Text my=".5em">{product?.owner?.username}</Text>
             <Button
               mt="1em"
               fontWeight="700"

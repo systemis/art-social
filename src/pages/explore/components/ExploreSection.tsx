@@ -13,6 +13,7 @@ interface ProductProps {
   description: string;
   gallery: string[];
   tags: string[];
+  owner: any
 }
 
 
