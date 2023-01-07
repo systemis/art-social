@@ -417,7 +417,7 @@ const Navigation = () => {
                     ml="1.5em"
                     onClick={() => history.push("/signin")}
                   >
-                    Sign Up
+                    Sign in
                   </Button>
                 </>
               )}

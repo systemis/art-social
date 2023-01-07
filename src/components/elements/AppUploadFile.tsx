@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { RootState } from "redux/root-reducer";
 import { AppDispatch } from "redux/root-store";
 import { uploadFile } from "redux/apps/thunk";
-import { Box, Center, Icon, Image, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Image, Spinner, Text } from "@chakra-ui/react";
 import { AppRow } from "components/elements/AppRow";
-import AppImage from "components/elements/AppImage";
 import { placeholderUpload } from "assets/images";
+import { MAX_SIZE } from "utils";
 
 export interface UploadResponse {
   fileName: string;
@@ -44,7 +44,7 @@ const getAcceptFileTypes = (types: AcceptType[]): Accept => {
   return accept;
 };
 
-const maxSize = 10485760; // 1048576 Bytes * 10 = 10M
+
 
 const defaultContentProps = { width: "60vw", height: "40vh" };
 
@@ -72,7 +72,7 @@ const AppUploadFile = function AppDropzone({
       let res: UploadResponse[] = [];
 
       for await (const file of acceptedFiles) {
-        if (file.size > maxSize) {
+        if (file.size > MAX_SIZE) {
           console.log("File is too large. Please upload file under 10MB");
           return;
         }

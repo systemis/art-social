@@ -9,8 +9,6 @@ export const fetchProducts = networkProvider.request<ProductEntity>("/products",
   });
 export const addProduct = networkProvider.request<ProductEntity>("/product", {
     method: "POST",
-    // data: ,
-    // id_token: storageProvider.getItem("id_token")
   });
 export const updateProduct = networkProvider.request<ProductEntity>("/products/:id", {
     method: "POST"

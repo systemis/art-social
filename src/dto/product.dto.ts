@@ -1,7 +1,7 @@
 import { IsString, IsArray } from "class-validator";
 
 export class CreateProductDto  {
-    @IsString()
+  @IsString()
   name?: string
 
   @IsArray()

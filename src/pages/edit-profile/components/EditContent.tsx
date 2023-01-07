@@ -10,7 +10,7 @@ import {
   Flex,
   Avatar,
   Center,
-  Link,
+  Textarea,
   InputGroup,
   Stack,
   Tab,
@@ -19,8 +19,100 @@ import {
   TabPanels,
   Tabs,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-export const EditContent = () => {
+import { useSelector } from "react-redux";
+import { RootState } from "redux/root-reducer";
+import { updateProfile, updatePassword } from "redux/apps/user";
+import { UpdateUserDto, ChangeUserPasswordDto } from "dto";
+import { useMain } from "hooks/useMain";
+import { useForm } from "hooks/useForm";
+import { classToPlain } from "class-transformer";
+
+export const EditContent: React.FC = () => {
+  const [isLoading, setLoading] = React.useState(false);
+  const currentUser =
+    useSelector((state: RootState) => state.apps.userInfo) || false;
+  const toast = useToast();
+
+  const { getProfile } = useMain();
+
+  const { formState, register } = useForm<UpdateUserDto>({
+    identityClass: UpdateUserDto,
+  });
+
+  const {
+    formState: passwordState,
+    register: registerPassword,
+    errors: errorsPaassword
+  } = useForm<ChangeUserPasswordDto>({
+    identityClass: ChangeUserPasswordDto,
+  });
+
+  /**
+   * @dev The funtion to update user info.
+   * @param {UpdateUserDto} dto
+   */
+  const handleUpdateProfile = React.useCallback(async () => {
+    setLoading(true);
+    try {
+      await updateProfile(formState);
+      await getProfile();
+      toast({
+        title: "Success",
+        description: "Update profile successfully!",
+        status: "success",
+      })
+      setLoading(false);
+    } catch {
+      toast({
+        title: "Error",
+        description: "Update profile failed!",
+        status: "error",
+      })
+      setLoading(false);
+    }
+  }, [formState, currentUser]);
+
+  /**
+   * @dev The funtion to update user password.
+   * @param {UpdateUserDto} dto
+   */
+  const handleUpdatePassword = React.useCallback(async () => {
+    setLoading(true);
+    try {
+      await updatePassword(passwordState);
+      await getProfile();
+      toast({
+        title: "Success",
+        description: "Update password successfully!",
+        status: "success",
+      })
+      setLoading(false);
+    } catch {
+      toast({
+        title: "Error",
+        description: "Update password failed!",
+        status: "error",
+      })
+      setLoading(false);
+    }
+  }, [passwordState]);
+
+  /**
+   * @dev The function to check payload has changed.
+   * @private
+   */
+  const isEditable = React.useMemo(() => {
+    if (!formState || !currentUser) return false;
+    const root = classToPlain(currentUser as UpdateUserDto);
+    const _formState = classToPlain(formState);
+    delete _formState["id_token"];
+    return (Object.keys(_formState).filter((key: any) => {
+      return root?.[key] === _formState?.[key]
+    })).length !== Object.keys(_formState).length;
+  }, [currentUser, formState]);
+
   return (
     <Tabs
       mt={"30px"}
@@ -28,14 +120,14 @@ export const EditContent = () => {
       variant={{ base: "solid", md: "ghost" }}
     >
       <TabList flexDirection={"column"} mx={"auto"}>
-        <Tab> General</Tab>
-        <Tab>Edit Profile</Tab>
-        <Tab>PassWord</Tab>
+        <Tab justifyContent={"start"}>General</Tab>
+        <Tab justifyContent={"start"}>Edit Profile</Tab>
+        <Tab justifyContent={"start"}>Password</Tab>
       </TabList>
-      <TabPanels flex={"0.8"}>
+      <TabPanels flex={"0.8"} pt={"0.75rem"}>
         {/* General */}
-        <TabPanel>
-          <Box pt={5}>
+        <TabPanel pt={0}>
+          <Box>
             <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
               <FormControl>
                 <FormLabel color={"black"} fontWeight={"600"}>
@@ -48,6 +140,8 @@ export const EditContent = () => {
                   fontSize={"sm"}
                   type="text"
                   _focus={{ bg: "white", borderColor: "pink.200" }}
+                  defaultValue={currentUser?.username}
+                  onChange={(e) => register("username", e.target.value)}
                 />
                 <Text fontSize={"15px"} color={"gray.400"}>
                   Your Imaginary URL: https://imaginary.com/{"MinhHung123"}
@@ -64,6 +158,8 @@ export const EditContent = () => {
                     fontSize={"sm"}
                     border={"2px"}
                     _focus={{ bg: "white", borderColor: "pink.200" }}
+                    defaultValue={currentUser?.email}
+                    onChange={(e) => register("email", e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
@@ -98,6 +194,12 @@ export const EditContent = () => {
                 fontWeight={"500"}
                 size={"md"}
                 bg={"pink.400"}
+                disabled={!isEditable}
+                isLoading={isLoading}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleUpdateProfile();
+                }}
               >
                 Save Changes
               </Button>
@@ -106,68 +208,8 @@ export const EditContent = () => {
         </TabPanel>
 
         {/* Edit Profile */}
-        <TabPanel>
-          <Flex>
-            <Box
-              w={{
-                base: "100%",
-                sm: "60%",
-                md: "50%",
-                lg: "10%",
-              }}
-            >
-              <Avatar
-                size={"xl"}
-                cursor={"pointer"}
-                float={"left"}
-                src="https://bit.ly/sage-adebayo"
-              />
-            </Box>
-            <Box
-              flex={{ base: 1, md: 0 }}
-              display={"flex"}
-              alignItems={"center"}
-              letterSpacing={1}
-            >
-              <Button
-                w={{ md: "200px" }}
-                float={"left"}
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"base"}
-                alignItems={"center"}
-                fontWeight={600}
-                color={"white"}
-                bg={"pink.400"}
-                _hover={{
-                  bg: "white",
-                  color: "pink.400",
-                  borderColor: "#dcdcdc",
-                  border: "1px",
-                }}
-              >
-                <Center>Upload new picture</Center>
-              </Button>
-              <Button
-                float={"left"}
-                mx={{ md: "10px" }}
-                w={"100px"}
-                display={{ base: "none", md: "inline-flex" }}
-                fontSize={"sm"}
-                fontWeight={600}
-                letterSpacing={"2px"}
-                // href={'#'}
-                color={"black"}
-                bg={"#dcdcdc"}
-                _hover={{
-                  bg: "#c0c0c0",
-                  borderColor: "#d3d3d3",
-                }}
-              >
-                <Center>Delected</Center>
-              </Button>
-            </Box>
-          </Flex>
-          <Box pt={5}>
+        <TabPanel pt={0}>
+          <Box>
             <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
               <FormControl>
                 <FormLabel color={"black"} fontWeight={"600"}>
@@ -180,6 +222,8 @@ export const EditContent = () => {
                   fontSize={"sm"}
                   type="text"
                   _focus={{ bg: "white", borderColor: "pink.200" }}
+                  defaultValue={currentUser?.name}
+                  onChange={(e) => register("name", e.target.value)}
                 />
                 <Text fontSize={"15px"} color={"gray.400"}>
                   We’re big on real names around here, so people know who’s who.
@@ -196,6 +240,8 @@ export const EditContent = () => {
                     fontSize={"sm"}
                     border={"2px"}
                     _focus={{ bg: "white", borderColor: "pink.200" }}
+                    defaultValue={currentUser?.location}
+                    onChange={(e) => register("location", e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
@@ -203,28 +249,36 @@ export const EditContent = () => {
                 <FormLabel color={"black"} fontWeight={"600"}>
                   Bio
                 </FormLabel>
-                <Input
+                <Textarea
                   border={"2px"}
                   borderRadius={"10px"}
                   fontWeight={"500"}
                   fontSize={"sm"}
-                  type="text"
                   _focus={{ bg: "white", borderColor: "pink.200" }}
+                  defaultValue={currentUser?.description}
+                  onChange={(e) => register("description", e.target.value)}
                 />
                 <Text fontSize={"15px"} color={"gray.400"}>
                   Brief description for your profile. URLs are hyperlinked.
                 </Text>
               </FormControl>
             </Stack>
-            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}>
+            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}
+              disabled={!isEditable}
+              isLoading={isLoading}
+              onClick={(e) => {
+                e.preventDefault();
+                handleUpdateProfile();
+              }}
+            >
               Save Changes
             </Button>
           </Box>
         </TabPanel>
 
         {/* Password */}
-        <TabPanel>
-          <Box pt={5}>
+        <TabPanel pt={0}>
+          <Box>
             <Stack w={{ lg: "40%" }} spacing={4} lineHeight={"30px"}>
               <FormControl lineHeight={"50px"}>
                 <FormLabel color={"black"} fontWeight={"600"}>
@@ -235,8 +289,11 @@ export const EditContent = () => {
                   borderRadius={"10px"}
                   fontWeight={"500"}
                   fontSize={"sm"}
-                  type="text"
                   _focus={{ bg: "white", borderColor: "pink.200" }}
+                  value={passwordState?.oldPassword}
+                  onChange={e => registerPassword("oldPassword", e.target.value)}
+                  type="password"
+                  placeholder="************"
                 />
               </FormControl>
               <FormControl>
@@ -250,6 +307,10 @@ export const EditContent = () => {
                     fontSize={"sm"}
                     border={"2px"}
                     _focus={{ bg: "white", borderColor: "pink.200" }}
+                    value={passwordState?.newPassword}
+                    onChange={e => registerPassword("newPassword", e.target.value)}
+                    type="password"
+                    placeholder="************"
                   />
                 </InputGroup>
                 <Text fontSize={"15px"} color={"gray.400"}>
@@ -257,7 +318,17 @@ export const EditContent = () => {
                 </Text>
               </FormControl>
             </Stack>
-            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}>
+            <Button
+              mt={"15px"}
+              fontWeight={"500"}
+              size={"md"}
+              bg={"pink.400"}
+              isLoading={isLoading}
+              disabled={passwordState ? (Object.keys(classToPlain(passwordState)).length < 2) : true}
+              onClick={(e) => {
+                e.preventDefault();
+                handleUpdatePassword();
+              }}>
               Change
             </Button>
           </Box>

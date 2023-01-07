@@ -3,7 +3,9 @@ import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import { StorageProvider } from "./storage.provider";
 import { appConfig } from "config";
 
-export type RequestConfig = AxiosRequestConfig;
+export interface RequestConfig extends AxiosRequestConfig {
+  externalEndpoint?: string; 
+}
 
 export class NetworkProvider {
   /**
@@ -48,7 +50,7 @@ export class NetworkProvider {
   ): Promise<RequestResponse> {
     const resp = await axios(url, {
       ...requestConfig,
-      baseURL: `${this.BASE_URL}/api`,
+      baseURL: requestConfig.externalEndpoint ? requestConfig.externalEndpoint : `${this.BASE_URL}/api`,
       paramsSerializer: {
         serialize: (params: any) => {
           return qs.stringify(params, { arrayFormat: "repeat" });
@@ -96,8 +98,6 @@ export class NetworkProvider {
     options.params = Object.assign(requestConfig.data || {}, {
       id_token: idToken,
     });
-    console.log(options.data);
-    console.log(idToken);
     return this.request<RequestResponse>(url, options);
   }
 }
