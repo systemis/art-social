@@ -1,12 +1,17 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import "@fontsource/poppins";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
+import "index.css";
+import App from "App";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import App from "App";
-import "index.css";
-import rootStore from "redux/root-store";
+import RootStore from "redux/root-store";
 import reportWebVitals from "reportWebVitals";
+import { ChakraProvider } from "@chakra-ui/react";
 import { uiTheme } from "theme/chakra-theme";
+import { Provider } from "react-redux";
+import { MainProvider } from "hooks/useMain";
 import Fonts from "theme/chakra-font";
 
 const root = ReactDOM.createRoot(
@@ -14,10 +19,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={rootStore}>
+    <Provider store={RootStore}>
       <ChakraProvider theme={uiTheme}>
-        <Fonts />
-        <App />
+        <MainProvider>
+          <Fonts />
+          <App />
+        </MainProvider>
       </ChakraProvider>
     </Provider>
   </React.StrictMode>

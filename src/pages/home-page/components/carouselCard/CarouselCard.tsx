@@ -29,7 +29,7 @@ export const CarouselCard = () => {
       onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
     >
       <Image
-        src="https://i.seadn.io/s/production/4541c8d0-0ed1-4a25-a93d-8bb55dc76653.png?auto=format&w=1920"
+        src="https://i.seadn.io/gcs/files/3847a485e65689a2fdfb07bc8f2212fd.gif?w=500&auto=format"
         borderRadius="20px"
         pos="absolute"
         transition="0.4s"

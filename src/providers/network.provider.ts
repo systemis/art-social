@@ -1,6 +1,7 @@
-import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import qs from "qs";
-import { getStorageProvider } from "./";
+import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
+import { StorageProvider } from "./storage.provider";
+import { appConfig } from "config";
 
 export type RequestConfig = AxiosRequestConfig;
 
@@ -10,7 +11,7 @@ export class NetworkProvider {
    * @dev
    * Base api url located in evn file
    */
-  private BASE_URL = process.env.API_URL;
+  private BASE_URL = appConfig.api.url;
 
   /**
    * Default network options
@@ -31,7 +32,7 @@ export class NetworkProvider {
    * Initilize mode
    */
   constructor() {
-    this.storageProvider = getStorageProvider();
+    this.storageProvider = new StorageProvider();
   }
 
   /**
@@ -60,10 +61,10 @@ export class NetworkProvider {
     }).catch((e) => e.response);
 
     if (!resp || resp?.status >= 400) {
-      throw new Error(`Error when request server, ${resp.statusText}`);
+      throw new Error(JSON.stringify(resp));
     }
 
-    let jsonData = resp.data;
+    let jsonData = resp.data?.data;
     try {
       jsonData = JSON.parse(resp.data);
     } catch {}
@@ -82,8 +83,9 @@ export class NetworkProvider {
     url: string,
     requestConfig: RequestConfig
   ): Promise<RequestResponse> {
-    const credential = this.storageProvider.getItem("hAccessToken");
-    if (!credential) {
+    const credential = this.storageProvider.getItem("access_token");
+    const idToken = this.storageProvider.getItem("id_token");
+    if (!credential || !idToken) {
       return null;
     }
     const options = Object.assign({}, requestConfig);
@@ -91,6 +93,11 @@ export class NetworkProvider {
       ...options.headers,
       Authorization: `Bearer ${credential}`,
     };
+    options.params = Object.assign(requestConfig.data || {}, {
+      id_token: idToken,
+    });
+    console.log(options.data);
+    console.log(idToken);
     return this.request<RequestResponse>(url, options);
   }
 }

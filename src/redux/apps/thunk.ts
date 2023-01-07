@@ -8,7 +8,7 @@ export const uploadFile = createAsyncThunk<
   {dispatch: AppDispatch}
 >(
   "file/upload",
-  async ({type, fileName, file, endpoint}, {rejectWithValue}) => {
+  async ({file}, {rejectWithValue}) => {
     try {
 
       const formData = new FormData();

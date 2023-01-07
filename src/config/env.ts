@@ -17,7 +17,7 @@ switch (stage) {
       STAGE: stage,
       API: {
         TIMEOUT: 60000,
-        HOST: "",
+        HOST: "https://afternoon-gorge-11599.herokuapp.com",
       },
       GOOGLE_CLIENT_ID: "",
       IMAGE_HOSTING_KEY: "6d207e02198a847aa98d0a2a901485a5",
@@ -31,7 +31,7 @@ switch (stage) {
       STAGE: stage,
       API: {
         TIMEOUT: 60000,
-        HOST: "",
+        HOST: "https://afternoon-gorge-11599.herokuapp.com",
       },
       GOOGLE_CLIENT_ID: "",
       IMAGE_HOSTING_KEY: "6d207e02198a847aa98d0a2a901485a5",
