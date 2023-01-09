@@ -55,21 +55,6 @@ const apps = createSlice({
       state.loading = false
       state.error = payload
     })
-    // login user
-    builder.addCase(userLogin.pending, (state) => {
-      state.loading = true
-      state.error = null
-    })
-    builder.addCase(userLogin.fulfilled, (state, {payload}) => {
-      state.loading = false
-      state.userInfo = payload
-      state.access_token = payload.access_token
-      state.id_token = payload.id_token
-    })
-    builder.addCase(userLogin.rejected, (state, {payload}) => {
-      state.loading = false
-      state.error = payload
-    })
   }
 });
 

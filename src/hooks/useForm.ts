@@ -18,6 +18,11 @@ interface UseFormContext<T> {
   register(key: keyof T, value: string): void;
 
   /**
+   * @dev Reset form state.
+   */
+  reset(): void;
+
+  /**
    * @dev Contains all the errors of each field if having.
    * @var {Object}
    */
@@ -128,9 +133,17 @@ export const useForm = <IState>(props: {
     } catch { }
   };
 
+  /**
+   * @dev The function to force reset data in form
+   */
+  const reset = () => {
+    setFormState(null);
+  }
+
   return {
     register,
     onSubmit,
+    reset,
     formState,
     errors,
   };

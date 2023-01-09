@@ -13,19 +13,18 @@ import {
   InputRightElement,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import { useForm } from "hooks/useForm";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "redux/root-store";
 import { LoginDto } from "dto";
 import { userLogin } from "redux/apps/auth";
 import { SingInBackground } from "assets/images";
 import "pages/login/style/loginpage.scss";
 
 const SignIn: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const toast = useToast();
   const { formState, register, onSubmit, errors } = useForm<LoginDto>({
     identityClass: LoginDto,
   });
@@ -40,11 +39,16 @@ const SignIn: React.FC = () => {
   const handleLogin = async (loginDto: LoginDto) => {
     try {
       setLoading(true);
-      await dispatch(userLogin(loginDto));
+      await userLogin(loginDto);
       setLoading(false);
       history.push("/");
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      setLoading(false);
+      toast({
+        title: "Login failed",
+        status: "error",
+        description: err?.message?.toString(),
+      });
     }
   };
 
