@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   Avatar,
   Box,
@@ -10,8 +10,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { BsSuitHeartFill } from "react-icons/bs";
+import {ProductEntity} from "entity/product.entity";
 
-export const ProductHeader = () => {
+export const ProductHeader: FC<{product: ProductEntity}> = ({product}) => {
   const toast = useToast();
   return (
     <Box
@@ -41,12 +42,12 @@ export const ProductHeader = () => {
           <Avatar
             cursor={"pointer"}
             float={"left"}
-            src="https://bit.ly/sage-adebayo"
+            src={product?.owner?.picture}
           />
           <Box float={"left"} ml="3" lineHeight={"2"}>
-            <Text fontWeight="bold">Segun Adebayo</Text>
+            <Text fontWeight="bold">{product?.owner?.name}</Text>
             <Text cursor={"pointer"} fontSize="sm">
-              <Link>UI Engineer</Link>
+              <Link>{product?.owner?.username}</Link>
             </Text>
           </Box>
         </Box>

@@ -50,7 +50,7 @@ export const routes: BasicRoute[] = [
         exact: true,
       },
       {
-        path: PAGES.PRODUCT_DETAIL,
+        path: `${PAGES.PRODUCT_DETAIL}/:id`,
         component: ProductDetail,
         exact: true,
       },

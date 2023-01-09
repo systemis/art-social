@@ -1,10 +1,14 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, TabProps, Tabs, useMediaQuery } from "@chakra-ui/react";
 import {QUERY_MOBILE} from "constants/app";
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import DesignTab from "pages/profile/components/tabs/DesignTab";
 import CollectionTab from "pages/profile/components/tabs/CollectionTab";
 import LikedTab from "pages/profile/components/tabs/LikedTab";
 import AboutTab from "pages/profile/components/tabs/AboutTab";
+import {AppDispatch} from "redux/root-store";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchProductsByUser} from "redux/products/thunk";
+import {RootState} from "redux/root-reducer";
 
 interface ProfileTabProps extends TabProps{}
 
@@ -16,6 +20,23 @@ const DesignInfo = () => {
   const [isDesktop] = useMediaQuery(`(min-width: ${QUERY_MOBILE})`, {
     ssr: false,
   });
+  const currentUser = useSelector((state: RootState) => state.apps.userInfo) || false;
+  const [products, setProducts] = React.useState<any>();
+  const [loading, setLoading] = React.useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const userId = currentUser?.sub;
+
+  const fetchData = async () => {
+    setLoading(true)
+    const response = await dispatch(fetchProductsByUser(userId));
+    setProducts(response.payload)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   return (
     <Box pt="90px" px={isDesktop ? "3rem" : 0}>
       <Tabs>
@@ -27,7 +48,7 @@ const DesignInfo = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <DesignTab />
+            <DesignTab products={products} />
           </TabPanel>
           <TabPanel>
             <CollectionTab />

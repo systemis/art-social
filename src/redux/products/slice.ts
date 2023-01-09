@@ -1,4 +1,5 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchProducts} from "./thunk";
 
 interface RequestState {
   firstPage?: boolean;
@@ -29,14 +30,24 @@ const initialState: InitialState = {
 const apps = createSlice({
   name: "apps",
   initialState,
-  reducers: {
-    storeUserProfile(state, {payload}: PayloadAction<{profile: any}>) {
-        const {profile} = payload;
-        state.user.profile = profile;
-    }
-  },
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchProducts.fulfilled, (state, {payload}) => {
+      state.success = true
+    });
+    // builder.addCase(addProduct.fulfilled, (state, {payload}) => {
+    //   state.success = true
+    // });
+    // builder.addCase(updateProduct.fulfilled, (state, {payload}) => {
+    //   state.success = true
+    // });
+    // builder.addCase(deleteProduct.fulfilled, (state, {payload, meta}) => {
+    //   state.success = true
+    // });
+  }
 });
 
-export const {storeUserProfile} = apps.actions;
+// eslint-disable-next-line no-empty-pattern
+export const {} = apps.actions;
 
 export default apps.reducer;

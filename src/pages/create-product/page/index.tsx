@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
 import { AppRow } from "components/elements";
 import AppUploadFile, {
@@ -13,24 +13,22 @@ import {PAGES} from "constants/app";
 
 const CreateProduct: React.FC = () => {
   const history = useHistory();
-  const gallery: string[] = []
   const [productName, setProductName] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const storageProvider = getStorageProvider();
   const id_token = storageProvider.getItem("id_token")
   const access_token = storageProvider.getItem("access_token")
   let productId = ""
+  const [gallery, setGallery] = useState([]);
 
   const handleOnSuccessUpload = (files: UploadResponse[]) => {
-    files.map((file) => {
-      gallery.push(file.accessUrl)
-    })
+    const newGallery = [...gallery, files[files.length - 1].accessUrl]
+    setGallery(newGallery);
   }
 
   const createProductParams = {
     name: productName,
     description: productDesc,
-    gallery: gallery,
     projectId: "",
     tags: "",
   }
@@ -40,6 +38,7 @@ const CreateProduct: React.FC = () => {
       const response = await axios.post(`https://afternoon-gorge-11599.herokuapp.com/api/product`, {
         ...createProductParams,
         id_token,
+        gallery: gallery
       }, {
         headers: { Authorization: `Bearer ${access_token}` }
       });

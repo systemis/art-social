@@ -15,11 +15,19 @@ import React, { useRef } from "react";
 import { AiFillHeart, AiFillFolderAdd } from "react-icons/ai";
 import {useHistory} from "react-router-dom";
 
+interface OwnerProps {
+  name: string;
+  picture: string;
+  username: string;
+}
+
 interface ProductProps {
+  _id: string;
   name: string;
   description: string;
   gallery: string[];
   tags: string[];
+  owner: OwnerProps;
 }
 
 interface Product {
@@ -45,13 +53,13 @@ const DesignCard = ({ listProduct }: Product) => {
         base: "0 10px 55px",
         md: "0 20px 70px",
       }}
-      onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
+      onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}/${listProduct._id}`)}
       cursor="pointer"
     >
       <Center flexDirection="column">
         <Box position="relative" data-group>
           <Image
-            src={listProduct.gallery[0]}
+            src={listProduct?.gallery[0]}
             alt=""
             height="220px"
             objectFit="cover"
@@ -80,7 +88,7 @@ const DesignCard = ({ listProduct }: Product) => {
           >
             <Box float={"left"}>
               <Text fontSize={"16px"} fontWeight="900" color={"white"}>
-                {listProduct.name}
+                {listProduct?.name}
               </Text>
             </Box>
 
@@ -151,11 +159,11 @@ const DesignCard = ({ listProduct }: Product) => {
             size={"xs"}
             cursor={"pointer"}
             float={"left"}
-            src="https://bit.ly/sage-adebayo"
+            src={listProduct?.owner?.picture}
           />
           <Box pt={"3px"} float={"left"} ml="3">
             <Link _hover={{ textDecoration: "none" }} fontSize="sm" fontWeight="bold">
-              {listProduct.name}
+              {listProduct?.name}
             </Link>
           </Box>
         </Flex>

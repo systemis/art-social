@@ -4,12 +4,19 @@ import DesignCard from "components/shared/DesignCard";
 import { networkProvider } from "providers/network.provider";
 import { ProductEntity } from "entity/product.entity";
 
+interface OwnerProps {
+  name: string;
+  picture: string;
+  username: string;
+}
+
 interface ProductProps {
   _id: string;
   name: string;
   description: string;
   gallery: string[];
   tags: string[];
+  owner: OwnerProps;
 }
 
 export const ListProduct = () => {
