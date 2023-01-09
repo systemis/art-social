@@ -6,6 +6,12 @@ export enum ProductTag {
   DESIGN="PRODUCTAG::DESIGN",
 }
 
+interface OwnerProps {
+  name: string;
+  picture: string;
+  username: string;
+}
+
 export interface ProductEntity {
   /**
    * @dev Product id
@@ -13,7 +19,7 @@ export interface ProductEntity {
   _id: string;
   gallery: string[];
   userId: string;
-  owner: any;
+  owner: OwnerProps;
   description: string;
   createdDate: Date;
   updateDate: Date;

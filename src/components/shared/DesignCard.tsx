@@ -15,13 +15,19 @@ import React, { useRef } from "react";
 import { AiFillHeart, AiFillFolderAdd } from "react-icons/ai";
 import {useHistory} from "react-router-dom";
 
+interface OwnerProps {
+  name: string;
+  picture: string;
+  username: string;
+}
+
 interface ProductProps {
   _id: string;
   name: string;
   description: string;
   gallery: string[];
   tags: string[];
-  owner: any
+  owner: OwnerProps;
 }
 
 interface Product {

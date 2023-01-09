@@ -8,13 +8,19 @@ import {AppDispatch} from "redux/root-store";
 import {useDispatch} from "react-redux";
 import {fetchProducts} from "redux/products/thunk";
 
+interface OwnerProps {
+  name: string;
+  picture: string;
+  username: string;
+}
+
 interface ProductProps {
   _id: string;
   name: string;
   description: string;
   gallery: string[];
   tags: string[];
-  owner: any
+  owner: OwnerProps;
 }
 
 

@@ -24,7 +24,7 @@ const DesignInfo = () => {
   const [products, setProducts] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const userId = currentUser?._id;
+  const userId = currentUser?.sub;
 
   const fetchData = async () => {
     setLoading(true)
