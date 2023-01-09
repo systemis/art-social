@@ -10,7 +10,6 @@ export const uploadFile = createAsyncThunk<
   "file/upload",
   async ({file}, {rejectWithValue}) => {
     try {
-
       const formData = new FormData();
       formData.append('image', file)
       const res = await axios.post("https://afternoon-gorge-11599.herokuapp.com/api/image", formData);
@@ -20,3 +19,9 @@ export const uploadFile = createAsyncThunk<
     }
   }
 );
+
+export interface UploadResponse {
+  fileName: string;
+  fileType: string;
+  accessUrl: string;
+}

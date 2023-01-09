@@ -15,6 +15,7 @@ import { setUserInfo } from "redux/apps/slice";
 
 export interface MainContextState {
   isAuth: boolean;
+  getProfile(): Promise<void>;
 }
 
 export const MainContext = createContext<MainContextState>(null);
@@ -44,6 +45,7 @@ export const MainProvider: FC<{ children: ReactNode }> = (props) => {
     <MainContext.Provider
       value={{
         isAuth,
+        getProfile: handleGetProfile
       }}
     >
       {props.children}
