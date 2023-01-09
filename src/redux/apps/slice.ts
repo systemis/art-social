@@ -15,9 +15,6 @@ interface RequestState {
 }
 
 interface InitialState {
-  user: {
-    profile: any;
-  }
   [actionTypePrefix: string]: RequestState | any;
 }
 
@@ -27,9 +24,6 @@ const initialState: InitialState = {
   userToken: null,
   error: null,
   success: false,
-  user: {
-    profile: undefined
-  },
 };
 
 const storageProvider = getStorageProvider();

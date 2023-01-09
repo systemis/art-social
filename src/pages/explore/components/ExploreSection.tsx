@@ -4,8 +4,9 @@ import {
   Box
 } from "@chakra-ui/react";
 import DesignCard from "components/shared/DesignCard";
-import { networkProvider } from "providers/network.provider";
-import { ProductEntity } from "entity/product.entity";
+import {AppDispatch} from "redux/root-store";
+import {useDispatch} from "react-redux";
+import {fetchProducts} from "redux/products/thunk";
 
 interface ProductProps {
   _id: string;
@@ -20,13 +21,12 @@ interface ProductProps {
 const ExploreSection = () => {
   const [products, setProducts] = useState<any>();
   const [loading, setLoading] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
 
   const fetchData = async () => {
     setLoading(true)
-    const response = await networkProvider.request<ProductEntity>("/products", {
-      method: "GET"
-    });
-    setProducts(response)
+    const response = await dispatch(fetchProducts());
+    setProducts(response.payload)
     setLoading(false)
   }
 
