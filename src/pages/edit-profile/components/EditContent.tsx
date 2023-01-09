@@ -7,11 +7,9 @@ import {
   FormLabel,
   Highlight,
   Input,
-  Flex,
-  Avatar,
-  Center,
   Textarea,
   InputGroup,
+  InputLeftElement,
   Stack,
   Tab,
   TabList,
@@ -21,6 +19,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import { SocialIcon } from "react-social-icons";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/root-reducer";
 import { updateProfile, updatePassword } from "redux/apps/user";
@@ -118,6 +117,7 @@ export const EditContent: React.FC = () => {
       mt={"30px"}
       display={{ lg: "flex" }}
       variant={{ base: "solid", md: "ghost" }}
+      onChange={() => setLoading(false)}
     >
       <TabList flexDirection={"column"} mx={"auto"}>
         <Tab justifyContent={"start"}>General</Tab>
@@ -190,7 +190,7 @@ export const EditContent: React.FC = () => {
               </Highlight>
               <br />
               <Button
-                mt={"15px"}
+                mt={"35px"}
                 fontWeight={"500"}
                 size={"md"}
                 bg={"pink.400"}
@@ -228,6 +228,24 @@ export const EditContent: React.FC = () => {
                 <Text fontSize={"15px"} color={"gray.400"}>
                   We’re big on real names around here, so people know who’s who.
                 </Text>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Bio
+                </FormLabel>
+                <Textarea
+                  border={"2px"}
+                  borderRadius={"10px"}
+                  fontWeight={"500"}
+                  fontSize={"sm"}
+                  _focus={{ bg: "white", borderColor: "pink.200" }}
+                  defaultValue={currentUser?.description}
+                  onChange={(e) => register("description", e.target.value)}
+                  height={150}
+                />
+                <Text fontSize={"15px"} color={"gray.400"}>
+                  Brief description for your profile. URLs are hyperlinked.
+                </Text>
+              </FormControl>
               </FormControl>
               <FormControl>
                 <FormLabel color={"black"} fontWeight={"600"}>
@@ -247,23 +265,72 @@ export const EditContent: React.FC = () => {
               </FormControl>
               <FormControl>
                 <FormLabel color={"black"} fontWeight={"600"}>
-                  Bio
+                  Linkedin
                 </FormLabel>
-                <Textarea
-                  border={"2px"}
-                  borderRadius={"10px"}
-                  fontWeight={"500"}
-                  fontSize={"sm"}
-                  _focus={{ bg: "white", borderColor: "pink.200" }}
-                  defaultValue={currentUser?.description}
-                  onChange={(e) => register("description", e.target.value)}
-                />
-                <Text fontSize={"15px"} color={"gray.400"}>
-                  Brief description for your profile. URLs are hyperlinked.
-                </Text>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                  >
+                    <SocialIcon url="https://linkedin.com/" style={{ border: "none" }}></SocialIcon>
+                  </InputLeftElement>
+                  <Input
+                    borderRadius={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"sm"}
+                    border={"2px"}
+                    paddingLeft={"60px"}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                    defaultValue={currentUser?.linkedin}
+                    onChange={(e) => register("linkedin", e.target.value)}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Twitter
+                </FormLabel>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                  >
+                    <SocialIcon url="https://twitter.com/" style={{ border: "none" }}></SocialIcon>
+                  </InputLeftElement>
+                  <Input
+                    borderRadius={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"sm"}
+                    border={"2px"}
+                    paddingLeft={"60px"}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                    defaultValue={currentUser?.twitter}
+                    onChange={(e) => register("twitter", e.target.value)}
+                  />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <FormLabel color={"black"} fontWeight={"600"}>
+                  Instagram
+                </FormLabel>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                  >
+                    <SocialIcon url="https://instagrama.com/" style={{ border: "none" }}></SocialIcon>
+                  </InputLeftElement>
+                  <Input
+                    borderRadius={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"sm"}
+                    border={"2px"}
+                    paddingLeft={"60px"}
+                    _focus={{ bg: "white", borderColor: "pink.200" }}
+                    defaultValue={currentUser?.instagram}
+                    onChange={(e) => register("instagram", e.target.value)}
+                  />
+                </InputGroup>
               </FormControl>
             </Stack>
-            <Button mt={"15px"} fontWeight={"500"} size={"md"} bg={"pink.400"}
+            <Button mt={"35px"} fontWeight={"500"} size={"md"} bg={"pink.400"}
               disabled={!isEditable}
               isLoading={isLoading}
               onClick={(e) => {
@@ -319,7 +386,7 @@ export const EditContent: React.FC = () => {
               </FormControl>
             </Stack>
             <Button
-              mt={"15px"}
+              mt={"35px"}
               fontWeight={"500"}
               size={"md"}
               bg={"pink.400"}

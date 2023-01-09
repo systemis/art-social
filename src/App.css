@@ -46,3 +46,8 @@ body {
     transform: rotate(360deg);
   }
 }
+
+
+.social-container .social-svg {
+  border-radius: 0% !important;
+}
