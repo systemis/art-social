@@ -21,6 +21,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = React.useState(false);
   const params = useParams<ProductPrams>();
   const { id } = params;
+
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,6 +51,7 @@ const ProductDetail = () => {
         openChatModal={() => onOpen()}
       />
       <DrawerModal
+        productId={id}
         isOpen={isOpen}
         onClose={() => onClose()}
         onOpen={() => onOpen()}

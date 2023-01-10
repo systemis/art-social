@@ -10,9 +10,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { BsSuitHeartFill } from "react-icons/bs";
-import {ProductEntity} from "entity/product.entity";
+import { ProductEntity } from "entity/product.entity";
 
-export const ProductHeader: FC<{product: ProductEntity}> = ({product}) => {
+export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
   const toast = useToast();
   return (
     <Box
