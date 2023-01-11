@@ -5,9 +5,9 @@ const networkProvider = getNetworkProvider();
 const storageProvider = getStorageProvider();
 const id_token = storageProvider.getItem("id_token");
 
-export const fetchProducts = createAsyncThunk("product/get", async () => {
+export const fetchProjects = createAsyncThunk("project/get", async () => {
   try {
-    const response = await networkProvider.request("/products", {
+    const response = await networkProvider.request("/projects", {
       method: "GET",
     });
     return response;
@@ -16,33 +16,15 @@ export const fetchProducts = createAsyncThunk("product/get", async () => {
   }
 });
 
-export const fetchProductsByUser = createAsyncThunk(
-  "user/products",
+export const fetchProjectsByUser = createAsyncThunk(
+  "user/projects",
   async (userId: string) => {
     try {
-      const response = await networkProvider.request("/products", {
+      const response = await networkProvider.request("/projects", {
         method: "GET",
         params: { userId },
       });
       return response;
-    } catch (e) {
-      console.log("error: ", e);
-    }
-  }
-);
-
-export const reactToProduct = createAsyncThunk(
-  "product/react",
-  async (id: string) => {
-    try {
-      const response = await networkProvider.requestWithCredentials(
-        `/product/react/${id}`,
-        {
-          method: "PATCH",
-          data: { id_token },
-        }
-      );
-      console.log(response);
     } catch (e) {
       console.log("error: ", e);
     }

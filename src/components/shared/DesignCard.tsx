@@ -45,9 +45,9 @@ const DesignCard = ({ listProduct }: Product) => {
     <Box
       width={{
         base: "100%",
-        sm: "40%",
-        md: "25%",
-        lg: "20%",
+        sm: "250px",
+        md: "250px",
+        lg: "300px",
       }}
       m={{
         base: "0 10px 55px",
