@@ -1,53 +1,126 @@
-import React, {useEffect, useState} from "react";
-import { Box, Button, Input } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Text,
+  ModalOverlay,
+  UseDisclosureProps,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { AppRow } from "components/elements";
 import AppUploadFile, {
   UploadResponse,
 } from "components/elements/AppUploadFile";
 import { ENDPOINT } from "constants/endpoints";
 import { UPLOAD_IMAGE_TYPES } from "constants/upload";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import {getStorageProvider} from "providers";
-import {PAGES} from "constants/app";
+import { getStorageProvider } from "providers";
+import { PAGES } from "constants/app";
+
+interface UploadModalProps extends UseDisclosureProps {
+  handleUploadProduct: () => void;
+}
+
+const UploadDesignModal = ({ isOpen, onClose, handleUploadProduct }: UploadModalProps) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      motionPreset="slideInBottom"
+    >
+      <ModalOverlay />
+      <ModalContent padding={6}>
+        <ModalHeader fontSize="30px">Final Touches</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <FormControl>
+            <FormLabel>Tags</FormLabel>
+            <Input placeholder="Add tags..." fontSize="sm" />
+          </FormControl>
+          <Box mt={10}>
+            <Text fontSize="md" fontWeight="bold">Add to Project</Text>
+            <Text fontSize="sm">Save your favourite designs in one place</Text>
+            <Button mt={5} color="black" fontSize="sm" fontWeight="normal" border="1px solid black">Choose Project</Button>
+          </Box>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            fontSize="md"
+            fontWeight="500"
+            color="black"
+            mr={3}
+            onClick={onClose}
+          >
+            Close
+          </Button>
+          <Button
+            fontSize="md"
+            colorScheme="pink"
+            padding=".3em 1em"
+            fontWeight="500"
+            onClick={handleUploadProduct}
+          >
+            Confirm
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 const CreateProduct: React.FC = () => {
   const history = useHistory();
   const [productName, setProductName] = useState("");
   const [productDesc, setProductDesc] = useState("");
   const storageProvider = getStorageProvider();
-  const id_token = storageProvider.getItem("id_token")
-  const access_token = storageProvider.getItem("access_token")
-  let productId = ""
+  const id_token = storageProvider.getItem("id_token");
+  const access_token = storageProvider.getItem("access_token");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  let productId = "";
   const [gallery, setGallery] = useState([]);
 
   const handleOnSuccessUpload = (files: UploadResponse[]) => {
-    const newGallery = [...gallery, files[files.length - 1].accessUrl]
+    const newGallery = [...gallery, files[files.length - 1].accessUrl];
     setGallery(newGallery);
-  }
+  };
 
   const createProductParams = {
     name: productName,
-    description: productDesc,
-    projectId: "",
-    tags: "",
-  }
+    description: productDesc
+  };
 
   const handleUploadProduct = async () => {
     try {
-      const response = await axios.post(`https://afternoon-gorge-11599.herokuapp.com/api/product`, {
-        ...createProductParams,
-        id_token,
-        gallery: gallery
-      }, {
-        headers: { Authorization: `Bearer ${access_token}` }
-      });
+      const response = await axios.post(
+        `https://afternoon-gorge-11599.herokuapp.com/api/product`,
+        {
+          ...createProductParams,
+          id_token,
+          gallery: gallery,
+          projectId: "",
+          tags: ""
+        },
+        {
+          headers: { Authorization: `Bearer ${access_token}` },
+        }
+      );
       productId = response?.data?.data?._id;
-      history.push(PAGES.EXPLORE)
+      history.push(PAGES.EXPLORE);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <Box>
@@ -86,10 +159,11 @@ const CreateProduct: React.FC = () => {
           fontSize="sm"
           px="14px"
           ml="1.5em"
-          onClick={handleUploadProduct}
+          onClick={onOpen}
         >
           Continue
         </Button>
+        <UploadDesignModal isOpen={isOpen} onClose={onClose} handleUploadProduct={handleUploadProduct} />
       </AppRow>
 
       <Box display="flex" flexDirection="column" alignItems="center">
@@ -101,7 +175,7 @@ const CreateProduct: React.FC = () => {
           marginTop="1em"
           w="60vw"
           fontSize="3xl"
-          onChange={({target}) => setProductName(target.value)}
+          onChange={({ target }) => setProductName(target.value)}
         />
         <AppUploadFile
           type={UPLOAD_IMAGE_TYPES.DESIGN_IMAGE}
@@ -120,7 +194,7 @@ const CreateProduct: React.FC = () => {
           marginTop="2em"
           w="60vw"
           fontSize="xl"
-          onChange={({target}) => setProductDesc(target.value)}
+          onChange={({ target }) => setProductDesc(target.value)}
         />
       </Box>
     </Box>
