@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchProducts } from "./thunk";
+import { fetchProjects } from "./thunk";
 
 interface RequestState {
   firstPage?: boolean;
@@ -14,25 +14,25 @@ interface RequestState {
 }
 
 interface InitialState {
-  products: {
-    product: any;
+  projects: {
+    project: any;
   };
   [actionTypePrefix: string]: RequestState | any;
 }
 
 const initialState: InitialState = {
-  products: {
-    product: undefined,
+  projects: {
+    project: undefined,
   },
 };
 
 // Slice
-const products = createSlice({
-  name: "products",
+const projects = createSlice({
+  name: "projects",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchProjects.fulfilled, (state, { payload }) => {
       state.success = true;
     });
     // builder.addCase(addProduct.fulfilled, (state, {payload}) => {
@@ -48,6 +48,6 @@ const products = createSlice({
 });
 
 // eslint-disable-next-line no-empty-pattern
-export const {} = products.actions;
+export const {} = projects.actions;
 
-export default products.reducer;
+export default projects.reducer;
