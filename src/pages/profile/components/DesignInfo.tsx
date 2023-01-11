@@ -42,7 +42,7 @@ const DesignInfo = () => {
       <Tabs>
         <TabList>
           <ProfileTab>Designs</ProfileTab>
-          <ProfileTab>Collections</ProfileTab>
+          <ProfileTab>Projects</ProfileTab>
           <ProfileTab>Liked Designs</ProfileTab>
           <ProfileTab>About</ProfileTab>
         </TabList>

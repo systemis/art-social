@@ -12,6 +12,7 @@ import SignUp from "pages/login/components/SignUp";
 import CreateProduct from "pages/create-product/page";
 import Profile from "pages/profile/page";
 import {EditProfile} from "pages/edit-profile/pages";
+import CreateProject from "pages/create-project";
 
 export const routes: BasicRoute[] = [
   {
@@ -62,6 +63,11 @@ export const routes: BasicRoute[] = [
       {
         path: PAGES.EDIT_PROFILE,
         component: EditProfile,
+        exact: true,
+      },
+      {
+        path: PAGES.CREATE_PROJECT,
+        component: CreateProject,
         exact: true,
       }
     ],

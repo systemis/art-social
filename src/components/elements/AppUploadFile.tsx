@@ -132,6 +132,7 @@ const AppUploadFile = function AppDropzone({
               mr="2"
               w="12%"
               h="100px"
+              borderColor="#e7e7e9"
               objectFit="cover"
               borderWidth={3}
               borderStyle="dashed"
@@ -174,6 +175,7 @@ const AppUploadFile = function AppDropzone({
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()} style={{ height: "40vh" }}>
               <Center
+                borderColor="#e7e7e9"
                 borderWidth={3}
                 borderStyle="dashed"
                 borderRadius="1em"
