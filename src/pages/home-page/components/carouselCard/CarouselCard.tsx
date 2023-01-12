@@ -13,7 +13,7 @@ import { PAGES } from "constants/app";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export const CarouselCard = () => {
+export const CarouselCard = (props: any) => {
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const history = useHistory();
   return (
@@ -29,7 +29,7 @@ export const CarouselCard = () => {
       onClick={() => history.push(`${PAGES.PRODUCT_DETAIL}`)}
     >
       <Image
-        src="https://i.seadn.io/gcs/files/3847a485e65689a2fdfb07bc8f2212fd.gif?w=500&auto=format"
+        src={props?.image}
         borderRadius="20px"
         pos="absolute"
         transition="0.4s"
@@ -46,9 +46,9 @@ export const CarouselCard = () => {
         p="15px"
       >
         <Text fontWeight="600" textAlign="start" fontSize="lg" w="100%">
-          Geometric Gems
+          {props?.name}
         </Text>
-        <Text textAlign="start" fontSize="xs">Harry Dep trai</Text>
+        <Text textAlign="start" fontSize="xs">{props?.userName}</Text>
       </AppCol>
     </Box>
   );

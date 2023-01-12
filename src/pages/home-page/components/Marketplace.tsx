@@ -50,11 +50,11 @@ const DesignCarouse = () => {
   return (
     <Box alignItems="center">
       <Slider {...settings}>
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
+        <CarouselCard image="https://cdn.dribbble.com/users/37585/screenshots/20333077/3af3e554-9fa3-43c6-bfcf-727f09555f71_4x.png?compress=1&resize=1600x1200&vertical=top" name="Corporate Wellness Services Mobile App" userName="tphamdn"/>
+        <CarouselCard image="https://cdn.dribbble.com/users/37585/screenshots/17226137/media/45e06bd9b0b266ad2a93bc69c9676001.png?compress=1&resize=1600x1200&vertical=top" name="Zeva - SaaS Landing Page" userName="tphamdn" />
+        <CarouselCard image="https://cdn.dribbble.com/users/37585/screenshots/19759254/645dc533-44c8-4b19-bf2d-1ad510346a25_4x.png?compress=1&resize=1600x1200&vertical=top" name="Rumble Design System" userName="tphamdn"/>
+        <CarouselCard image="https://cdn.dribbble.com/users/37585/screenshots/20333077/3af3e554-9fa3-43c6-bfcf-727f09555f71_4x.png?compress=1&resize=1600x1200&vertical=top" name="PetPiw - Pet Shop Landing Page" userName="tphamdn" />
+        <CarouselCard image="https://cdn.dribbble.com/users/37585/screenshots/17226137/media/45e06bd9b0b266ad2a93bc69c9676001.png?compress=1&resize=1600x1200&vertical=top" name="Hoosier Boy Rebrand" userName="tphamdn" />
       </Slider>
     </Box>
   );

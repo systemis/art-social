@@ -26,6 +26,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { getStorageProvider } from "providers";
 import { PAGES } from "constants/app";
+import { networkProvider } from "providers/network.provider";
 
 interface UploadModalProps extends UseDisclosureProps {
   handleUploadProduct: () => void;
@@ -121,6 +122,14 @@ const CreateProduct: React.FC = () => {
       console.log(err);
     }
   };
+
+  React.useEffect(() => {
+    (async () => {
+      console.log("get tags");
+      const tags = await networkProvider.request("/tags", { method: "GET "});
+      console.log(tags);
+    })();
+  }, []);
 
   return (
     <Box>
