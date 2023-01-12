@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { FeedbackEntity } from "entity/feedback.entity";
 import { useHistory } from "react-router-dom";
+import { formatLongDateTime } from "utils/date-time";
 
 export const FeedbackItem: React.FC<{ data: FeedbackEntity }> = (props) => {
   const history = useHistory();
@@ -45,7 +46,7 @@ export const FeedbackItem: React.FC<{ data: FeedbackEntity }> = (props) => {
               <Text>{props.data.message}</Text>
             </Text>
             <Text cursor={"pointer"} fontSize="sm">
-              <Link>{props.data.updated_at}</Link>
+              <Link>{formatLongDateTime(props.data.updated_at)}</Link>
             </Text>
           </Box>
         </Box>
