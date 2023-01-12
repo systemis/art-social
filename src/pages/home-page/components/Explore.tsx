@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "assets/css/main.css";
 import { Logo } from "assets/images/index";
-import { AppTitle } from "components/elements/AppTitle";
 
 const Explore = () => {
   return (
@@ -15,11 +14,7 @@ const Explore = () => {
           w="full"
           h="60vh"
           objectFit="cover"
-          objectPosition="0 95%"
         />
-        <Center>
-          <Image src={Logo} pos="absolute" top={{base: "22vh", lg: "15vh"}} w={{ base: "70vw", lg: "50vw", xl: "20vw" }}/>
-        </Center>
       </Container>
     </Box>
   );
