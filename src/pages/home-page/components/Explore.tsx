@@ -11,7 +11,7 @@ const Explore = () => {
     <Box textAlign="center" marginBottom="40px">
       <Container maxW="container" px="0" mx="0" position="relative">
         <Image
-          src="https://img.freepik.com/premium-vector/golden-mountain-line-art-abstract-mountain-contemporary-aesthetic-backgrounds-landscapes-use-print-art-cover-invitation-background-fabric-vector-illustration_69626-153.jpg?w=2000"
+          src="https://i.seadn.io/gcs/files/34b9b2939f421c213a82cfbbce46fc89.png?auto=format&w=3840"
           w="full"
           h="60vh"
           objectFit="cover"
