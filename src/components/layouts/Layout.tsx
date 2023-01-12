@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Navigation from "components/layouts/Navigation";
-// import { Footer } from "components/layouts/Footer";
+import { Footer } from "../../components/layouts/Footer";
 import { useLocation } from "react-router";
 import { PAGES } from "constants/app";
 
@@ -18,7 +18,7 @@ const Layout = ({ children }: Props) => {
       {location.pathname !== PAGES.SIGNIN &&
         location.pathname !== PAGES.SIGNUP && <Navigation />}
       <Box>{children}</Box>
-      {/* {!isUploadPage && <Footer />} */}
+      {!isUploadPage && <Footer />}
     </div>
   );
 };
