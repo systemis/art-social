@@ -31,6 +31,21 @@ export const fetchProductsByUser = createAsyncThunk(
   }
 );
 
+export const fetchLikedProductsByUser = createAsyncThunk(
+  "user/liked-products",
+  async (userId: string) => {
+    try {
+      const response = await networkProvider.request("/products/liked", {
+        method: "GET",
+        params: { userId },
+      });
+      return response;
+    } catch (e) {
+      console.log("error: ", e);
+    }
+  }
+);
+
 export const reactToProduct = createAsyncThunk(
   "product/react",
   async (id: string) => {

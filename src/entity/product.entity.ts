@@ -24,4 +24,5 @@ export interface ProductEntity {
   createdDate: Date;
   updateDate: Date;
   projectId?: string;
+  reactions?: string[];
 }

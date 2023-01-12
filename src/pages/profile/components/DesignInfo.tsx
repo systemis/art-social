@@ -16,8 +16,8 @@ import LikedTab from "pages/profile/components/tabs/LikedTab";
 import AboutTab from "pages/profile/components/tabs/AboutTab";
 import { AppDispatch } from "redux/root-store";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsByUser } from "redux/products/thunk";
 import { RootState } from "redux/root-reducer";
+import { fetchProductsByUser, fetchLikedProductsByUser } from "redux/products/thunk";
 import { fetchProjectsByUser } from "redux/projects/thunk";
 
 interface ProfileTabProps extends TabProps {}
@@ -41,6 +41,7 @@ const DesignInfo = () => {
   const currentUser =
     useSelector((state: RootState) => state.apps.userInfo) || false;
   const [products, setProducts] = React.useState<any>();
+  const [likedProducts, setLikedProducts] = React.useState<any>();
   const [projects, setProjects] = React.useState<any>();
   const [loading, setLoading] = React.useState(false);
   const dispatch: AppDispatch = useDispatch();
@@ -49,9 +50,11 @@ const DesignInfo = () => {
   const fetchData = async () => {
     setLoading(true);
     const productResponse = await dispatch(fetchProductsByUser(userId));
+    const likedProductResponse = await dispatch(fetchLikedProductsByUser(userId));
     const projectResponse = await dispatch(fetchProjectsByUser(userId));
     setProducts(productResponse.payload);
     setProjects(projectResponse.payload);
+    setLikedProducts(likedProductResponse.payload);
     setLoading(false);
   };
 
@@ -76,7 +79,7 @@ const DesignInfo = () => {
             <CollectionTab projects={projects} loading={loading} />
           </TabPanel>
           <TabPanel>
-            <LikedTab />
+            <LikedTab products={likedProducts} loading={loading} />
           </TabPanel>
           <TabPanel>
             <AboutTab />

@@ -22,29 +22,29 @@ const ProductDetail = () => {
   const params = useParams<ProductPrams>();
   const { id } = params;
 
+  const fetchData = async () => {
+    setLoading(true);
+    const response = await networkProvider.request<ProductEntity>(
+      `/product/details/${id}`,
+      {
+        method: "GET",
+      }
+    );
+    setProduct(response);
+    setLoading(false);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 200);
-
-    const fetchData = async () => {
-      setLoading(true);
-      const response = await networkProvider.request<ProductEntity>(
-        `/product/details/${id}`,
-        {
-          method: "GET",
-        }
-      );
-      setProduct(response);
-      setLoading(false);
-    };
 
     fetchData()
   }, []);
 
   return (
     <Box pt="80px" bg={"white"} borderTopLeftRadius={"20px"}>
-      <ProductHeader product={product} />
+      <ProductHeader product={product} reCall={fetchData} />
       <CardSlider product={product} />
       <RightSideButton
         setOpenShare={() => setOpenShare(true)}

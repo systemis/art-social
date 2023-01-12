@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import {
   Avatar,
   Box,
@@ -12,15 +12,21 @@ import {
 import { BsSuitHeartFill } from "react-icons/bs";
 import { ProductEntity } from "entity/product.entity";
 import { AppDispatch } from "redux/root-store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reactToProduct } from "redux/products/thunk";
+import { RootState } from "redux/root-reducer";
 
-export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
+export const ProductHeader: React.FC<{ product: ProductEntity, reCall(): void }> = ({ product, reCall }) => {
   const toast = useToast();
   const dispatch: AppDispatch = useDispatch();
+  const currentUser =
+    useSelector((state: RootState) => state.apps.userInfo) || false;
+  const [isLoading, setLoading] = React.useState(false);
+  
+  
   const handleReactProduct = async () => {
+    setLoading(true);
     await dispatch(reactToProduct(product._id));
-
     toast({
       title: "Congratulation.",
       description: "You Liked Successfully.",
@@ -29,7 +35,11 @@ export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
       isClosable: true,
       position: "bottom-right",
     });
+    
+    await reCall();
+    setLoading(false);
   };
+  
   return (
     <Box
       w={{
@@ -104,8 +114,10 @@ export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
               border: "1px",
             }}
             onClick={handleReactProduct}
+            disabled={isLoading}
+            isLoading={isLoading}
           >
-            <Center>Like</Center>
+            <Center>{product?.reactions?.includes(currentUser?.sub) ? "Liked" : "Like"}</Center>
           </Button>
         </Box>
       </Flex>
