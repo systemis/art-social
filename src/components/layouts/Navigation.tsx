@@ -325,7 +325,6 @@ const Navigation = () => {
                   <Icon
                     as={HiPlus}
                     boxSize={8}
-                    color="#ea4c89"
                     cursor="pointer"
                     onClick={() => history.push(`${PAGES.CREATE_PRODUCT}`)}
                   />

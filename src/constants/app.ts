@@ -3,6 +3,7 @@ export const PAGES = {
     RESOURCES: '/resources',
     PRODUCT_DETAIL: '/product-detail',
     CREATE_PRODUCT: '/create/new',
+    CREATE_PROJECT: '/create/new-project',
     SIGNIN: '/signin',
     SIGNUP: '/signup',
     PROFILE: '/profile',

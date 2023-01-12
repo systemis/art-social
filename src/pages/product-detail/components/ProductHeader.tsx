@@ -11,9 +11,25 @@ import {
 } from "@chakra-ui/react";
 import { BsSuitHeartFill } from "react-icons/bs";
 import { ProductEntity } from "entity/product.entity";
+import { AppDispatch } from "redux/root-store";
+import { useDispatch } from "react-redux";
+import { reactToProduct } from "redux/products/thunk";
 
 export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
   const toast = useToast();
+  const dispatch: AppDispatch = useDispatch();
+  const handleReactProduct = async () => {
+    await dispatch(reactToProduct(product._id));
+
+    toast({
+      title: "Congratulation.",
+      description: "You Liked Successfully.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+      position: "bottom-right",
+    });
+  };
   return (
     <Box
       w={{
@@ -87,16 +103,7 @@ export const ProductHeader: FC<{ product: ProductEntity }> = ({ product }) => {
               borderColor: "#dcdcdc",
               border: "1px",
             }}
-            onClick={() =>
-              toast({
-                title: "Congratulation.",
-                description: "You Liked Successfully.",
-                status: "success",
-                duration: 9000,
-                isClosable: true,
-                position: "bottom-right",
-              })
-            }
+            onClick={handleReactProduct}
           >
             <Center>Like</Center>
           </Button>

@@ -11,7 +11,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const location = useLocation();
-  const isUploadPage = location.pathname === '/create/new' ? true : false
+  const isUploadPage = location.pathname === '/create/new' || location.pathname === '/create/new-project' ? true : false
 
   return (
     <div>
