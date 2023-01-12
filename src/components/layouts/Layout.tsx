@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
     <div>
       {location.pathname !== PAGES.SIGNIN &&
         location.pathname !== PAGES.SIGNUP && <Navigation />}
-      <Box>{children}</Box>
+      <Box minHeight={"80vh"}>{children}</Box>
       {!isUploadPage && <Footer />}
     </div>
   );
