@@ -3,7 +3,7 @@ exports.__esModule = true;
 var react_1 = require("@chakra-ui/react");
 var react_2 = require("react");
 var Navigation_1 = require("components/layouts/Navigation");
-var Footer_1 = require("../../components/layouts/Footer");
+var app_footer_1 = require("../../components/layouts/app-footer");
 var react_router_1 = require("react-router");
 var app_1 = require("constants/app");
 var Layout = function (_a) {
@@ -14,6 +14,6 @@ var Layout = function (_a) {
         location.pathname !== app_1.PAGES.SIGNIN &&
             location.pathname !== app_1.PAGES.SIGNUP && react_2["default"].createElement(Navigation_1["default"], null),
         react_2["default"].createElement(react_1.Box, null, children),
-        !isUploadPage && react_2["default"].createElement(Footer_1.Footer, null)));
+        !isUploadPage && react_2["default"].createElement(app_footer_1.Footer, null)));
 };
 exports["default"] = Layout;
